@@ -1,4 +1,4 @@
-package com.temp.domain;
+package com.temp.po;
 
 public class BankEmployee {
 	

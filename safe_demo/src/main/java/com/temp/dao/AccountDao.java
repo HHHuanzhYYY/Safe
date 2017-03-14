@@ -2,7 +2,7 @@ package com.temp.dao;
 
 import java.util.List;
 
-import com.temp.domain.Account;
+import com.temp.vo.AccountVo;
 
 public interface AccountDao {
 
@@ -10,15 +10,24 @@ public interface AccountDao {
 	 * getAccountListById.
 	 * 
 	 * @param id identity card
-	 * @return Accounts
+	 * @return AccountListVo
 	 */
-	public List<Account> getAccountListById(final String id);
+	public List<AccountVo> getAccountListById(final int type, final String id);
 	
 	/**
 	 * getAccountListByRFID.
 	 * 
 	 * @param rfid
-	 * @return Accounts
+	 * @return AccountListVo
 	 */
-	public List<Account> getAccountListByRFID(final String rfid);
+	public List<AccountVo> getAccountListByRFID(final String rfid);
+	
+	/**
+	 * setAccount.
+	 * 
+	 * @param accountVo
+	 * @return boolean
+	 */
+	public boolean setAccount(final AccountVo accountVo);
+	
 }

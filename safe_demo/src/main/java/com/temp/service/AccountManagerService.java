@@ -11,6 +11,14 @@ public interface AccountManagerService {
 	String getAccoutListByIdOrRFID(final String rawData);
 	
 	/**
+	 * getAccountInfo.
+	 * 
+	 * @param rawData String from HttpRequest
+	 * @return JSON String Contains Account Info.
+	 */
+	String getAccountInfo(final String rawData);
+	
+	/**
 	 * setAccountInfo.
 	 * 
 	 * @param rawData String from HttpRequest

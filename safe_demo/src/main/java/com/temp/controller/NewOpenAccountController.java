@@ -48,11 +48,11 @@ public class NewOpenAccountController {
 		}
 	}
 	
-	@RequestMapping("/getCustomerInfo")
-	public void getCustomerInfo(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping("/getAccountInfo")
+	public void getAccountInfo(HttpServletRequest request, HttpServletResponse response) {
 		String rawData = request.getParameter("Info");
 		try {
-			String resJSON = customerManagerService.getCustomerInfoById(rawData);
+			String resJSON = accountManagerService.getAccountInfo(rawData);
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			

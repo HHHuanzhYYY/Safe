@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.temp.dao.CustomerDao;
-import com.temp.domain.CustomerDetails;
 import com.temp.util.JsonUtil;
+import com.temp.vo.CustomerVo;
 
 @Service
 public class CustomerManagerServiceImpl implements CustomerManagerService {
@@ -34,7 +34,7 @@ public class CustomerManagerServiceImpl implements CustomerManagerService {
 	@Override
 	public String getCustomerInfoById(String rawData) {
 		boolean isSuccess = false;
-		CustomerDetails customerDetails = null;
+		CustomerVo customerDetails = null;
 		try {
 			Map<String, Object> accountInfo = JsonUtil.parseJson(rawData, "CustomerId");
 			

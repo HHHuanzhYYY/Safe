@@ -1,6 +1,9 @@
 package com.temp.dao;
 
-import com.temp.domain.CustomerDetails;
+import java.util.List;
+
+import com.temp.util.AccountType;
+import com.temp.vo.CustomerVo;
 
 public interface CustomerDao {
 
@@ -20,6 +23,31 @@ public interface CustomerDao {
 	 * @param custormerId
 	 * @return CustomerDetails
 	 */
-	CustomerDetails getCustomerDetailsById(int custormerId);
+	CustomerVo getCustomerDetailsById(int custormerId);
+	
+	/**
+	 * getAllCustomersByAccountId.
+	 * 
+	 * @param accountId
+	 * @return List<CustomerVo>
+	 */
+	List<CustomerVo> getAllCustomersByAccountId(final int accountId, final AccountType accountType);
+	
+	/**
+	 * setCustomer.
+	 * 
+	 * @param newCustomer
+	 * @return boolean
+	 */
+	boolean setCustomer(CustomerVo newCustomer);
+	
+	/**
+	 * setCustomerCardRelationship.
+	 * 
+	 * @param customerId
+	 * @param cardRfid
+	 * @return boolean
+	 */
+	boolean setCustomerCardRelationship(int customerId, String cardRfid);
 	
 }
