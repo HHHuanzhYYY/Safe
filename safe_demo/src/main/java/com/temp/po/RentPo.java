@@ -36,6 +36,15 @@ public class RentPo extends Po {
 	
 	public RentPo() {}
 
+	@Override
+	public String toString() {
+		return "RentPo [boxId=" + boxId + ", cardRfid=" + cardRfid + ", cardNo=" + cardNo + ", rentId=" + rentId
+				+ ", certificateId=" + certificateId + ", rentRemark=" + rentRemark + ", certificateRemark="
+				+ certificateRemark + ", rentType=" + rentType + ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", rentDiscount=" + rentDiscount + ", actualRent=" + actualRent + ", paymentType=" + paymentType
+				+ ", feeTotal=" + feeTotal + ", accountId=" + accountId + "]";
+	}
+
 	public int getBoxId() {
 		return boxId;
 	}

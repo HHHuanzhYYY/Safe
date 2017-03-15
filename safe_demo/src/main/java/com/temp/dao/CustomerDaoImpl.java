@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.temp.po.CustomerPo;
 import com.temp.util.AccountType;
 import com.temp.vo.CustomerVo;
 
@@ -56,7 +57,7 @@ public class CustomerDaoImpl implements CustomerDao {
 	}
 
 	@Override
-	public boolean setCustomer(CustomerVo newCustomer) {
+	public boolean setCustomer(CustomerPo newCustomer) {
 		// TODO Auto-generated method stub
 		return false;
 	}

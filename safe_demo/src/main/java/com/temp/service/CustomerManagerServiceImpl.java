@@ -27,7 +27,6 @@ public class CustomerManagerServiceImpl implements CustomerManagerService {
 		} catch (Exception e) {
 			isValidateSucceed = false;
 		}
-		
 		return JsonUtil.constructJson(isValidateSucceed, null, null);
 	}
 

@@ -1,6 +1,6 @@
 package com.temp.dao;
 
-import com.temp.vo.CardVo;
+import com.temp.po.CardPo;
 
 public interface CardDao {
 
@@ -10,5 +10,5 @@ public interface CardDao {
 	 * @param card
 	 * @return boolean
 	 */
-	boolean setCard(CardVo card);
+	boolean setCard(CardPo card);
 }

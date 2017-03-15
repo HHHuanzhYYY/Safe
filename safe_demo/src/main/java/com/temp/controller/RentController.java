@@ -22,7 +22,7 @@ public class RentController {
 	public void getBoxDetails(HttpServletRequest request, HttpServletResponse response) {
 		String rawData = request.getParameter("Info");
 		try {
-			String resJSON = rentService.getBoxDetails(rawData);
+			String resJSON = rentService.getBoxReletInfo(rawData);
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			
@@ -36,6 +36,19 @@ public class RentController {
 		String rawData = request.getParameter("Info");
 		try {
 			String resJSON = rentService.setBoxReletInfo(rawData);
+			
+			PrintWriter writer = response.getWriter();
+			writer.print(resJSON);			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping("/getBoxUnrentInfo")
+	public void getBoxUnrentInfo(HttpServletRequest request, HttpServletResponse response) {
+		String rawData = request.getParameter("Info");
+		try {
+			String resJSON = rentService.getBoxUnrentInfo(rawData);
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			

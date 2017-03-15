@@ -12,6 +12,9 @@ import com.temp.dao.BoxDao;
 import com.temp.dao.CardDao;
 import com.temp.dao.CustomerDao;
 import com.temp.dao.RentDao;
+import com.temp.po.AccountPo;
+import com.temp.po.CardPo;
+import com.temp.po.CustomerPo;
 import com.temp.po.RentPo;
 import com.temp.util.AccountType;
 import com.temp.util.CertificateType;
@@ -44,17 +47,17 @@ public class AccountManagerServiceImpl implements AccountManagerService {
 		boolean isSuccess = true;
 		List<AccountVo> accounts = null;
 		try {
-			Map<String, Object> requestParams = JsonUtil.parseJson(rawData, "CertificateType", "CertificateNum");
+			Map<String, Object> requestParams = JsonUtil.parseJson(rawData, "certificateType", "certificateNo");
 			
-			final int certificateType = Integer.parseInt((String)requestParams.get("CertificateType"));
+			final int certificateType = Integer.parseInt((String)requestParams.get("certificateType"));
 			
 			switch (certificateType) {
 			case 1:
 				accounts = accountDao.getAccountListById(CertificateType.ID.getValue(), 
-						(String)requestParams.get("CertificateNum"));
+						(String)requestParams.get("certificateNo"));
 				break;
 			case 2:
-				accounts = accountDao.getAccountListByRFID((String)requestParams.get("CertificateNum"));
+				accounts = accountDao.getAccountListByRFID((String)requestParams.get("certificateNo"));
 				break;
 			default:
 				break;
@@ -100,28 +103,26 @@ public class AccountManagerServiceImpl implements AccountManagerService {
 	
 	@Override
 	public String setAccountInfo(String rawData) {
-		boolean isSuccess = false;
+		boolean isSuccess = true;
 		try {
-			Map<String, Object> requestParam = JsonUtil.parseJson(rawData, "CustomerName", "CustomerSex", 
-					"CertificateType", "CertificateNum", "TelephoneNum", "AccountName", "AccountType", 
-					"AccountNum", "BoxId", "BoxModel", "KeyId", "RfidCard", "Status", "EndDate", "");
-			
-			// Account.
-			AccountVo newAccount = null;
+			// AccountPo.
+			AccountPo newAccount = (AccountPo) JsonUtil.parseJson(rawData, AccountPo.class);
 			accountDao.setAccount(newAccount);
 			
 			// Customer List.
-			List<CustomerVo> newCustomers = null;
-			for (CustomerVo newCustomer : newCustomers) {
+			List<CustomerPo> newCustomers = newAccount.getCustomers();
+			for (CustomerPo newCustomer : newCustomers) {
 				customerDao.setCustomer(newCustomer);
-				if (newCustomer.getCard() != null) {
-					customerDao.setCustomerCardRelationship(newCustomer.getCustomerId(), newCustomer.getCard().getCardRfid());
-					cardDao.setCard(newCustomer.getCard());
+				
+				CardPo cardPo = newCustomer.buildCardPo();
+				if (cardPo != null) {
+					customerDao.setCustomerCardRelationship(newCustomer.getCustomerId(), cardPo.getCardRfid());
+					cardDao.setCard(cardPo);
 				}
 			}
 			
 			// Rent List.
-			List<RentPo> newRents = null;
+			List<RentPo> newRents = newAccount.getRents();
 			for (RentPo newRent : newRents) {
 				// Box Card Relationship.
 				if (newAccount.getAccountType() == AccountType.SINGLE.getValue()) {
@@ -137,5 +138,4 @@ public class AccountManagerServiceImpl implements AccountManagerService {
 		}
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}
-
 }

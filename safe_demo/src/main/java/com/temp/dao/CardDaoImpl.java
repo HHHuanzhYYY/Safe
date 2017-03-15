@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.temp.vo.CardVo;
+import com.temp.po.CardPo;
 
 @Repository
 public class CardDaoImpl implements CardDao {
@@ -13,7 +13,7 @@ public class CardDaoImpl implements CardDao {
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
-	public boolean setCard(CardVo card) {
+	public boolean setCard(CardPo card) {
 		// TODO Auto-generated method stub
 		return false;
 	}

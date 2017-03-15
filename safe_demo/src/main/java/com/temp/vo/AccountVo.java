@@ -1,6 +1,6 @@
 package com.temp.vo;
 
-public class AccountVo {
+public class AccountVo extends Vo {
 
 	private int AccountId;
 	

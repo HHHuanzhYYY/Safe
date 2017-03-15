@@ -1,4 +1,4 @@
-package com.temp.po;
+package com.temp.temp;
 
 public class Box {
 	

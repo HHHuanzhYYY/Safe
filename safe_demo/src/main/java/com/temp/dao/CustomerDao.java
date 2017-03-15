@@ -2,6 +2,7 @@ package com.temp.dao;
 
 import java.util.List;
 
+import com.temp.po.CustomerPo;
 import com.temp.util.AccountType;
 import com.temp.vo.CustomerVo;
 
@@ -39,7 +40,7 @@ public interface CustomerDao {
 	 * @param newCustomer
 	 * @return boolean
 	 */
-	boolean setCustomer(CustomerVo newCustomer);
+	boolean setCustomer(CustomerPo newCustomer);
 	
 	/**
 	 * setCustomerCardRelationship.

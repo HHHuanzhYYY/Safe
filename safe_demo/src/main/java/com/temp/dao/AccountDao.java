@@ -2,6 +2,7 @@ package com.temp.dao;
 
 import java.util.List;
 
+import com.temp.po.AccountPo;
 import com.temp.vo.AccountVo;
 
 public interface AccountDao {
@@ -28,6 +29,6 @@ public interface AccountDao {
 	 * @param accountVo
 	 * @return boolean
 	 */
-	public boolean setAccount(final AccountVo accountVo);
+	public boolean setAccount(final AccountPo accountPo);
 	
 }

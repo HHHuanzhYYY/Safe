@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.temp.po.AccountPo;
 import com.temp.vo.AccountVo;
 
 @Repository
@@ -39,7 +40,7 @@ public class AccountDaoImpl implements AccountDao {
 	}
 
 	@Override
-	public boolean setAccount(AccountVo accountVo) {
+	public boolean setAccount(AccountPo accountPo) {
 		// TODO Auto-generated method stub
 		return false;
 	}
