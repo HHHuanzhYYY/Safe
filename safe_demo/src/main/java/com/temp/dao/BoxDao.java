@@ -43,4 +43,13 @@ public interface BoxDao {
 	 */
 	boolean setBoxStatusChangeDetails(int boxId, int boxStatusFuture, String reason);
 	
+	/**
+	 * setBoxNewKey.
+	 * 
+	 * @param boxId
+	 * @param keyId
+	 * @return boolean
+	 */
+	boolean setBoxNewKey(int boxId, String keyId);
+	
 }

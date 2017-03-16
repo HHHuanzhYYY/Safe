@@ -47,4 +47,10 @@ public class BoxDaoImpl implements BoxDao {
 		return false;
 	}
 
+	@Override
+	public boolean setBoxNewKey(int boxId, String keyId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
