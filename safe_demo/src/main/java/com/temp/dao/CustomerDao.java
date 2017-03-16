@@ -2,8 +2,10 @@ package com.temp.dao;
 
 import java.util.List;
 
+import com.temp.po.CustomerDataPo;
 import com.temp.po.CustomerPo;
 import com.temp.util.AccountType;
+import com.temp.vo.CustomerDataVo;
 import com.temp.vo.CustomerVo;
 
 public interface CustomerDao {
@@ -25,6 +27,12 @@ public interface CustomerDao {
 	 * @return CustomerDetails
 	 */
 	CustomerVo getCustomerDetailsById(int custormerId);
+	
+	/**
+	 * 
+	 * @return CustomerDataVo
+	 */
+	CustomerDataVo getCustomerDataByCertificateNo(int certificateType, String certificateNo);
 	
 	/**
 	 * getAllCustomersByAccountId.
@@ -50,5 +58,13 @@ public interface CustomerDao {
 	 * @return boolean
 	 */
 	boolean setCustomerCardRelationship(int customerId, String cardRfid);
+	
+	/**
+	 * setCustomerData.
+	 * 
+	 * @param customerDataPo 
+	 * @return boolean
+	 */
+	boolean setCustomerData(CustomerDataPo customerDataPo);
 	
 }

@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.temp.dao.RentDao;
-import com.temp.util.DateTimeUtil;
 import com.temp.util.JsonUtil;
 import com.temp.vo.UnrentVo;
 
@@ -77,7 +76,7 @@ public class RentServiceImpl implements RentService {
 					calculateOverdueFine(unrentVo.getUnitRent(), unrentVo.getOverdueFineStrategy()));
 			unrentInfo.put("overdueRent", 
 					calculateOverdueRent(unrentVo.getEndDate(), unrentVo.getRentDay()));
-			unrentInfo.put("recoverKeySum", unrentVo.getKeySum());
+			unrentInfo.put("unrecycleKeySum", unrentVo.getKeySum());
 			unrentInfo.put("keyFee", unrentVo.getKeyFee());
 		} catch (Exception e) {
 			isSuccess = false;
@@ -87,8 +86,15 @@ public class RentServiceImpl implements RentService {
 
 	@Override
 	public String setBoxUnrentInfo(String rawData) {
-		// TODO Auto-generated method stub
-		return null;
+		boolean isSuccess = true;
+		try {
+			Map<String, Object> requestParams = JsonUtil.parseJson(rawData, 
+					"boxId", "unecycleKeySum", "unrentPaymentType", "unrentFeeTotal");
+			isSuccess = rentDao.setUnrentInfo(requestParams);
+		} catch (Exception e) {
+			isSuccess = false;
+		}
+		return JsonUtil.constructJson(isSuccess, null, null);
 	}
 
 }

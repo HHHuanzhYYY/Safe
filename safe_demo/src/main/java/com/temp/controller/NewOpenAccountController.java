@@ -10,17 +10,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.temp.service.AccountManagerService;
-import com.temp.service.CustomerManagerService;
+import com.temp.service.AccountManageService;
+import com.temp.service.CustomerManageService;
 
 @Controller
 public class NewOpenAccountController {
 	
 	@Autowired
-	private AccountManagerService accountManagerService;
+	private AccountManageService accountManagerService;
 	
 	@Autowired
-	private CustomerManagerService customerManagerService;
+	private CustomerManageService customerManagerService;
 
 	@RequestMapping("/getAccoutsById")
 	public void getAccountsById(HttpServletRequest request, HttpServletResponse response) {

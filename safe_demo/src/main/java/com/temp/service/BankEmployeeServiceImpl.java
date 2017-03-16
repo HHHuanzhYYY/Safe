@@ -27,8 +27,8 @@ public class BankEmployeeServiceImpl implements BankEmployeeService {
 			
 			Map<String, Object> requestInfo = JsonUtil.parseJson(utf8Data, "Name", "Password");
 			
-			isValidateSucceed = bankEmployeeDao
-					.validateBankEmployee((String)requestInfo.get("Name"), (String)requestInfo.get("Password"));			
+			isValidateSucceed = bankEmployeeDao.validateBankEmployeeByNameAndPwd(
+					(String)requestInfo.get("Name"), (String)requestInfo.get("Password"));			
 		} catch (Exception e) {
 			isValidateSucceed = false;
 		}

@@ -9,8 +9,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.temp.po.CustomerDataPo;
 import com.temp.po.CustomerPo;
 import com.temp.util.AccountType;
+import com.temp.vo.CustomerDataVo;
 import com.temp.vo.CustomerVo;
 
 @Repository
@@ -64,6 +66,18 @@ public class CustomerDaoImpl implements CustomerDao {
 
 	@Override
 	public boolean setCustomerCardRelationship(int customerId, String cardRfid) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public CustomerDataVo getCustomerDataByCertificateNo(int certificateType, String certificateNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean setCustomerData(CustomerDataPo customerDataPo) {
 		// TODO Auto-generated method stub
 		return false;
 	}

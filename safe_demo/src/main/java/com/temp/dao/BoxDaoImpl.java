@@ -41,4 +41,10 @@ public class BoxDaoImpl implements BoxDao {
 		return false;
 	}
 
+	@Override
+	public boolean setBoxStatusChangeDetails(int boxId, int boxStatusFuture, String reason) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

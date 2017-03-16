@@ -38,4 +38,13 @@ public interface RentDao {
 	 * @return UnrentVo
 	 */
 	UnrentVo getUnrentInfo(final int boxId);
+	
+	/**
+	 * setUnrentInfo.
+	 * 
+	 * @param unrentInfo Map<String, Object> = 
+	 * 		{<"boxId",***>, <"unecycleKeySum",***>, <"unrentPaymentType",**>, <"unrentFeeTotal">,***}
+	 * @return boolean
+	 */
+	boolean setUnrentInfo(final Map<String, Object> unrentInfo);
 }

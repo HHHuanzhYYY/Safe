@@ -18,4 +18,10 @@ public class CardDaoImpl implements CardDao {
 		return false;
 	}
 
+	@Override
+	public boolean modifyCardPwd(String cardRfid, String pwd) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

@@ -40,4 +40,10 @@ public class RentDaoImpl implements RentDao {
 		return null;
 	}
 
+	@Override
+	public boolean setUnrentInfo(Map<String, Object> unrentInfo) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

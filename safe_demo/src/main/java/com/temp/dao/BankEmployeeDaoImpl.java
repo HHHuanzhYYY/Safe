@@ -11,7 +11,13 @@ public class BankEmployeeDaoImpl implements BankEmployeeDao {
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
-	public boolean validateBankEmployee(String employeeName, String employeePwd) {
+	public boolean validateBankEmployeeByNameAndPwd(String employeeName, String employeePwd) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean validateBankEmployeeByIdAndPwd(int employeeId, String employeePwd) {
 		// TODO Auto-generated method stub
 		return false;
 	}
