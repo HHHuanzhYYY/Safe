@@ -19,6 +19,7 @@ import com.temp.po.RentPo;
 import com.temp.util.AccountType;
 import com.temp.util.CertificateType;
 import com.temp.util.JsonUtil;
+import com.temp.util.Utility;
 import com.temp.vo.AccountVo;
 import com.temp.vo.BoxVo;
 import com.temp.vo.CustomerVo;
@@ -73,25 +74,16 @@ public class AccountManageServiceImpl implements AccountManageService {
 		boolean isSuccess = true;
 		Map<String, List<? extends Vo>> dataContents = new HashMap<>();
 		try {
-			Map<String, Object> requestParams = JsonUtil.parseJson(rawData, "AccountId", "AccountType");
+			Map<String, Object> requestParams = JsonUtil.parseJson(rawData, "accountId", "accountType");
 			
-			AccountType accountType = null;
-			switch ((Integer)requestParams.get("AccountType")) {
-			case 0:
-				accountType = AccountType.SINGLE;
-				break;
-			case 1:
-				accountType = AccountType.UION;
-				break;
-			default:
-				break;
-			}
+			AccountType accountType = Utility.classifyAccountType((Integer)requestParams.get("accountType"));
 					
 			// Customer List.
-			List<CustomerVo> allCustomers = customerDao
-					.getAllCustomersByAccountId((Integer)requestParams.get("AccountId"), accountType);
+			List<CustomerVo> allCustomers = customerDao.getAllCustomersByAccountId(
+					(Integer)requestParams.get("accountId"), accountType);
 			// Box List.
-			List<BoxVo> allBoxs = boxDao.getAllBoxsByAccountId((Integer)requestParams.get("AccountId"), accountType);
+			List<BoxVo> allBoxs = boxDao.getAllBoxsByAccountId(
+					(Integer)requestParams.get("accountId"), accountType);
 			
 			dataContents.put("customerList", allCustomers);
 			dataContents.put("boxList", allBoxs);

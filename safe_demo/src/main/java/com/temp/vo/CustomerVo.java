@@ -2,10 +2,6 @@ package com.temp.vo;
 
 public class CustomerVo extends Vo {
 	
-	private int customerId;
-	
-	private int customerType;
-	
 	private String customerName;
 	
 	private int customerSex; 
@@ -14,39 +10,23 @@ public class CustomerVo extends Vo {
 	
 	private String certificateNo;
 	
-	private String unitAddress;
-	
-	private String homeAddress;
-	
-	private String phone;
-	
 	private String mobile;
 	
-	private String post;
+	private int cardType;
 	
-	private String remark;
+	private String cardRfid;
 	
-	private String photo;
+	private String cardNo;
 	
-	// 联合开户:如下四项赋值, 独立开户:如下四项不赋值
-	private CardVo card;
+	private int cardStatus;
 	
 	public CustomerVo() {}
 
-	public int getCustomerId() {
-		return customerId;
-	}
-
-	public void setCustomerId(int customerId) {
-		this.customerId = customerId;
-	}
-
-	public int getCustomerType() {
-		return customerType;
-	}
-
-	public void setCustomerType(int customerType) {
-		this.customerType = customerType;
+	@Override
+	public String toString() {
+		return "CustomerVo [customerName=" + customerName + ", customerSex=" + customerSex + ", certificateType="
+				+ certificateType + ", certificateNo=" + certificateNo + ", mobile=" + mobile + ", cardType=" + cardType
+				+ ", cardRfid=" + cardRfid + ", cardNo=" + cardNo + ", cardStatus=" + cardStatus + "]";
 	}
 
 	public String getCustomerName() {
@@ -81,30 +61,6 @@ public class CustomerVo extends Vo {
 		this.certificateNo = certificateNo;
 	}
 
-	public String getUnitAddress() {
-		return unitAddress;
-	}
-
-	public void setUnitAddress(String unitAddress) {
-		this.unitAddress = unitAddress;
-	}
-
-	public String getHomeAddress() {
-		return homeAddress;
-	}
-
-	public void setHomeAddress(String homeAddress) {
-		this.homeAddress = homeAddress;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
 	public String getMobile() {
 		return mobile;
 	}
@@ -113,36 +69,36 @@ public class CustomerVo extends Vo {
 		this.mobile = mobile;
 	}
 
-	public String getPost() {
-		return post;
+	public int getCardType() {
+		return cardType;
 	}
 
-	public void setPost(String post) {
-		this.post = post;
+	public void setCardType(int cardType) {
+		this.cardType = cardType;
 	}
 
-	public String getRemark() {
-		return remark;
+	public String getCardRfid() {
+		return cardRfid;
 	}
 
-	public void setRemark(String remark) {
-		this.remark = remark;
+	public void setCardRfid(String cardRfid) {
+		this.cardRfid = cardRfid;
 	}
 
-	public String getPhoto() {
-		return photo;
+	public String getCardNo() {
+		return cardNo;
 	}
 
-	public void setPhoto(String photo) {
-		this.photo = photo;
+	public void setCardNo(String cardNo) {
+		this.cardNo = cardNo;
 	}
 
-	public CardVo getCard() {
-		return card;
+	public int getCardStatus() {
+		return cardStatus;
 	}
 
-	public void setCard(CardVo card) {
-		this.card = card;
+	public void setCardStatus(int cardStatus) {
+		this.cardStatus = cardStatus;
 	}
-
+	
 }

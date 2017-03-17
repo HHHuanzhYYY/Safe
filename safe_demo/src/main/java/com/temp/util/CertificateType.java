@@ -4,7 +4,8 @@ public enum CertificateType {
 	
 	ID(0), // Identity Card
 	PP(1), // Passport
-	CO(2); // certificate of officers
+	CO(2),
+	CARD(3); // certificate of officers
 	
 	private int value;
 	

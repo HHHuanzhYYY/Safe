@@ -24,7 +24,7 @@ public class NewOpenAccountController {
 
 	@RequestMapping("/getAccoutsById")
 	public void getAccountsById(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("Info");
+		String rawData = request.getParameter("info");
 		try {
 			String resJSON = accountManagerService.getAccoutListByIdOrRFID(rawData);
 			
@@ -37,7 +37,7 @@ public class NewOpenAccountController {
 	
 	@RequestMapping("/validateCustomer")
 	public void validateCustomer(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("Info");
+		String rawData = request.getParameter("info");
 		try {
 			String resJSON = customerManagerService.validateCustomer(rawData);
 			
@@ -50,7 +50,7 @@ public class NewOpenAccountController {
 	
 	@RequestMapping("/getAccountInfo")
 	public void getAccountInfo(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("Info");
+		String rawData = request.getParameter("info");
 		try {
 			String resJSON = accountManagerService.getAccountInfo(rawData);
 			
@@ -63,7 +63,7 @@ public class NewOpenAccountController {
 	
 	@RequestMapping("/setAccountInfo")
 	public void setAccountInfo(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("Info");
+		String rawData = request.getParameter("info");
 		try {
 			String resJSON = accountManagerService.setAccountInfo(rawData);
 			

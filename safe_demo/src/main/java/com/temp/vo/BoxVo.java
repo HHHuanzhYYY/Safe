@@ -1,5 +1,7 @@
 package com.temp.vo;
 
+import java.util.Date;
+
 public class BoxVo extends Vo {
 	
 	private int boxId;
@@ -12,13 +14,24 @@ public class BoxVo extends Vo {
 	
 	private float rentSum;
 	
-	private String endDate;
+	private Date endDate;
 	
 	private String cardRfid;
 	
 	private String cardNo;
 	
+	private int cardType;
+	
+	private int cardStatus;
+	
 	public BoxVo() {}
+
+	@Override
+	public String toString() {
+		return "BoxVo [boxId=" + boxId + ", boxModel=" + boxModel + ", keyId=" + keyId + ", deposit=" + deposit
+				+ ", rentSum=" + rentSum + ", endDate=" + endDate + ", cardRfid=" + cardRfid + ", cardNo=" + cardNo
+				+ ", cardType=" + cardType + ", cardStatus=" + cardStatus + "]";
+	}
 
 	public int getBoxId() {
 		return boxId;
@@ -60,11 +73,11 @@ public class BoxVo extends Vo {
 		this.rentSum = rentSum;
 	}
 
-	public String getEndDate() {
+	public Date getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(String endDate) {
+	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
 
@@ -82,6 +95,22 @@ public class BoxVo extends Vo {
 
 	public void setCardNo(String cardNo) {
 		this.cardNo = cardNo;
+	}
+
+	public int getCardType() {
+		return cardType;
+	}
+
+	public void setCardType(int cardType) {
+		this.cardType = cardType;
+	}
+
+	public int getCardStatus() {
+		return cardStatus;
+	}
+
+	public void setCardStatus(int cardStatus) {
+		this.cardStatus = cardStatus;
 	}
 
 }

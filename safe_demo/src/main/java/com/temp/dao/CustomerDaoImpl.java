@@ -22,7 +22,13 @@ public class CustomerDaoImpl implements CustomerDao {
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
-	public boolean validateCustomer(int customerId, String pwd, String fingerPwd) {
+	public boolean validateCustomerByNameAndPwd(String name, String pwd) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean validateCustomer(int customerId, int pwdType, String pwd) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -81,5 +87,5 @@ public class CustomerDaoImpl implements CustomerDao {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
+
 }

@@ -21,7 +21,7 @@ public class SpecialServiceController {
 
 	@RequestMapping("/freezeBox")
 	public void freezeBox(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("Info");
+		String rawData = request.getParameter("info");
 		try {
 			String resJSON = boxManageService.modifyBoxStatus(rawData, BoxStatus.FREEZE);
 			
@@ -34,7 +34,7 @@ public class SpecialServiceController {
 	
 	@RequestMapping("/unfreezeBox")
 	public void unfreezeBox(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("Info");
+		String rawData = request.getParameter("info");
 		try {
 			String resJSON = boxManageService.modifyBoxStatus(rawData, BoxStatus.NORMAL);
 			

@@ -20,7 +20,7 @@ public class ReportLossController {
 	
 	@RequestMapping("/bankEmployeeLogin")
 	public void bankEmployeeLogin(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("Info");
+		String rawData = request.getParameter("info");
 		try {
 			String resJSON = reportLossService.bankEmployeeLogin(rawData);
 			
@@ -33,7 +33,7 @@ public class ReportLossController {
 	
 	@RequestMapping("/setReportLossDetails")
 	public void setReportLossDetails(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("Info");
+		String rawData = request.getParameter("info");
 		try {
 			String resJSON = reportLossService.setReportLossDetails(rawData);
 			
@@ -46,7 +46,7 @@ public class ReportLossController {
 	
 	@RequestMapping("/removeReportLossState")
 	public void removeReportLossState(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("Info");
+		String rawData = request.getParameter("info");
 		try {
 			String resJSON = reportLossService.removeReportLossState(rawData);
 			

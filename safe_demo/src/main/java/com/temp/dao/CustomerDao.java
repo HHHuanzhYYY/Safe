@@ -9,6 +9,15 @@ import com.temp.vo.CustomerDataVo;
 import com.temp.vo.CustomerVo;
 
 public interface CustomerDao {
+	
+	/**
+	 * validateCustomerByNameAndPwd.
+	 * 
+	 * @param name
+	 * @param pwd
+	 * @return boolean
+	 */
+	boolean validateCustomerByNameAndPwd(String name, String pwd);
 
 	/**
 	 * validateCustomer.
@@ -18,7 +27,7 @@ public interface CustomerDao {
 	 * @param fingerPwd
 	 * @return boolean
 	 */
-	boolean validateCustomer(int customerId, String pwd, String fingerPwd);
+	boolean validateCustomer(int customerId, int pwdType, String pwd);
 	
 	/**
 	 * getCustomerDetailsById.

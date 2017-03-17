@@ -28,7 +28,7 @@ public class ModifyController {
 	
 	@RequestMapping("/modifyCardPwd")
 	public void modifyCardPwd(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("Info");
+		String rawData = request.getParameter("info");
 		try {
 			String resJSON = cardManageService.modifyCardPwd(rawData);
 			
@@ -41,7 +41,7 @@ public class ModifyController {
 	
 	@RequestMapping("/getCustomerData")
 	public void getCustomerInfo(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("Info");
+		String rawData = request.getParameter("info");
 		try {
 			String resJSON = customerManageService.getCustomerData(rawData);
 			
@@ -54,7 +54,7 @@ public class ModifyController {
 	
 	@RequestMapping("/setCustomerData")
 	public void setCustomerInfo(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("Info");
+		String rawData = request.getParameter("info");
 		try {
 			String resJSON = customerManageService.setCustomerData(rawData);
 			
@@ -67,7 +67,7 @@ public class ModifyController {
 
 	@RequestMapping("/changeBox")
 	public void changeBox(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("Info");
+		String rawData = request.getParameter("info");
 		try {
 			String resJSON = boxManageService.changeBox(rawData);
 			
