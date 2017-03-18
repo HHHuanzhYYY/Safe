@@ -22,12 +22,12 @@ public interface CustomerDao {
 	/**
 	 * validateCustomer.
 	 * 
-	 * @param customerId
+	 * @param accountId
 	 * @param pwd
 	 * @param fingerPwd
 	 * @return boolean
 	 */
-	boolean validateCustomer(int customerId, int pwdType, String pwd);
+	boolean validateCustomer(int accountId, int pwdType, String pwd);
 	
 	/**
 	 * getCustomerDetailsById.

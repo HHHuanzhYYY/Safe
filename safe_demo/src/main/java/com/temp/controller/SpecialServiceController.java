@@ -36,7 +36,7 @@ public class SpecialServiceController {
 	public void unfreezeBox(HttpServletRequest request, HttpServletResponse response) {
 		String rawData = request.getParameter("info");
 		try {
-			String resJSON = boxManageService.modifyBoxStatus(rawData, BoxStatus.NORMAL);
+			String resJSON = boxManageService.modifyBoxStatus(rawData, BoxStatus.INRENT);
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			

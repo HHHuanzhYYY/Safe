@@ -28,7 +28,7 @@ public class CustomerDaoImpl implements CustomerDao {
 	}
 
 	@Override
-	public boolean validateCustomer(int customerId, int pwdType, String pwd) {
+	public boolean validateCustomer(int accountId, int pwdType, String pwd) {
 		// TODO Auto-generated method stub
 		return false;
 	}
