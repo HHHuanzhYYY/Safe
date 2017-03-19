@@ -31,10 +31,8 @@ public class AccountDaoImpl implements AccountDao {
 	@Override
 	public List<AccountVo> getAccountListByRFID(String rfid) {
 		final String sql = "SELECT account.AccountId, account.AccountType, account.BankId, account.CustomerSum " +
-						   "FROM account, account_customer_relation, card " +
-						   "WHERE card.CustomerId = account_customer_relation.CustomerId " +
-						     "AND account_customer_relation.AccountId = account.AccountId " +
-						     "AND card.CardRfid=?";
+						   "FROM account, card " +
+						   "WHERE card.AccountId = account.AccountId AND card.CardRfid=?";
 		List<AccountVo> res = jdbcTemplate.queryForList(sql, AccountVo.class, rfid);
 		return res;
 	}

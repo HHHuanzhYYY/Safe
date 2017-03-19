@@ -54,7 +54,8 @@ public class AccountManageServiceImpl implements AccountManageService {
 			
 			switch (certificateType) {
 			case 1:
-				accounts = accountDao.getAccountListById(CertificateType.ID.getValue(), 
+				accounts = accountDao.getAccountListById(
+						CertificateType.ID.getValue(), 
 						(String)requestParams.get("certificateNo"));
 				break;
 			case 2:
