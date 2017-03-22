@@ -61,7 +61,7 @@ public class RentController {
 	public void setBoxUnrentInfo(HttpServletRequest request, HttpServletResponse response) {
 		String rawData = request.getParameter("info");
 		try {
-			String resJSON = rentService.setBoxUnrentInfo(rawData);
+			String resJSON = rentService.setBoxOffleaseInfo(rawData);
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			

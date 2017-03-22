@@ -5,31 +5,41 @@ import java.util.List;
 
 public class AccountPo extends Po {
 
-	private int accountId;
+	private long accountId;
 	
 	private int accountType;
 	
 	private String bankId;
 	
-	private int customerNum;
+	private int isAccountFree;
+	
+	private float openAccountFee;
+	
+	private int paymentType;
+	
+	private float amountSum;
+	
+	private int customerSum;
 	
 	private List<CustomerPo> customers = new ArrayList<>();
 	
 	private List<RentPo> rents = new ArrayList<>();
 	
 	public AccountPo() {}
-	
+
 	@Override
 	public String toString() {
 		return "AccountPo [accountId=" + accountId + ", accountType=" + accountType + ", bankId=" + bankId
-				+ ", customerNum=" + customerNum + ", customers=" + customers + ", rents=" + rents + "]";
+				+ ", isAccountFree=" + isAccountFree + ", openAccountFee=" + openAccountFee + ", paymentType="
+				+ paymentType + ", amountSum=" + amountSum + ", customerSum=" + customerSum + ", customers=" + customers
+				+ ", rents=" + rents + "]";
 	}
 
-	public int getAccountId() {
+	public long getAccountId() {
 		return accountId;
 	}
 
-	public void setAccountId(int accountId) {
+	public void setAccountId(long accountId) {
 		this.accountId = accountId;
 	}
 
@@ -49,12 +59,44 @@ public class AccountPo extends Po {
 		this.bankId = bankId;
 	}
 
-	public int getCustomerNum() {
-		return customerNum;
+	public int getIsAccountFree() {
+		return isAccountFree;
 	}
 
-	public void setCustomerNum(int customerNum) {
-		this.customerNum = customerNum;
+	public void setIsAccountFree(int isAccountFree) {
+		this.isAccountFree = isAccountFree;
+	}
+
+	public float getOpenAccountFee() {
+		return openAccountFee;
+	}
+
+	public void setOpenAccountFee(float openAccountFee) {
+		this.openAccountFee = openAccountFee;
+	}
+
+	public int getPaymentType() {
+		return paymentType;
+	}
+
+	public void setPaymentType(int paymentType) {
+		this.paymentType = paymentType;
+	}
+
+	public float getAmountSum() {
+		return amountSum;
+	}
+
+	public void setAmountSum(float amountSum) {
+		this.amountSum = amountSum;
+	}
+
+	public int getCustomerSum() {
+		return customerSum;
+	}
+
+	public void setCustomerSum(int customerSum) {
+		this.customerSum = customerSum;
 	}
 
 	public List<CustomerPo> getCustomers() {

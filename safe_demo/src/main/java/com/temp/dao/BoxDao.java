@@ -19,7 +19,7 @@ public interface BoxDao {
 	 * @param accountType
 	 * @return List<BoxVo>
 	 */
-	List<BoxVo> getAllBoxsByAccountId(final int accountId, final AccountType accountType);
+	List<BoxVo> getAllBoxsByAccountId(final long accountId, final AccountType accountType);
 	
 	/**
 	 * setBox.
@@ -102,4 +102,5 @@ public interface BoxDao {
 	 * @return boolean
 	 */
 	boolean deleteBoxModel(List<String> boxModels);
+	
 }

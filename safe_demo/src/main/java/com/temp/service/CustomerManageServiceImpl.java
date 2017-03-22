@@ -1,5 +1,6 @@
 package com.temp.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.temp.dao.CustomerDao;
 import com.temp.po.CustomerDataPo;
 import com.temp.util.JsonUtil;
+import com.temp.util.PwdType;
 import com.temp.vo.CustomerDataVo;
 import com.temp.vo.CustomerVo;
 
@@ -40,7 +42,7 @@ public class CustomerManageServiceImpl implements CustomerManageService {
 			
 			isValidateSucceed = customerDao.validateCustomer(
 					(Integer)paramValues.get("accountId"), 
-					(Integer)paramValues.get("pwdType"), 
+					PwdType.convert2PwdType((Integer)paramValues.get("pwdType")), 
 					(String)paramValues.get("pwd"));
 		} catch (Exception e) {
 			isValidateSucceed = false;
@@ -65,16 +67,19 @@ public class CustomerManageServiceImpl implements CustomerManageService {
 	@Override
 	public String getCustomerData(String rawData) {
 		boolean isSuccess = true;
-		CustomerDataVo customerDataVo = null;
+		List<CustomerDataVo> customerDataVos = null;
 		try {
-			Map<String, Object> paramValues = JsonUtil.parseJson(rawData, "certificateType", "certificateNo");
+			Map<String, Object> paramValues = 
+					JsonUtil.parseJson(rawData, "certificateType", "certificateNo", "accountId");
 			
-			customerDataVo = customerDao.getCustomerDataByCertificateNo(
-					(Integer)paramValues.get("certificateType"), (String)paramValues.get("certificateNo"));
+			customerDataVos = customerDao.getCustomerDataByCertificateNo(
+					(Integer)paramValues.get("certificateType"), 
+					(String)paramValues.get("certificateNo"), 
+					(Long)paramValues.get("accountId"));
 		} catch (Exception e) {
 			isSuccess = false;
 		}		
-		return JsonUtil.constructJson(isSuccess, null, customerDataVo);
+		return JsonUtil.constructJson(isSuccess, null, customerDataVos);
 	}
 
 	@Override

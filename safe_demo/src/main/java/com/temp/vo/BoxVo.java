@@ -12,7 +12,7 @@ public class BoxVo extends Vo {
 	
 	private float deposit;
 	
-	private float rentSum;
+	private float actualRent;
 	
 	private Date endDate;
 	
@@ -29,7 +29,7 @@ public class BoxVo extends Vo {
 	@Override
 	public String toString() {
 		return "BoxVo [boxId=" + boxId + ", boxModel=" + boxModel + ", keyId=" + keyId + ", deposit=" + deposit
-				+ ", rentSum=" + rentSum + ", endDate=" + endDate + ", cardRfid=" + cardRfid + ", cardNo=" + cardNo
+				+ ", actualRent=" + actualRent + ", endDate=" + endDate + ", cardRfid=" + cardRfid + ", cardNo=" + cardNo
 				+ ", cardType=" + cardType + ", cardStatus=" + cardStatus + "]";
 	}
 
@@ -65,12 +65,12 @@ public class BoxVo extends Vo {
 		this.deposit = deposit;
 	}
 
-	public float getRentSum() {
-		return rentSum;
+	public float getActualRent() {
+		return actualRent;
 	}
 
-	public void setRentSum(float rentSum) {
-		this.rentSum = rentSum;
+	public void setActualRent(float actualRent) {
+		this.actualRent = actualRent;
 	}
 
 	public Date getEndDate() {

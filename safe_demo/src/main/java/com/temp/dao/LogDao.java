@@ -1,6 +1,5 @@
 package com.temp.dao;
 
-import com.temp.po.ReportLossPo;
 import com.temp.util.ReportLossAction;
 
 public interface LogDao {
@@ -8,9 +7,13 @@ public interface LogDao {
 	/**
 	 * setReportLossLog.
 	 * 
-	 * @param reportLossPo
-	 * @param ReportLossAction
+	 * @param reportLossAction
+	 * @param boxId
+	 * @param reportLossType
+	 * @param paymentType
+	 * @param feeTotal
 	 * @return boolean
 	 */
-	boolean setReportLossLog(ReportLossPo reportLossPo, ReportLossAction reportlossAction);
+	boolean setReportLossLog(ReportLossAction reportLossAction, 
+			int boxId, int reportLossType, int paymentType, float feeTotal);
 }

@@ -43,6 +43,25 @@ public class ReportLossServiceImpl implements ReportLossService {
 	}
 
 	@Override
+	public String setReportLossLog(String rawData, ReportLossAction reportLossAction) {
+		boolean isSuccess = true;
+		try {
+			Map<String, Object> paramValues = JsonUtil.parseJson(rawData, 
+					"boxId", "reportLossType", "paymentType", "feeTotal");
+			
+			isSuccess = logDao.setReportLossLog(
+					reportLossAction,
+					(int)paramValues.get("boxId"), 
+					(int)paramValues.get("reportLossType"), 
+					(int)paramValues.get("paymentType"), 
+					(float)paramValues.get("feeTotal"));
+		} catch (Exception e) {
+			isSuccess = false;
+		}		
+		return JsonUtil.constructJson(isSuccess, null, null);
+	}
+
+	@Override
 	public String setReportLossDetails(String rawData) {
 		boolean isSuccess = true;
 		try {
@@ -61,20 +80,7 @@ public class ReportLossServiceImpl implements ReportLossService {
 			default:
 				break;
 			}
-			isSuccess = logDao.setReportLossLog(reportLossPo, ReportLossAction.SETREPORTLOSS);
-		} catch (Exception e) {
-			isSuccess = false;
-		}		
-		return JsonUtil.constructJson(isSuccess, null, null);
-	}
-
-	@Override
-	public String removeReportLossState(String rawData) {
-		boolean isSuccess = true;
-		try {
-			ReportLossPo reportLossPo = (ReportLossPo) JsonUtil.parseJson(rawData, ReportLossPo.class);
-			
-			isSuccess = logDao.setReportLossLog(reportLossPo, ReportLossAction.REMOVEREPORTLOSS);
+			//isSuccess = logDao.setReportLossLog(reportLossPo, ReportLossAction.SETREPORTLOSS);
 		} catch (Exception e) {
 			isSuccess = false;
 		}		

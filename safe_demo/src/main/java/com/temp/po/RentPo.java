@@ -20,9 +20,15 @@ public class RentPo extends Po {
 	
 	private int rentType;
 	
+	private int rentTime;
+	
 	private Date startDate;
 	
 	private Date endDate;
+	
+	private float deposit;
+	
+	private float rent;
 	
 	private float rentDiscount;
 
@@ -32,7 +38,7 @@ public class RentPo extends Po {
 	
 	private float feeTotal;
 	
-	private int accountId;
+	private long accountId;
 	
 	public RentPo() {}
 
@@ -40,9 +46,10 @@ public class RentPo extends Po {
 	public String toString() {
 		return "RentPo [boxId=" + boxId + ", cardRfid=" + cardRfid + ", cardNo=" + cardNo + ", rentId=" + rentId
 				+ ", certificateId=" + certificateId + ", rentRemark=" + rentRemark + ", certificateRemark="
-				+ certificateRemark + ", rentType=" + rentType + ", startDate=" + startDate + ", endDate=" + endDate
-				+ ", rentDiscount=" + rentDiscount + ", actualRent=" + actualRent + ", paymentType=" + paymentType
-				+ ", feeTotal=" + feeTotal + ", accountId=" + accountId + "]";
+				+ certificateRemark + ", rentType=" + rentType + ", rentTime=" + rentTime + ", startDate=" + startDate
+				+ ", endDate=" + endDate + ", deposit=" + deposit + ", rent=" + rent + ", rentDiscount=" + rentDiscount
+				+ ", actualRent=" + actualRent + ", paymentType=" + paymentType + ", feeTotal=" + feeTotal
+				+ ", accountId=" + accountId + "]";
 	}
 
 	public int getBoxId() {
@@ -109,6 +116,14 @@ public class RentPo extends Po {
 		this.rentType = rentType;
 	}
 
+	public int getRentTime() {
+		return rentTime;
+	}
+
+	public void setRentTime(int rentTime) {
+		this.rentTime = rentTime;
+	}
+
 	public Date getStartDate() {
 		return startDate;
 	}
@@ -123,6 +138,22 @@ public class RentPo extends Po {
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+
+	public float getDeposit() {
+		return deposit;
+	}
+
+	public void setDeposit(float deposit) {
+		this.deposit = deposit;
+	}
+
+	public float getRent() {
+		return rent;
+	}
+
+	public void setRent(float rent) {
+		this.rent = rent;
 	}
 
 	public float getRentDiscount() {
@@ -157,11 +188,11 @@ public class RentPo extends Po {
 		this.feeTotal = feeTotal;
 	}
 
-	public int getAccountId() {
+	public long getAccountId() {
 		return accountId;
 	}
 
-	public void setAccountId(int accountId) {
+	public void setAccountId(long accountId) {
 		this.accountId = accountId;
 	}
 

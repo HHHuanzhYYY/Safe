@@ -1,5 +1,7 @@
 package com.temp.service;
 
+import com.temp.util.ReportLossAction;
+
 public interface ReportLossService {
 
 	/**
@@ -11,6 +13,14 @@ public interface ReportLossService {
 	String bankEmployeeLogin(final String rawData);
 	
 	/**
+	 * setReportLossLog.
+	 * 
+	 * @param rawData
+	 * @return String
+	 */
+	String setReportLossLog(final String rawData, final ReportLossAction reportLossAction);
+	
+	/**
 	 * setReportLossDetails.
 	 * 
 	 * @param rawData String from HttpRequest
@@ -18,11 +28,4 @@ public interface ReportLossService {
 	 */
 	String setReportLossDetails(final String rawData);
 	
-	/**
-	 * removeReportLossState.
-	 * 
-	 * @param rawData String from HttpRequest
-	 * @return JSON String Contains Account Info.
-	 */
-	String removeReportLossState(final String rawData);
 }

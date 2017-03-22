@@ -31,4 +31,14 @@ public interface AccountDao {
 	 */
 	public boolean setAccount(final AccountPo accountPo);
 	
+	/**
+	 * generateAccountId.
+	 * 
+	 * @return accountId
+	 */
+	default long generateAccountId() {
+		return 0;
+	}
+	
+	
 }

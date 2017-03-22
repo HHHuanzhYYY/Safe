@@ -100,31 +100,36 @@ public class AccountManageServiceImpl implements AccountManageService {
 		try {
 			// AccountPo.
 			AccountPo newAccount = (AccountPo) JsonUtil.parseJson(rawData, AccountPo.class);
-			accountDao.setAccount(newAccount);
+			isSuccess = accountDao.setAccount(newAccount);
 			
 			// Customer List.
 			List<CustomerPo> newCustomers = newAccount.getCustomers();
 			for (CustomerPo newCustomer : newCustomers) {
-				customerDao.setCustomer(newCustomer);
+				int customerId = customerDao.setCustomer(newCustomer);
 				
+				// SET TABLE: account_customer_relationship
+				isSuccess = customerDao.setAccountCustomerRelationship(newAccount.getAccountId(), customerId);
+				
+				// SET TABLE: card
 				CardPo cardPo = newCustomer.buildCardPo();
+				cardPo.setAccountId(newAccount.getAccountId());
+				cardPo.setCustomerId(customerId);
 				if (cardPo != null) {
-					customerDao.setCustomerCardRelationship(newCustomer.getCustomerId(), cardPo.getCardRfid());
-					cardDao.setCard(cardPo);
+					isSuccess = cardDao.setCard(cardPo);
 				}
 			}
 			
 			// Rent List.
 			List<RentPo> newRents = newAccount.getRents();
 			for (RentPo newRent : newRents) {
-				// Box Card Relationship.
-				if (newAccount.getAccountType() == AccountType.SINGLE.getValue()) {
-					boxDao.setBoxCardRelationship(newRent.getBoxId(), newRent.getCardRfid());
+				// SET TABLE: box_card_relationship
+				for (int i = 0; i < newCustomers.size(); i++) {
+					isSuccess = boxDao.setBoxCardRelationship(newRent.getBoxId(), newRent.getCardRfid());
 				}
 				
-				// Rent Details.
+				// SET TABLE: rent
 				newRent.setAccountId(newAccount.getAccountId());
-				rentDao.setRent(newRent);
+				isSuccess = rentDao.setRent(newRent);
 			}
 		} catch (Exception e) {
 			isSuccess = false;

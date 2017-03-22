@@ -1,5 +1,6 @@
 package com.temp.service;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import com.temp.util.DateTimeUtil;
@@ -7,14 +8,15 @@ import com.temp.util.DateTimeUtil;
 public interface RentService {
 
 	/**
-	 * calculateOverdueFine.(overdueFine = rent * overdueFineStrategy)
+	 * calculateOverdueFine.(overdueFine = rentDay * overdueDays * overdueFineStrategy)
 	 * 
 	 * @param rent rentDay/rentMonth/rentYear
 	 * @param overdueFineStrategy
 	 * @return float
 	 */
-	default float calculateOverdueFine(final float rent, final float overdueFineStrategy) {
-		return rent * overdueFineStrategy;
+	default float calculateOverdueFine(final float rentDay, final Date endDate, final float overdueFineStrategy) {
+		int overdueDays = DateTimeUtil.daysBetween2Date(endDate, new Date());
+		return rentDay * overdueDays * overdueFineStrategy;
 	}
 	
 	/**
@@ -41,11 +43,44 @@ public interface RentService {
 	 * @param endDate
 	 * @return float
 	 */
-	default float calculateRent(final float rent, final Date beginDate, final Date endDate) {
-		// todo.
+	default float calculateRent(final float actualRent, final Date startDate, final Date endDate, 
+			final Date endDateAfterRelet, final float rentDay) {
+		final Calendar calendar = Calendar.getInstance();
 		
+		// Start.
+		calendar.setTime(startDate);
+		int start = calendar.get(Calendar.DAY_OF_YEAR);
+		// End.
+		calendar.setTime(endDate);
+		int end = calendar.get(Calendar.DAY_OF_YEAR);
 		
-		return 0;
+		// Unit Rent.
+		float rentUnit = actualRent / (end - start);
+		
+		// EndAfterRelet.
+		calendar.setTime(endDateAfterRelet);
+		int endAfterRelet = calendar.get(Calendar.DAY_OF_YEAR);
+		
+		// Now.
+		final Date nowDate = new Date();
+		calendar.setTime(nowDate);
+		int now = calendar.get(Calendar.DAY_OF_YEAR);
+		
+		// Calculate Rent.
+		float retRent = 0;
+		if (nowDate.before(endDate)) {
+			// 当前日期还在原有租期之内，且无续租
+			retRent = rentUnit * (end - now);		
+			if (endDate.before(endDateAfterRelet)) {
+				// 当前日期还在原有租期之内，且至少续租一次
+				retRent += rentDay * (endAfterRelet - end);
+			}
+		} else {
+			// 当前日期已经超出原有租期，但在续租期间之内
+			retRent = rentDay * (endAfterRelet - now);
+		}
+		
+		return retRent;
 	}
 	
 	/**
@@ -78,6 +113,6 @@ public interface RentService {
 	 * @param rawData String from HttpRequest
 	 * @return JSON String Contains Account Info.
 	 */
-	String setBoxUnrentInfo(final String rawData);
+	String setBoxOffleaseInfo(final String rawData);
 	
 }

@@ -15,8 +15,19 @@ public class CardPo extends Po {
 	private String fingerPwd;
 	
 	private String reserveFingerPwd;
+	
+	private long accountId;
+	
+	private int customerId;
 
 	public CardPo() {}
+
+	@Override
+	public String toString() {
+		return "CardPo [cardType=" + cardType + ", cardRfid=" + cardRfid + ", cardNo=" + cardNo + ", validateType="
+				+ validateType + ", password=" + password + ", fingerPwd=" + fingerPwd + ", reserveFingerPwd="
+				+ reserveFingerPwd + ", accountId=" + accountId + ", customerId=" + customerId + "]";
+	}
 
 	public int getCardType() {
 		return cardType;
@@ -73,4 +84,21 @@ public class CardPo extends Po {
 	public void setReserveFingerPwd(String reserveFingerPwd) {
 		this.reserveFingerPwd = reserveFingerPwd;
 	}
+
+	public long getAccountId() {
+		return accountId;
+	}
+
+	public void setAccountId(long accountId) {
+		this.accountId = accountId;
+	}
+
+	public int getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
+	}
+
 }

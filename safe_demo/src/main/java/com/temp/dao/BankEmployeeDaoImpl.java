@@ -23,8 +23,10 @@ public class BankEmployeeDaoImpl implements BankEmployeeDao {
 
 	@Override
 	public boolean validateBankEmployeeByIdAndPwd(int employeeId, String employeePwd) {
-		// TODO Auto-generated method stub
-		return false;
+		String validateBankEmployeeSQL = "SELECT COUNT(employeeId) "
+				+ "FROM bank_employee WHERE employeeId = ? AND password = ? ";
+		int count = jdbcTemplate.queryForObject(validateBankEmployeeSQL, Integer.class, employeeId, employeePwd);
+		return count == 1 ? true : false;
 	}
 
 	@Override

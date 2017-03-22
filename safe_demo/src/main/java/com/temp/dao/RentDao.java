@@ -2,8 +2,9 @@ package com.temp.dao;
 
 import java.util.Map;
 
+import com.temp.po.OffleasePo;
+import com.temp.po.ReletPo;
 import com.temp.po.RentPo;
-import com.temp.vo.UnrentVo;
 
 public interface RentDao {
 
@@ -19,7 +20,7 @@ public interface RentDao {
 	 * getBoxInfo4CountOverdueFineInfo.
 	 * 
 	 * @param boxId
-	 * @return Map<String, Object> = {<"unitRent",***>, <"overdueFineStrategy",***>, <"rentDay",**>, <"endDate">,***}
+	 * @return Map<String, Object> = {<"overdueFineStrategy",***>, <"rentDay",***>, <"endDate",***>}
 	 */
 	Map<String, Object> getBoxInfo4CountOverdueFineInfo(int boxId);
 	
@@ -29,22 +30,21 @@ public interface RentDao {
 	 * @param reletInfo
 	 * @return boolean
 	 */
-	boolean setReletInfo(Map<String, Object> reletInfo);
+	boolean setReletInfo(ReletPo reletPo);
 	
 	/**
 	 * getUnrentInfo.
 	 * 
 	 * @param boxId
-	 * @return UnrentVo
+	 * @return Map<String, Object>
 	 */
-	UnrentVo getUnrentInfo(final int boxId);
+	Map<String, Object> getUnrentInfo(final int boxId);
 	
 	/**
 	 * setUnrentInfo.
 	 * 
-	 * @param unrentInfo Map<String, Object> = 
-	 * 		{<"boxId",***>, <"unecycleKeySum",***>, <"unrentPaymentType",**>, <"unrentFeeTotal">,***}
+	 * @param offleasePo
 	 * @return boolean
 	 */
-	boolean setUnrentInfo(final Map<String, Object> unrentInfo);
+	boolean setOffleaseInfo(final OffleasePo offleasePo);
 }

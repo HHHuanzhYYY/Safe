@@ -1,6 +1,8 @@
 package com.temp.dao;
 
+import java.sql.Types;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -21,17 +23,39 @@ public class BoxDaoImpl implements BoxDao {
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
-	public List<BoxVo> getAllBoxsByAccountId(int accountId, AccountType accountType) {
-		//String sql = null;
+	public List<BoxVo> getAllBoxsByAccountId(long accountId, AccountType accountType) {
+		List<BoxVo> boxVos = null;
+		String queryBoxesSQL = "";
 		if (AccountType.SINGLE.equals(accountType)) {
-			// todo.
+			// Card 信息绑定到 Box 上面
+			queryBoxesSQL = "SELECT box.boxId, box.boxModel, box.keyId, "
+					             + "cardtemp.cardNo, cardtemp.cardRfid, cardtemp.cardType, cardtemp.cardStatus, "
+					             + "rent.deposit, rent.actualRent, rent.endDate " 
+					      + "FROM rent, box, (SELECT card.cardNo, card.cardRfid, card.cardType, "
+					                              + "card.cardStatus, card.accountId "
+					      				   + "FROM card "
+					      				   + "WHERE card.accountId = ?) AS cardtemp "
+					      + "WHERE rent.boxId = box.boxId "
+					        + "AND rent.accountId = cardtemp.accountId "
+					        + "AND rent.accountId = ?";
+			
+			boxVos = jdbcTemplate.queryForList(queryBoxesSQL, 
+					new Object[] {accountId, accountId}, 
+					new int[] {Types.BIGINT, Types.BIGINT}, 
+					BoxVo.class);
 		} else if (AccountType.UION.equals(accountType)) {
-			// todo.
+			// Card 信息绑定到 Customer 上面
+			queryBoxesSQL = "SELECT box.bankId, box.boxModel, box.keyId, "
+					             + "rent.deposit, rent.actualRent, rent.endDate "
+					      + "FROM rent, box " 
+					      + "WHERE rent.boxId = box.boxId and rent.accountId = ? ";
+			boxVos = jdbcTemplate.queryForList(queryBoxesSQL, 
+					new Object[] {accountId}, 
+					new int[] {Types.BIGINT}, 
+					BoxVo.class);
 		}
 		
-		// todo.
-		
-		return null;
+		return boxVos;
 	}
 
 	@Override
@@ -42,8 +66,13 @@ public class BoxDaoImpl implements BoxDao {
 
 	@Override
 	public boolean setBoxCardRelationship(int boxId, String cardRfid) {
-		// TODO Auto-generated method stub
-		return false;
+		final String insertBoxCardRelationshipSQL = "INSERT INTO box_card_relationship(cardRfid, boxId) VALUES (?, ?)";
+		
+		int count = jdbcTemplate.update(insertBoxCardRelationshipSQL, 
+				new Object[] {cardRfid, boxId}, 
+				new int[] {Types.VARCHAR, Types.INTEGER});
+		
+		return count == 1 ? true : false;
 	}
 
 	@Override
@@ -52,16 +81,18 @@ public class BoxDaoImpl implements BoxDao {
 		int modifyRows = 0;
 		int insertRows = 0;
 		try {
-			String queryBoxStatusSQL = "SELECT status FROM box WHERE boxId = ?";
-			int boxCurrentStatus = jdbcTemplate.queryForObject(queryBoxStatusSQL, Integer.class, boxId);
+			String queryBoxStatusAndRentIdSQL = "SELECT status, rentId FROM box WHERE boxId = ?";
+			Map<String, Object> statusAndRentId = jdbcTemplate.queryForMap(queryBoxStatusAndRentIdSQL, 
+					new Object[] {boxId}, new int[] {Types.INTEGER});
 			
 			String modifyBoxStatusSQL = "UPDATE box SET status = ? WHERE boxId = ?";		
 			modifyRows = jdbcTemplate.update(modifyBoxStatusSQL, boxStatusFuture.getValue(), boxId);
 			
 			String insertTalbeBoxStatusChangeSQL = 
-					"INSERT INTO box_status_change(boxId, statusChangeDateTime, statusBefore, statusCurrent, changeReason)" +  
-					"VALUES(?, NOW(), ?, ?, ?)";
-			insertRows = jdbcTemplate.update(insertTalbeBoxStatusChangeSQL, boxId, boxCurrentStatus, boxStatusFuture.getValue(), reason);
+					"INSERT INTO box_status_change(boxId, rentId, statusChangeDateTime, statusBefore, statusCurrent, changeReason)" +  
+					"VALUES(?, ?, NOW(), ?, ?, ?)";
+			insertRows = jdbcTemplate.update(insertTalbeBoxStatusChangeSQL, boxId, (int)statusAndRentId.get("rentId"), 
+					(int)statusAndRentId.get("status"), boxStatusFuture.getValue(), reason);
 		} catch (Exception e) {
 			isSucceed = false;
 		}
@@ -116,4 +147,6 @@ public class BoxDaoImpl implements BoxDao {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	
 }

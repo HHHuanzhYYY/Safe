@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.temp.service.ReportLossService;
+import com.temp.util.ReportLossAction;
 
 @Controller
 public class ReportLossController {
@@ -23,6 +24,19 @@ public class ReportLossController {
 		String rawData = request.getParameter("info");
 		try {
 			String resJSON = reportLossService.bankEmployeeLogin(rawData);
+			
+			PrintWriter writer = response.getWriter();
+			writer.print(resJSON);			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping("/setReportLossApply")
+	public void setReportLossApply(HttpServletRequest request, HttpServletResponse response) {
+		String rawData = request.getParameter("info");
+		try {
+			String resJSON = reportLossService.setReportLossLog(rawData, ReportLossAction.APPLYREPORTLOSS);
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			
@@ -48,7 +62,7 @@ public class ReportLossController {
 	public void removeReportLossState(HttpServletRequest request, HttpServletResponse response) {
 		String rawData = request.getParameter("info");
 		try {
-			String resJSON = reportLossService.removeReportLossState(rawData);
+			String resJSON = reportLossService.setReportLossLog(rawData, ReportLossAction.REMOVEREPORTLOSS);
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			

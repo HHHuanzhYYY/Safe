@@ -5,6 +5,7 @@ import java.util.List;
 import com.temp.po.CustomerDataPo;
 import com.temp.po.CustomerPo;
 import com.temp.util.AccountType;
+import com.temp.util.PwdType;
 import com.temp.vo.CustomerDataVo;
 import com.temp.vo.CustomerVo;
 
@@ -27,7 +28,7 @@ public interface CustomerDao {
 	 * @param fingerPwd
 	 * @return boolean
 	 */
-	boolean validateCustomer(int accountId, int pwdType, String pwd);
+	boolean validateCustomer(int accountId, PwdType pwdType, String pwd);
 	
 	/**
 	 * getCustomerDetailsById.
@@ -38,10 +39,14 @@ public interface CustomerDao {
 	CustomerVo getCustomerDetailsById(int custormerId);
 	
 	/**
+	 * getCustomerDataByCertificateNo.
 	 * 
-	 * @return CustomerDataVo
+	 * @param certificateType
+	 * @param certificateNo
+	 * @param accountId
+	 * @return List<CustomerDataVo>
 	 */
-	CustomerDataVo getCustomerDataByCertificateNo(int certificateType, String certificateNo);
+	List<CustomerDataVo> getCustomerDataByCertificateNo(int certificateType, String certificateNo, long accountId);
 	
 	/**
 	 * getAllCustomersByAccountId.
@@ -49,15 +54,15 @@ public interface CustomerDao {
 	 * @param accountId
 	 * @return List<CustomerVo>
 	 */
-	List<CustomerVo> getAllCustomersByAccountId(final int accountId, final AccountType accountType);
+	List<CustomerVo> getAllCustomersByAccountId(final long accountId, final AccountType accountType);
 	
 	/**
 	 * setCustomer.
 	 * 
 	 * @param newCustomer
-	 * @return boolean
+	 * @return customerId
 	 */
-	boolean setCustomer(CustomerPo newCustomer);
+	int setCustomer(CustomerPo newCustomer);
 	
 	/**
 	 * setCustomerCardRelationship.
@@ -67,6 +72,15 @@ public interface CustomerDao {
 	 * @return boolean
 	 */
 	boolean setCustomerCardRelationship(int customerId, String cardRfid);
+	
+	/**
+	 * setAccountCustomerRelationship.
+	 * 
+	 * @param accountId
+	 * @param customerId
+	 * @return boolean
+	 */
+	boolean setAccountCustomerRelationship(long accountId, int customerId);
 	
 	/**
 	 * setCustomerData.
