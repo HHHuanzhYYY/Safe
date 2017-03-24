@@ -1,6 +1,7 @@
 package com.temp.dao;
 
 import com.temp.po.CardPo;
+import com.temp.po.ReportLossPo;
 
 public interface CardDao {
 
@@ -19,5 +20,13 @@ public interface CardDao {
 	 * @param pwd
 	 * @return boolean
 	 */
-	boolean modifyCardPwd(String cardRfid, String pwd);
+	boolean changeCardPwd(String cardRfid, String pwd);
+	
+	/**
+	 * changeCard.
+	 * 
+	 * @param reportLossPo
+	 * @return boolean
+	 */
+	boolean changeCard(ReportLossPo reportLossPo);
 }

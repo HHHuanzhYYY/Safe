@@ -20,7 +20,7 @@ public class CardManageServiceImpl implements CardManageService {
 		try {
 			Map<String, Object> paramValues = JsonUtil.parseJson(rawData, "cardRfid", "pwd");
 			
-			isSuccess = cardDao.modifyCardPwd((String)paramValues.get("cardRfid"), (String)paramValues.get("pwd"));			
+			isSuccess = cardDao.changeCardPwd((String)paramValues.get("cardRfid"), (String)paramValues.get("pwd"));			
 		} catch (Exception e) {
 			isSuccess = false;
 		}

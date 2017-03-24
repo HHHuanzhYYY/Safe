@@ -16,6 +16,7 @@ import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
 
+import com.temp.po.ChangeBoxPo;
 import com.temp.po.OffleasePo;
 import com.temp.po.ReletPo;
 import com.temp.po.RentPo;
@@ -133,8 +134,8 @@ public class RentDaoImpl implements RentDao {
 		//  					  <"keyFee",***>}
 		Map<String, Object> unrentInfo = getBoxInfo4CountOverdueFineInfo(boxId);
 		
-		String queryKeyFeeSQL = "SELECT keyFee FROM box, key_details "
-							  + "WHERE box.keyId = key_details.keyId AND box.boxId = ? ";
+		String queryKeyFeeSQL = "SELECT keyFee FROM box, key "
+							  + "WHERE box.keyId = key.keyId AND box.boxId = ? ";
 		float keyFee = jdbcTemplate.query(queryKeyFeeSQL, new Object[] {boxId}, 
 				new ResultSetExtractor<Float> () {
 
@@ -174,6 +175,40 @@ public class RentDaoImpl implements RentDao {
 		Map<String, Object> ofsAndRd = jdbcTemplate.queryForMap(queryOverdueFineStrategyAndRentDaySQL, 
 				new Object[] {boxId}, new int[] {Types.INTEGER});
 		return ofsAndRd;
+	}
+
+	@Override
+	public boolean setChangeBoxInfo(int oldBoxId, int newBoxId, float amountDifference) {
+		String changeBoxSQL = "UPDATE rent SET boxId = ?, feeTotal = feeTotal + ? WHERE boxId = ? ";
+		int count = jdbcTemplate.update(changeBoxSQL, 
+				new Object[] {newBoxId, amountDifference, oldBoxId}, 
+				new int[] {Types.INTEGER, Types.FLOAT, Types.INTEGER});
+		return count == 1 ? true : false;
+	}
+
+	@Override
+	public boolean setChangeBoxLogInfo(ChangeBoxPo changeBoxPo) {
+		String insertChangeBoxLogSQL = 
+				"INSERT INTO changebox_log(changeboxDate, oldBoxId, newBoxId, amountDifference, "
+				                        + "keyFee, paymentType, feeTotal, rentId) "
+			  + "VALUES(NOW(), ?, ?, ?, ?, ?, ?, "
+			        + "(SELECT CONCAT(rentId) FROM rent WHERE boxId = ?)) ";
+		int count = jdbcTemplate.update(insertChangeBoxLogSQL, 
+				new Object[] {changeBoxPo.getOldBoxId(), 
+							  changeBoxPo.getNewBoxId(), 
+							  changeBoxPo.getAmountDifference(),
+							  changeBoxPo.getKeyFee(), 
+							  changeBoxPo.getPaymentType(), 
+							  changeBoxPo.getFeeTotal(), 
+							  changeBoxPo.getOldBoxId()}, 
+				new int[] {Types.INTEGER, 
+						   Types.INTEGER, 
+						   Types.FLOAT, 
+						   Types.FLOAT, 
+						   Types.INTEGER, 
+						   Types.FLOAT, 
+						   Types.INTEGER});
+		return count == 1 ? true : false;
 	}
 
 }

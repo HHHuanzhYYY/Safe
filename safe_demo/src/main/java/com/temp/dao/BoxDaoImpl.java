@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.temp.po.BoxDetailsPo;
 import com.temp.po.BoxModelPo;
+import com.temp.po.ChangeBoxPo;
 import com.temp.util.AccountType;
 import com.temp.util.BoxStatus;
 import com.temp.vo.BoxDetailsVo;
@@ -105,6 +106,36 @@ public class BoxDaoImpl implements BoxDao {
 		}
 		return isSucceed;
 	}
+	
+	@Override
+	public Map<String, Object> getBoxKeyDetails(int boxId) {
+		// Map<String, Object> = {<"newKeyNo", ***>, <"newBoxKeyFee", ***>, <"newBoxRentDay", ***>}
+		Map<String, Object> retInfo = null;
+		
+		// 新箱子单把钥匙费用和日租金.
+		String queryKeyFeeAndRentDaySQL = 
+				"SELECT keyNo AS newKeyNo, keyFee AS newBoxKeyFee, box_model.rentDay AS newBoxRentDay "
+			  + "FROM box, `key`, box_model "
+			  + "WHERE box.keyNo = `key`.keyNo "
+				+ "AND box.boxModel = box_model.boxModel "
+				+ "AND box.boxId = ? ";
+		retInfo = jdbcTemplate.queryForMap(queryKeyFeeAndRentDaySQL, boxId);
+		
+		return retInfo;
+	}
+	
+	@Override
+	public boolean modifyBoxCardRelationship(int oldBoxId, int newBoxId) {
+		String modifySQL = "UPDATE box_card_relationship SET boxId = ? WHERE boxId = ? ";
+		int count = jdbcTemplate.update(modifySQL, newBoxId, oldBoxId);
+		return count > 0 ? true : false;
+	}
+
+	@Override
+	public boolean setChangeBoxDetails(ChangeBoxPo changeBoxPo) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 	@Override
 	public boolean setBoxNewKey(int boxId, String keyId) {
@@ -149,4 +180,6 @@ public class BoxDaoImpl implements BoxDao {
 	}
 
 	
+	
+
 }

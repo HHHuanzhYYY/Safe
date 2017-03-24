@@ -64,12 +64,25 @@ public class ModifyController {
 			e.printStackTrace();
 		}
 	}
-
-	@RequestMapping("/changeBox")
-	public void changeBox(HttpServletRequest request, HttpServletResponse response) {
+	
+	@RequestMapping("/getChangeBoxDetails")
+	public void getChangeBoxDetails(HttpServletRequest request, HttpServletResponse response) {
 		String rawData = request.getParameter("info");
 		try {
-			String resJSON = boxManageService.changeBox(rawData);
+			String resJSON = boxManageService.getChangeBoxDetails(rawData);
+			
+			PrintWriter writer = response.getWriter();
+			writer.print(resJSON);			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@RequestMapping("/setChangeBoxDetails")
+	public void setChangeBoxDetails(HttpServletRequest request, HttpServletResponse response) {
+		String rawData = request.getParameter("info");
+		try {
+			String resJSON = boxManageService.setChangeBoxDetails(rawData);
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			

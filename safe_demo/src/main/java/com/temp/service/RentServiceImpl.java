@@ -11,6 +11,7 @@ import com.temp.dao.RentDao;
 import com.temp.po.OffleasePo;
 import com.temp.po.ReletPo;
 import com.temp.util.JsonUtil;
+import com.temp.util.Utility;
 
 @Service
 public class RentServiceImpl implements RentService {
@@ -83,12 +84,12 @@ public class RentServiceImpl implements RentService {
 			
 			if (new Date().before((Date)offleaseInfo.get("endDate"))) {
 				// 还未到 箱子的到期日期
-				unrentInfo.put("refoundRent", 
-						calculateRent((Float)offleaseInfo.get("actualRent"), 
-									  (Date)offleaseInfo.get("startDate"), 
-									  (Date)offleaseInfo.get("endDate"),
-									  (Date)offleaseInfo.get("endDateAfterRelet"),
-									  (Float)offleaseInfo.get("rentDay")));
+				unrentInfo.put("refoundRent", Utility.calculateRefoundRent(
+						(Float)offleaseInfo.get("actualRent"), 
+						(Date)offleaseInfo.get("startDate"), 
+						(Date)offleaseInfo.get("endDate"),
+						(Date)offleaseInfo.get("endDateAfterRelet"),
+						(Float)offleaseInfo.get("rentDay")));
 				unrentInfo.put("overdueFine", 0);
 				unrentInfo.put("overdueRent", 0);
 			} else {

@@ -2,6 +2,7 @@ package com.temp.dao;
 
 import java.util.Map;
 
+import com.temp.po.ChangeBoxPo;
 import com.temp.po.OffleasePo;
 import com.temp.po.ReletPo;
 import com.temp.po.RentPo;
@@ -47,4 +48,22 @@ public interface RentDao {
 	 * @return boolean
 	 */
 	boolean setOffleaseInfo(final OffleasePo offleasePo);
+	
+	/**
+	 * setChangeBoxInfo.
+	 * 
+	 * @param oldBoxId
+	 * @param newBoxId
+	 * @param amountDifference
+	 * @return boolean
+	 */
+	boolean setChangeBoxInfo(int oldBoxId, int newBoxId, float amountDifference);
+	
+	/**
+	 * setChangeBoxLogInfo.
+	 * 
+	 * @param changeBoxPo
+	 * @return boolean
+	 */
+	boolean setChangeBoxLogInfo(ChangeBoxPo changeBoxPo);
 }

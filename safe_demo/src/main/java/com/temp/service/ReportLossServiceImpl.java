@@ -69,10 +69,10 @@ public class ReportLossServiceImpl implements ReportLossService {
 			
 			switch (reportLossPo.getVisualReportLossType()) {
 			case PWDLOSS:
-				isSuccess = cardDao.modifyCardPwd(reportLossPo.getCardRfid(), reportLossPo.getPassword());
+				isSuccess = cardDao.changeCardPwd(reportLossPo.getCardRfid(), reportLossPo.getPassword());
 				break;
 			case CARDLOSS:
-				isSuccess = cardDao.setCard(reportLossPo.getCardPo());
+				isSuccess = cardDao.changeCard(reportLossPo);
 				break;
 			case KEYLOSS:
 				isSuccess = boxDao.setBoxNewKey(reportLossPo.getBoxId(), reportLossPo.getKeyId());

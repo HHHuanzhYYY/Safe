@@ -1,9 +1,11 @@
 package com.temp.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.temp.po.BoxDetailsPo;
 import com.temp.po.BoxModelPo;
+import com.temp.po.ChangeBoxPo;
 import com.temp.util.AccountType;
 import com.temp.util.BoxStatus;
 import com.temp.vo.BoxDetailsVo;
@@ -47,6 +49,31 @@ public interface BoxDao {
 	 * @return boolean
 	 */
 	boolean setBoxStatusChangeDetails(int boxId, BoxStatus boxStatusFuture, String reason);
+	
+	/**
+	 * getBoxKeyDetails.
+	 * 
+	 * @param boxId
+	 * @return Map<String, Object>
+	 */
+	Map<String, Object> getBoxKeyDetails(int boxId);
+	
+	/**
+	 * setChangeBoxDetails.
+	 * 
+	 * @param changeBoxPo
+	 * @return boolean
+	 */
+	boolean setChangeBoxDetails(ChangeBoxPo changeBoxPo);
+	
+	/**
+	 * modifyBoxCardRelationship.
+	 * 
+	 * @param oldBoxId
+	 * @param newBoxId
+	 * @return
+	 */
+	boolean modifyBoxCardRelationship(int oldBoxId, int newBoxId);
 	
 	/**
 	 * setBoxNewKey.
@@ -102,5 +129,7 @@ public interface BoxDao {
 	 * @return boolean
 	 */
 	boolean deleteBoxModel(List<String> boxModels);
+	
+	
 	
 }

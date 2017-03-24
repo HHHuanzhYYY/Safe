@@ -3,6 +3,10 @@ package com.temp.po;
 import com.temp.util.ReportLossType;
 
 public class ReportLossPo extends Po {
+	
+	private int certificateType;
+	
+	private String certificateNo;
 
 	private int reportLossType; // ¹ÒÊ§ÀàÐÍ (ÃÜÂë¶ªÊ§-1,¿¨¹ÒÊ§-2,Ô¿³×¶ªÊ§-3)	
 	
@@ -22,13 +26,6 @@ public class ReportLossPo extends Po {
 
 	public ReportLossPo() {}
 
-	@Override
-	public String toString() {
-		return "ReportLossPo [reportLossType=" + reportLossType + ", boxId=" + boxId + ", cardRfid=" + cardRfid
-				+ ", cardNo=" + cardNo + ", password=" + password + ", keyId=" + keyId + ", paymentType=" + paymentType
-				+ ", feeTotal=" + feeTotal + "]";
-	}
-	
 	public ReportLossType getVisualReportLossType() {
 		ReportLossType ret = null;
 		switch (getReportLossType()) {
@@ -53,6 +50,22 @@ public class ReportLossPo extends Po {
 		retCardPo.setCardRfid(getCardRfid());
 		retCardPo.setPassword(getPassword());
 		return retCardPo;
+	}
+
+	public int getCertificateType() {
+		return certificateType;
+	}
+
+	public void setCertificateType(int certificateType) {
+		this.certificateType = certificateType;
+	}
+
+	public String getCertificateNo() {
+		return certificateNo;
+	}
+
+	public void setCertificateNo(String certificateNo) {
+		this.certificateNo = certificateNo;
 	}
 
 	public int getReportLossType() {
@@ -118,5 +131,5 @@ public class ReportLossPo extends Po {
 	public void setFeeTotal(float feeTotal) {
 		this.feeTotal = feeTotal;
 	}
-	
+
 }
