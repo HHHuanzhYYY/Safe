@@ -39,6 +39,19 @@ public class SystemConfigController {
 		}
     } 
 	
+	@RequestMapping(value="/listBankBranchEmployees", method={RequestMethod.GET, RequestMethod.POST}) 
+    public void listBankBranchEmployees(HttpServletRequest request, HttpServletResponse response) {    	
+		String rawData = request.getParameter("info");
+		try {
+			String resJSON = systemConfigService.listBankBranchEmployees(rawData);
+			
+			PrintWriter writer = response.getWriter();
+			writer.print(resJSON);			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    } 
+	
 	@RequestMapping(value="/setMessageDetails", method={RequestMethod.GET, RequestMethod.POST}) 
 	public void setMessageDetails(HttpServletRequest request, HttpServletResponse response) {
 		String rawData = request.getParameter("info");
@@ -141,10 +154,10 @@ public class SystemConfigController {
 		}
 	}
 	
-	@RequestMapping(value="/listAllBoxs", method={RequestMethod.GET, RequestMethod.POST}) 
-	public void listAllBoxs(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value="/listAllModelResumes", method={RequestMethod.GET, RequestMethod.POST}) 
+	public void listAllModelResumes(HttpServletRequest request, HttpServletResponse response) {
 		try {
-			String resJSON = boxManageService.listAllBoxs();
+			String resJSON = boxManageService.listAllModelResumes();
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			
@@ -153,11 +166,11 @@ public class SystemConfigController {
 		}
 	}
 	
-	@RequestMapping(value="/setBoxDetails", method={RequestMethod.GET, RequestMethod.POST}) 
-	public void setBoxDetails(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value="/setBoxModelResumes", method={RequestMethod.GET, RequestMethod.POST}) 
+	public void setBoxModelResumes(HttpServletRequest request, HttpServletResponse response) {
 		String rawData = request.getParameter("info");
 		try {
-			String resJSON = boxManageService.setBoxDetails(rawData);
+			String resJSON = boxManageService.setBoxModelResumes(rawData);
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			
@@ -166,11 +179,11 @@ public class SystemConfigController {
 		}
 	}
 	
-	@RequestMapping(value="/deleteBox", method={RequestMethod.GET, RequestMethod.POST}) 
-	public void deleteBox(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value="/deleteBoxModel", method={RequestMethod.GET, RequestMethod.POST}) 
+	public void deleteBoxModel(HttpServletRequest request, HttpServletResponse response) {
 		String rawData = request.getParameter("info");
 		try {
-			String resJSON = boxManageService.deleteBox(rawData);
+			String resJSON = boxManageService.deleteBoxModel(rawData);
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			
@@ -204,23 +217,11 @@ public class SystemConfigController {
 		}
 	}
 	
-	@RequestMapping(value="/deleteBoxModel", method={RequestMethod.GET, RequestMethod.POST}) 
-	public void deleteBoxModel(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("info");
-		try {
-			String resJSON = boxManageService.deleteBoxModel(rawData);
-			
-			PrintWriter writer = response.getWriter();
-			writer.print(resJSON);			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
 	@RequestMapping(value="/listAllBankEmployees", method={RequestMethod.GET, RequestMethod.POST}) 
 	public void listAllBankEmployees(HttpServletRequest request, HttpServletResponse response) {
+		String rawData = request.getParameter("info");
 		try {
-			String resJSON = bankEmployeeService.listAllBankEmployees();
+			String resJSON = bankEmployeeService.listAllBankEmployees(rawData);
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			

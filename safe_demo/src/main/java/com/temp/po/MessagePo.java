@@ -12,7 +12,9 @@ public class MessagePo extends Po {
 	
 	private String messageContent;
 	
-	private List<String> messageReceivers;
+	private int messageReceiverType; // 0-部分员工, 1-全部员工(消息收件人为NULL)
+	
+	private List<Integer> messageReceivers;
 	
 	private String remark;
 	
@@ -21,8 +23,8 @@ public class MessagePo extends Po {
 	@Override
 	public String toString() {
 		return "MessagePo [messageId=" + messageId + ", messageType=" + messageType + ", messageTitle=" + messageTitle
-				+ ", messageContent=" + messageContent + ", messageReceivers=" + messageReceivers + ", remark=" + remark
-				+ "]";
+				+ ", messageContent=" + messageContent + ", messageReceiverType=" + messageReceiverType
+				+ ", messageReceivers=" + messageReceivers + ", remark=" + remark + "]";
 	}
 
 	public int getMessageId() {
@@ -57,11 +59,19 @@ public class MessagePo extends Po {
 		this.messageContent = messageContent;
 	}
 
-	public List<String> getMessageReceivers() {
+	public int getMessageReceiverType() {
+		return messageReceiverType;
+	}
+
+	public void setMessageReceiverType(int messageReceiverType) {
+		this.messageReceiverType = messageReceiverType;
+	}
+
+	public List<Integer> getMessageReceivers() {
 		return messageReceivers;
 	}
 
-	public void setMessageReceivers(List<String> messageReceivers) {
+	public void setMessageReceivers(List<Integer> messageReceivers) {
 		this.messageReceivers = messageReceivers;
 	}
 
@@ -72,5 +82,5 @@ public class MessagePo extends Po {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-	
+
 }

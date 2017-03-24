@@ -3,12 +3,12 @@ package com.temp.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.temp.po.BoxDetailsPo;
+import com.temp.po.BoxModelResumePo;
 import com.temp.po.BoxModelPo;
 import com.temp.po.ChangeBoxPo;
 import com.temp.util.AccountType;
 import com.temp.util.BoxStatus;
-import com.temp.vo.BoxDetailsVo;
+import com.temp.vo.BoxModelResumeVo;
 import com.temp.vo.BoxModelVo;
 import com.temp.vo.BoxVo;
 
@@ -85,19 +85,19 @@ public interface BoxDao {
 	boolean setBoxNewKey(int boxId, String keyId);
 	
 	/**
-	 * getAllSubjects.
+	 * getAllBoxModelResumes.
 	 * 
 	 * @return List<SubjectVo>
 	 */
-	List<BoxDetailsVo> getAllBoxs();
+	List<BoxModelResumeVo> getAllBoxModelResumes();
 	
 	/**
-	 * setBoxDetails.
+	 * setAllBoxModelResumes.
 	 * 
 	 * @param boxDetailsPo
 	 * @return boolean
 	 */
-	boolean setBoxDetails(BoxDetailsPo boxDetailsPo);
+	boolean setAllBoxModelResumes(BoxModelResumePo boxDetailsPo);
 	
 	/**
 	 * deleteBox.
@@ -105,7 +105,7 @@ public interface BoxDao {
 	 * @param boxIds
 	 * @return boolean
 	 */
-	boolean deleteBox(List<Integer> boxIds);
+	boolean deleteBoxModel(List<String> boxModels);
 	
 	/**
 	 * getAllBoxModels.
@@ -121,15 +121,5 @@ public interface BoxDao {
 	 * @return boolean
 	 */
 	boolean setBoxModelDetails(BoxModelPo boxModelPo);
-	
-	/**
-	 * deleteBox.
-	 * 
-	 * @param boxIds
-	 * @return boolean
-	 */
-	boolean deleteBoxModel(List<String> boxModels);
-	
-	
 	
 }

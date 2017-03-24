@@ -8,6 +8,8 @@ public class FeeTypeVo extends Vo {
 	
 	private int subjectId; // 所属科目
 	
+	private String subjectTitle;
+	
 	private String remark; // 备注
 	
 	private float feeValue; // 费用值
@@ -19,7 +21,8 @@ public class FeeTypeVo extends Vo {
 	@Override
 	public String toString() {
 		return "FeeTypeVo [feeTypeId=" + feeTypeId + ", feeTypeTitle=" + feeTypeTitle + ", subjectId=" + subjectId
-				+ ", remark=" + remark + ", feeValue=" + feeValue + ", status=" + status + "]";
+				+ ", subjectTitle=" + subjectTitle + ", remark=" + remark + ", feeValue=" + feeValue + ", status="
+				+ status + "]";
 	}
 
 	public int getFeeTypeId() {
@@ -44,6 +47,14 @@ public class FeeTypeVo extends Vo {
 
 	public void setSubjectId(int subjectId) {
 		this.subjectId = subjectId;
+	}
+
+	public String getSubjectTitle() {
+		return subjectTitle;
+	}
+
+	public void setSubjectTitle(String subjectTitle) {
+		this.subjectTitle = subjectTitle;
 	}
 
 	public String getRemark() {

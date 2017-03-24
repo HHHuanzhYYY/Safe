@@ -7,6 +7,7 @@ import com.temp.po.FeeTypePo;
 import com.temp.po.MessagePo;
 import com.temp.po.SubjectPo;
 import com.temp.vo.BankBranchVo;
+import com.temp.vo.BankEmployeeResumeVo;
 import com.temp.vo.FeeTypeVo;
 import com.temp.vo.MessageVo;
 import com.temp.vo.SubjectVo;
@@ -19,6 +20,14 @@ public interface SystemConfigDao {
 	 * @return List<MessageVo>
 	 */
 	List<MessageVo> getAllMessages();
+	
+	/**
+	 * getBankBranchEmployees.
+	 * 
+	 * @param bankId
+	 * @return List<BankEmployeeResumeVo>
+	 */
+	List<BankEmployeeResumeVo> getBankBranchEmployees(int bankId);
 	
 	/**
 	 * setMessageDetails.
@@ -70,9 +79,9 @@ public interface SystemConfigDao {
 	 * setSubjectDetails.
 	 * 
 	 * @param subjectPo
-	 * @return boolean
+	 * @return subjectId
 	 */
-	boolean setSubjectDetails(SubjectPo subjectPo);
+	int setSubjectDetails(SubjectPo subjectPo);
 	
 	/**
 	 * deleteSubject.

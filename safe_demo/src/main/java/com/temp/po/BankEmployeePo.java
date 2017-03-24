@@ -2,7 +2,7 @@ package com.temp.po;
 
 public class BankEmployeePo extends Po {
 
-	private int bankEmployeeId; // 银行职员ID
+	private int employeeId; // 银行职员ID
 	
 	private String loginId; // 登录ID
 	
@@ -16,7 +16,7 @@ public class BankEmployeePo extends Po {
 	
 	private String mobile; // 手机号
 	
-	private String bankName; // 网点
+	private int bankId; // 网点ID
 	
 	private String icCardNo; // IC卡号
 	
@@ -28,18 +28,18 @@ public class BankEmployeePo extends Po {
 
 	@Override
 	public String toString() {
-		return "BankEmployeePo [bankEmployeeId=" + bankEmployeeId + ", loginId=" + loginId + ", employeeName="
+		return "BankEmployeePo [employeeId=" + employeeId + ", loginId=" + loginId + ", employeeName="
 				+ employeeName + ", priority=" + priority + ", certificateType=" + certificateType + ", certificateId="
-				+ certificateId + ", mobile=" + mobile + ", bankName=" + bankName + ", icCardNo=" + icCardNo
+				+ certificateId + ", mobile=" + mobile + ", bankId=" + bankId + ", icCardNo=" + icCardNo
 				+ ", isAdministrator=" + isAdministrator + ", remark=" + remark + "]";
 	}
 
-	public int getBankEmployeeId() {
-		return bankEmployeeId;
+	public int getEmployeeId() {
+		return employeeId;
 	}
 
-	public void setBankEmployeeId(int bankEmployeeId) {
-		this.bankEmployeeId = bankEmployeeId;
+	public void setEmployeeId(int employeeId) {
+		this.employeeId = employeeId;
 	}
 
 	public String getLoginId() {
@@ -90,12 +90,12 @@ public class BankEmployeePo extends Po {
 		this.mobile = mobile;
 	}
 
-	public String getBankName() {
-		return bankName;
+	public int getBankId() {
+		return bankId;
 	}
 
-	public void setBankName(String bankName) {
-		this.bankName = bankName;
+	public void setBankId(int bankId) {
+		this.bankId = bankId;
 	}
 
 	public String getIcCardNo() {

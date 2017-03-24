@@ -30,27 +30,27 @@ public interface BoxManageService {
 	String modifyBoxStatus(final String rawData, final BoxStatus boxStatus);
 	
 	/**
-	 * listAllBoxs.
+	 * listAllModelResumes.
 	 * 
 	 * @return String
 	 */
-	String listAllBoxs();
+	String listAllModelResumes();
 	
 	/**
-	 * setBoxDetails.
+	 * setBoxModelResumes.
 	 * 
 	 * @param rawData
 	 * @return String
 	 */
-	String setBoxDetails(final String rawData);
+	String setBoxModelResumes(final String rawData);
 	
 	/**
-	 * deleteBox.
+	 * deleteBoxModel.
 	 * 
 	 * @param rawData
 	 * @return String
 	 */
-	String deleteBox(final String rawData);
+	String deleteBoxModel(final String rawData);
 	
 	/**
 	 * listAllBoxModels.
@@ -66,13 +66,5 @@ public interface BoxManageService {
 	 * @return String
 	 */
 	String setBoxModelDetails(final String rawData);
-	
-	/**
-	 * deleteBoxModel.
-	 * 
-	 * @param rawData
-	 * @return String
-	 */
-	String deleteBoxModel(final String rawData);
 	
 }

@@ -14,6 +14,7 @@ import com.temp.po.MessagePo;
 import com.temp.po.SubjectPo;
 import com.temp.util.JsonUtil;
 import com.temp.vo.BankBranchVo;
+import com.temp.vo.BankEmployeeResumeVo;
 import com.temp.vo.FeeTypeVo;
 import com.temp.vo.MessageVo;
 import com.temp.vo.SubjectVo;
@@ -34,6 +35,20 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 			isSuccess = false;
 		}		
 		return JsonUtil.constructJson(isSuccess, null, messageVos);
+	}
+
+	@Override
+	public String listBankBranchEmployees(String rawData) {
+		boolean isSuccess = true;
+		List<BankEmployeeResumeVo> employeeResumeVos = null;
+		try {
+			Map<String, Object> paramValues = JsonUtil.parseJson(rawData, "bankId");
+			
+			employeeResumeVos = systemConfigDao.getBankBranchEmployees((int)paramValues.get("bankId"));
+		} catch (Exception e) {
+			isSuccess = false;
+		}
+		return JsonUtil.constructJson(isSuccess, null, employeeResumeVos);
 	}
 
 	@Override
@@ -127,8 +142,9 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 		try {
 			SubjectPo paramValues = (SubjectPo) JsonUtil.parseJson(rawData, SubjectPo.class);
 			
-			isSuccess = systemConfigDao.setSubjectDetails(paramValues);
-			retId.put("subjectId", paramValues.getSubjectId());
+			int subjectId = systemConfigDao.setSubjectDetails(paramValues);
+			
+			retId.put("subjectId", subjectId);
 		} catch (Exception e) {
 			isSuccess = false;
 		}

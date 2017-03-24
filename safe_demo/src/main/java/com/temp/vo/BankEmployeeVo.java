@@ -2,7 +2,7 @@ package com.temp.vo;
 
 public class BankEmployeeVo extends Vo {
 
-	private int bankEmployeeId; // 银行职员ID
+	private int employeeId; // 银行职员ID
 	
 	private String loginId; // 登录ID
 	
@@ -18,24 +18,26 @@ public class BankEmployeeVo extends Vo {
 	
 	private int isAdministrator; // 管理员卡
 	
-	private String bankName; // 网点
+	private int bankId; // 网点ID
+	
+	private String bankTitle; // 网点
 
 	public BankEmployeeVo() {}
 
 	@Override
 	public String toString() {
-		return "BankEmployeeVo [bankEmployeeId=" + bankEmployeeId + ", loginId=" + loginId + ", employeeName="
+		return "BankEmployeeVo [employeeId=" + employeeId + ", loginId=" + loginId + ", employeeName="
 				+ employeeName + ", priority=" + priority + ", icCardNo=" + icCardNo + ", certificateType="
 				+ certificateType + ", certificateId=" + certificateId + ", isAdministrator=" + isAdministrator
-				+ ", bankName=" + bankName + "]";
+				+ ", bankId=" + bankId + ", bankTitle=" + bankTitle + "]";
 	}
 
-	public int getBankEmployeeId() {
-		return bankEmployeeId;
+	public int getEmployeeId() {
+		return employeeId;
 	}
 
-	public void setBankEmployeeId(int bankEmployeeId) {
-		this.bankEmployeeId = bankEmployeeId;
+	public void setEmployeeId(int employeeId) {
+		this.employeeId = employeeId;
 	}
 
 	public String getLoginId() {
@@ -94,12 +96,20 @@ public class BankEmployeeVo extends Vo {
 		this.isAdministrator = isAdministrator;
 	}
 
-	public String getBankName() {
-		return bankName;
+	public int getBankId() {
+		return bankId;
 	}
 
-	public void setBankName(String bankName) {
-		this.bankName = bankName;
+	public void setBankId(int bankId) {
+		this.bankId = bankId;
+	}
+
+	public String getBankTitle() {
+		return bankTitle;
+	}
+
+	public void setBankTitle(String bankTitle) {
+		this.bankTitle = bankTitle;
 	}
 	
 }

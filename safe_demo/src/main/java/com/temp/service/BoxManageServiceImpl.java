@@ -10,14 +10,14 @@ import org.springframework.stereotype.Service;
 
 import com.temp.dao.BoxDao;
 import com.temp.dao.RentDao;
-import com.temp.po.BoxDetailsPo;
+import com.temp.po.BoxModelResumePo;
 import com.temp.po.BoxModelPo;
 import com.temp.po.ChangeBoxPo;
 import com.temp.util.BoxStatus;
 import com.temp.util.DateTimeUtil;
 import com.temp.util.JsonUtil;
 import com.temp.util.Utility;
-import com.temp.vo.BoxDetailsVo;
+import com.temp.vo.BoxModelResumeVo;
 import com.temp.vo.BoxModelVo;
 
 @Service
@@ -104,11 +104,11 @@ public class BoxManageServiceImpl implements BoxManageService {
 	}
 
 	@Override
-	public String listAllBoxs() {
+	public String listAllModelResumes() {
 		boolean isSuccess = true;
-		List<BoxDetailsVo> boxDetailsVos = null;
+		List<BoxModelResumeVo> boxDetailsVos = null;
 		try {
-			boxDetailsVos = boxDao.getAllBoxs();
+			boxDetailsVos = boxDao.getAllBoxModelResumes();
 		} catch (Exception e) {
 			isSuccess = false;
 		}		
@@ -116,12 +116,12 @@ public class BoxManageServiceImpl implements BoxManageService {
 	}
 
 	@Override
-	public String setBoxDetails(String rawData) {
+	public String setBoxModelResumes(String rawData) {
 		boolean isSuccess = true;
 		try {
-			BoxDetailsPo paramValues = (BoxDetailsPo) JsonUtil.parseJson(rawData, BoxDetailsPo.class);
+			BoxModelResumePo paramValues = (BoxModelResumePo) JsonUtil.parseJson(rawData, BoxModelResumePo.class);
 			
-			isSuccess = boxDao.setBoxDetails(paramValues);
+			isSuccess = boxDao.setAllBoxModelResumes(paramValues);
 		} catch (Exception e) {
 			isSuccess = false;
 		}
@@ -129,14 +129,14 @@ public class BoxManageServiceImpl implements BoxManageService {
 	}
 
 	@Override
-	public String deleteBox(String rawData) {
+	public String deleteBoxModel(String rawData) {
 		boolean isSuccess = true;
 		try {
-			Map<String, Object> paramValues = JsonUtil.parseJson(rawData, "boxIds");
+			Map<String, Object> paramValues = JsonUtil.parseJson(rawData, "boxModels");
 			
 			@SuppressWarnings("unchecked")
-			List<Integer> boxIds = (List<Integer>)paramValues.get("boxIds");
-			isSuccess = boxDao.deleteBox(boxIds);
+			List<String> boxIds = (List<String>)paramValues.get("boxModels");
+			isSuccess = boxDao.deleteBoxModel(boxIds);
 		} catch (Exception e) {
 			isSuccess = false;
 		}
@@ -162,21 +162,6 @@ public class BoxManageServiceImpl implements BoxManageService {
 			BoxModelPo paramValues = (BoxModelPo) JsonUtil.parseJson(rawData, BoxModelPo.class);
 			
 			isSuccess = boxDao.setBoxModelDetails(paramValues);
-		} catch (Exception e) {
-			isSuccess = false;
-		}
-		return JsonUtil.constructJson(isSuccess, null, null);
-	}
-
-	@Override
-	public String deleteBoxModel(String rawData) {
-		boolean isSuccess = true;
-		try {
-			Map<String, Object> paramValues = JsonUtil.parseJson(rawData, "boxModels");
-			
-			@SuppressWarnings("unchecked")
-			List<String> boxModels = (List<String>)paramValues.get("boxModels");
-			isSuccess = boxDao.deleteBoxModel(boxModels);
 		} catch (Exception e) {
 			isSuccess = false;
 		}

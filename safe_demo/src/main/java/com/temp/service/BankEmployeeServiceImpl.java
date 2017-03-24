@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import com.temp.dao.BankEmployeeDao;
 import com.temp.dao.LogDao;
 import com.temp.po.BankEmployeePo;
-import com.temp.po.MessagePo;
 import com.temp.util.JsonUtil;
 import com.temp.vo.BankEmployeeVo;
 
@@ -46,11 +45,13 @@ public class BankEmployeeServiceImpl implements BankEmployeeService {
 	}
 
 	@Override
-	public String listAllBankEmployees() {
+	public String listAllBankEmployees(String rawData) {
 		boolean isSuccess = true;
 		List<BankEmployeeVo> bankEmployeeVos = null;
 		try {
-			bankEmployeeVos = bankEmployeeDao.getAllBankEmployees();
+			Map<String, Object> paramValues = JsonUtil.parseJson(rawData, "bankId");
+			
+			bankEmployeeVos = bankEmployeeDao.getAllBankEmployees((int)paramValues.get("bankId"));
 		} catch (Exception e) {
 			isSuccess = false;
 		}		
@@ -64,8 +65,9 @@ public class BankEmployeeServiceImpl implements BankEmployeeService {
 		try {
 			BankEmployeePo paramValues = (BankEmployeePo) JsonUtil.parseJson(rawData, BankEmployeePo.class);
 			
-			isSuccess = bankEmployeeDao.setBankEmployeeDetails(paramValues);
-			bankEmployeeId.put("bankEmployeeId", paramValues.getBankEmployeeId());
+			int employeeId = bankEmployeeDao.setBankEmployeeDetails(paramValues);
+			
+			bankEmployeeId.put("employeeId", employeeId);
 		} catch (Exception e) {
 			isSuccess = false;
 		}

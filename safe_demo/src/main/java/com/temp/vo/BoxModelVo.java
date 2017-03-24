@@ -2,6 +2,8 @@ package com.temp.vo;
 
 public class BoxModelVo extends Vo {
 
+	private int boxModelNo; // 箱型编号
+	
 	private String boxModel; // 箱型名称
 	
 	private float deposit; // 箱型押金
@@ -22,9 +24,17 @@ public class BoxModelVo extends Vo {
 
 	@Override
 	public String toString() {
-		return "BoxModelVo [boxModel=" + boxModel + ", deposit=" + deposit + ", rentYear=" + rentYear + ", rentMonth="
-				+ rentMonth + ", rentDay=" + rentDay + ", boxLength=" + boxLength + ", boxWidth=" + boxWidth
-				+ ", boxHeight=" + boxHeight + "]";
+		return "BoxModelVo [boxModelNo=" + boxModelNo + ", boxModel=" + boxModel + ", deposit=" + deposit
+				+ ", rentYear=" + rentYear + ", rentMonth=" + rentMonth + ", rentDay=" + rentDay + ", boxLength="
+				+ boxLength + ", boxWidth=" + boxWidth + ", boxHeight=" + boxHeight + "]";
+	}
+
+	public int getBoxModelNo() {
+		return boxModelNo;
+	}
+
+	public void setBoxModelNo(int boxModelNo) {
+		this.boxModelNo = boxModelNo;
 	}
 
 	public String getBoxModel() {

@@ -10,6 +10,14 @@ public interface SystemConfigService {
 	String listAllMessages();
 	
 	/**
+	 * listBankBranchEmployees.
+	 * 
+	 * @param rawData
+	 * @return String
+	 */
+	String listBankBranchEmployees(final String rawData);
+	
+	/**
 	 * setMessageDetails.
 	 * 
 	 * @return String

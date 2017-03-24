@@ -28,17 +28,18 @@ public interface BankEmployeeDao {
 	/**
 	 * listAllBankEmployees.
 	 * 
+	 * @param bankId
 	 * @return List<BankEmployeeVo>
 	 */
-	List<BankEmployeeVo> getAllBankEmployees();
+	List<BankEmployeeVo> getAllBankEmployees(int bankId);
 	
 	/**
 	 * setBankEmployeeDetails.
 	 * 
 	 * @param bankEmployeePo
-	 * @return boolean
+	 * @return employeeId
 	 */
-	boolean setBankEmployeeDetails(BankEmployeePo bankEmployeePo);
+	int setBankEmployeeDetails(BankEmployeePo bankEmployeePo);
 	
 	/**
 	 * deleteMessage.

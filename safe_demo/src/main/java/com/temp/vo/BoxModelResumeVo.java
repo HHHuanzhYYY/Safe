@@ -1,26 +1,26 @@
-package com.temp.po;
+package com.temp.vo;
 
-public class BoxDetailsPo extends Po {
+public class BoxModelResumeVo extends Vo {
 
-	private int boxId; // 箱子ID
+	private int boxModelNo; // 箱型编号
 	
 	private String boxModel; // 箱型
 	
 	private String remark; // 备注
 
-	public BoxDetailsPo() {}
+	public BoxModelResumeVo() {}
 
 	@Override
 	public String toString() {
-		return "BoxDetailsVo [boxId=" + boxId + ", boxModel=" + boxModel + ", remark=" + remark + "]";
+		return "BoxModelResumeVo [boxModelNo=" + boxModelNo + ", boxModel=" + boxModel + ", remark=" + remark + "]";
 	}
 
-	public int getBoxId() {
-		return boxId;
+	public int getBoxModelNo() {
+		return boxModelNo;
 	}
 
-	public void setBoxId(int boxId) {
-		this.boxId = boxId;
+	public void setBoxModelNo(int boxModelNo) {
+		this.boxModelNo = boxModelNo;
 	}
 
 	public String getBoxModel() {

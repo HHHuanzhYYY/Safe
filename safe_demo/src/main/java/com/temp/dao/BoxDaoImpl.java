@@ -1,19 +1,23 @@
 package com.temp.dao;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.temp.po.BoxDetailsPo;
+import com.temp.po.BoxModelResumePo;
 import com.temp.po.BoxModelPo;
 import com.temp.po.ChangeBoxPo;
 import com.temp.util.AccountType;
 import com.temp.util.BoxStatus;
-import com.temp.vo.BoxDetailsVo;
+import com.temp.vo.BoxModelResumeVo;
 import com.temp.vo.BoxModelVo;
 import com.temp.vo.BoxVo;
 
@@ -144,42 +148,97 @@ public class BoxDaoImpl implements BoxDao {
 	}
 
 	@Override
-	public List<BoxDetailsVo> getAllBoxs() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public List<BoxModelResumeVo> getAllBoxModelResumes() {
+		String queryBoxDetailsSQL = "SELECT boxModelNo, boxModel, remark FROM box_model ";
+		List<BoxModelResumeVo> boxDetailsVos = jdbcTemplate.query(queryBoxDetailsSQL, 
+				new RowMapper<BoxModelResumeVo>() {
 
+			@Override
+			public BoxModelResumeVo mapRow(ResultSet rs, int arg1) throws SQLException {
+				BoxModelResumeVo boxModelResumeVo = new BoxModelResumeVo();
+				
+				boxModelResumeVo.setBoxModelNo(rs.getInt("boxModelNo"));
+				boxModelResumeVo.setBoxModel(rs.getString("boxModel"));
+				boxModelResumeVo.setRemark(rs.getString("remark"));
+				
+				return boxModelResumeVo;
+			}
+			
+		});
+		return boxDetailsVos;
+	}
+	
 	@Override
-	public boolean setBoxDetails(BoxDetailsPo boxDetailsPo) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean setAllBoxModelResumes(BoxModelResumePo boxModelResumePo) {
+		String insertBoxModelResumeSQL = "INSERT INTO box_model(boxModel, boxModelNo, remark) VALUES(?, ?, ?) ";
+		int count = jdbcTemplate.update(insertBoxModelResumeSQL, 
+				new Object[] {boxModelResumePo.getBoxModel(), 
+							  boxModelResumePo.getBoxModelNo(), 
+							  boxModelResumePo.getRemark()}, 
+				new int[] {Types.VARCHAR, Types.INTEGER, Types.VARCHAR});
+		return count == 1 ? true : false;
 	}
-
+	
 	@Override
-	public boolean deleteBox(List<Integer> boxIds) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean deleteBoxModel(List<String> boxModels) {
+		String deleteBoxModelSQL = "DELETE FROM box_model WHERE boxModel = ? ";
+		List<Object[]> batchArgs = new ArrayList<>();
+		for (String boxModel : boxModels) {
+			Object[] batchArg = new Object[] {boxModel};
+			batchArgs.add(batchArg);
+		}
+		int[] ret = jdbcTemplate.batchUpdate(deleteBoxModelSQL, batchArgs, new int[] {Types.VARCHAR});
+		
+		return ret.length == 0 ? false : true;
 	}
-
+	
 	@Override
 	public List<BoxModelVo> getAllBoxModels() {
-		// TODO Auto-generated method stub
-		return null;
+		String queryBoxModelSQL = "SELECT boxModel, boxModelNo, deposit, rentYear, rentMonth, "
+									   + "rentDay, boxLength, boxWidth, boxHeight "
+				                + "FROM box_model ";
+		List<BoxModelVo> boxModelVos = jdbcTemplate.query(queryBoxModelSQL, 
+				new RowMapper<BoxModelVo>() {
+
+					@Override
+					public BoxModelVo mapRow(ResultSet rs, int arg1) throws SQLException {
+						BoxModelVo boxModelVo = new BoxModelVo();
+						
+						boxModelVo.setBoxModel(rs.getString("boxModel"));
+						boxModelVo.setBoxModelNo(rs.getInt("boxModelNo"));
+						boxModelVo.setDeposit(rs.getFloat("deposit"));
+						boxModelVo.setRentYear(rs.getFloat("rentYear"));
+						boxModelVo.setRentMonth(rs.getFloat("rentMonth"));
+						boxModelVo.setRentDay(rs.getFloat("rentDay"));
+						boxModelVo.setBoxLength(rs.getFloat("boxLength"));
+						boxModelVo.setBoxWidth(rs.getFloat("boxWidth"));
+						boxModelVo.setBoxHeight(rs.getFloat("boxHeight"));
+						
+						return boxModelVo;
+					}
+			
+		});
+		return boxModelVos;
 	}
 
 	@Override
 	public boolean setBoxModelDetails(BoxModelPo boxModelPo) {
-		// TODO Auto-generated method stub
-		return false;
+		String updateBoxModelSQL = "UPDATE box_model "
+								 + "SET deposit = ?, rentYear = ?, rentMonth = ?, rentDay = ?, "
+								     + "boxLength = ?, boxWidth = ?, boxHeight = ? "
+								 + "WHERE boxModel = ? ";
+		int count = jdbcTemplate.update(updateBoxModelSQL, 
+				new Object[] {boxModelPo.getDeposit(), 
+							  boxModelPo.getRentYear(), 
+							  boxModelPo.getRentMonth(), 
+							  boxModelPo.getRentDay(), 
+							  boxModelPo.getBoxLength(), 
+							  boxModelPo.getBoxWidth(), 
+							  boxModelPo.getBoxHeight(), 
+							  boxModelPo.getBoxModel()}, 
+				new int[] {Types.FLOAT, Types.FLOAT, Types.FLOAT, Types.FLOAT, 
+						   Types.FLOAT, Types.FLOAT, Types.FLOAT, Types.VARCHAR});
+		return count == 1 ? true : false;
 	}
-
-	@Override
-	public boolean deleteBoxModel(List<String> boxModels) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	
-	
 
 }
