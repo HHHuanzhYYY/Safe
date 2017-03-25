@@ -3,6 +3,7 @@ package com.temp.dao;
 import java.util.List;
 
 import com.temp.po.AccountPo;
+import com.temp.util.CertificateType;
 import com.temp.vo.AccountVo;
 
 public interface AccountDao {
@@ -13,7 +14,7 @@ public interface AccountDao {
 	 * @param id identity card
 	 * @return AccountListVo
 	 */
-	public List<AccountVo> getAccountListById(final int type, final String id);
+	public List<AccountVo> getAccountListById(final CertificateType type, final String id);
 	
 	/**
 	 * getAccountListByRFID.
@@ -30,15 +31,5 @@ public interface AccountDao {
 	 * @return boolean
 	 */
 	public boolean setAccount(final AccountPo accountPo);
-	
-	/**
-	 * generateAccountId.
-	 * 
-	 * @return accountId
-	 */
-	default long generateAccountId() {
-		return 0;
-	}
-	
 	
 }

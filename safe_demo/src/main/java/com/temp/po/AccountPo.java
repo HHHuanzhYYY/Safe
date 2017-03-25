@@ -5,11 +5,11 @@ import java.util.List;
 
 public class AccountPo extends Po {
 
-	private long accountId;
+	private String accountId;
 	
 	private int accountType;
 	
-	private String bankId;
+	private int bankId;
 	
 	private int isAccountFree;
 	
@@ -35,11 +35,11 @@ public class AccountPo extends Po {
 				+ ", rents=" + rents + "]";
 	}
 
-	public long getAccountId() {
+	public String getAccountId() {
 		return accountId;
 	}
 
-	public void setAccountId(long accountId) {
+	public void setAccountId(String accountId) {
 		this.accountId = accountId;
 	}
 
@@ -51,11 +51,11 @@ public class AccountPo extends Po {
 		this.accountType = accountType;
 	}
 
-	public String getBankId() {
+	public int getBankId() {
 		return bankId;
 	}
 
-	public void setBankId(String bankId) {
+	public void setBankId(int bankId) {
 		this.bankId = bankId;
 	}
 

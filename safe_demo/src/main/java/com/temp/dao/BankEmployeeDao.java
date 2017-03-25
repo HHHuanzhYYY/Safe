@@ -12,9 +12,9 @@ public interface BankEmployeeDao {
 	 * 
 	 * @param employeeName
 	 * @param employeePwd
-	 * @return boolean
+	 * @return employeeId
 	 */
-	boolean validateBankEmployeeByNameAndPwd(String employeeName, String employeePwd); 
+	int validateBankEmployeeByNameAndPwd(String employeeName, String employeePwd); 
 	
 	/**
 	 * validateBankEmployeeByIdAndPwd.

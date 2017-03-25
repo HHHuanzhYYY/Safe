@@ -1,15 +1,19 @@
 package com.temp.dao;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.temp.po.AccountPo;
+import com.temp.util.CertificateType;
 import com.temp.vo.AccountVo;
 
 @Repository
@@ -19,50 +23,80 @@ public class AccountDaoImpl implements AccountDao {
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
-	public List<AccountVo> getAccountListById(int type, String id) {
-		final String sql = "SELECT account.AccountId, account.AccountType, account.BankId, account.CustomerSum " + 
-						   "FROM customer, account_customer_relation, account " + 
-						   "WHERE account.AccountId = account_customer_relation.AccountId " + 
-						     "AND account_customer_relation.CustomerId = customer.CustomerId " + 
-						     "AND customer.CertificateType=? " +
-						     "AND customer.CertificateNum=?";
+	public List<AccountVo> getAccountListById(CertificateType type, String id) {
+		final String queryAccountSQL = 
+				"SELECT account.accountId, account.accountType, account.bankId, account.customerSum " + 
+				"FROM customer, account_customer_relation, account " + 
+				"WHERE account.accountId = account_customer_relation.accountId " + 
+				  "AND account_customer_relation.customerId = customer.customerId " + 
+				  "AND customer.certificateType = ? " +
+				  "AND customer.certificateNo = ? ";
 		
-		List<AccountVo> res = jdbcTemplate.queryForList(sql, AccountVo.class, type, id);
-		return res;
+		List<AccountVo> reAccountVos = jdbcTemplate.query(queryAccountSQL, 
+				new Object[] {type.getValue(), id}, 
+				new int[] {Types.INTEGER, Types.VARCHAR}, 
+				new RowMapper<AccountVo>() {
+
+					@Override
+					public AccountVo mapRow(ResultSet rs, int arg1) throws SQLException {
+						AccountVo accountVo = new AccountVo();
+						
+						accountVo.setAccountId(rs.getString("accountId"));
+						accountVo.setAccountType(rs.getInt("accountType"));
+						accountVo.setBankId(rs.getString("bankId"));
+						accountVo.setCustomerSum(rs.getInt("customerSum"));
+						
+						return accountVo;
+					}
+				});
+		return reAccountVos;
 	}
 
 	@Override
 	public List<AccountVo> getAccountListByRFID(String rfid) {
-		final String sql = "SELECT account.AccountId, account.AccountType, account.BankId, account.CustomerSum " +
-						   "FROM account, card " +
-						   "WHERE card.AccountId = account.AccountId AND card.CardRfid=?";
-		List<AccountVo> res = jdbcTemplate.queryForList(sql, AccountVo.class, rfid);
-		return res;
+		final String queryAccountSQL = 
+				"SELECT account.accountId, account.accountType, account.bankId, account.customerSum " +
+				"FROM account, card " +
+				"WHERE card.accountId = account.accountId AND card.cardRfid = ?";
+		List<AccountVo> reAccountVos = jdbcTemplate.query(queryAccountSQL, 
+				new Object[] {rfid}, 
+				new int[] {Types.VARCHAR}, 
+				new RowMapper<AccountVo>() {
+
+					@Override
+					public AccountVo mapRow(ResultSet rs, int arg1) throws SQLException {
+						AccountVo accountVo = new AccountVo();
+						
+						accountVo.setAccountId(rs.getString("accountId"));
+						accountVo.setAccountType(rs.getInt("accountType"));
+						accountVo.setBankId(rs.getString("bankId"));
+						accountVo.setCustomerSum(rs.getInt("customerSum"));
+						
+						return accountVo;
+					}
+				});
+		return reAccountVos;
 	}
 
 	@Override
 	public boolean setAccount(AccountPo accountPo) {
-		final String insertAccountSQL = "INSERT INTO account VALUES(?, ?, ?, NOW(), NULL, ?, ?, ?, ?, ?)";
-		
-		long accountId = generateAccountId();
-		accountPo.setAccountId(accountId);
+		final String insertAccountSQL = "INSERT INTO account VALUES(?, ?, NOW(), NULL, ?, ?, ?, ?, ?, ?)";
 		
 		int count = jdbcTemplate.update(insertAccountSQL, new PreparedStatementSetter() {
 
 			@Override
 			public void setValues(PreparedStatement pst) throws SQLException {
 				int i = 1;
-				pst.setLong(i++, accountId);
+				pst.setString(i++, accountPo.getAccountId());
 				pst.setInt(i++, accountPo.getAccountType());
-				pst.setString(i++, accountPo.getBankId());
 				pst.setInt(i++, accountPo.getIsAccountFree());
 				pst.setFloat(i++, accountPo.getOpenAccountFee());
 				pst.setInt(i++, accountPo.getPaymentType());
 				pst.setFloat(i++, accountPo.getAmountSum());
 				pst.setInt(i++, accountPo.getCustomerSum());
+				pst.setInt(i++, accountPo.getBankId());
 			}			
-		});
-		
+		});	
 		return count == 1 ? true : false;
 	}
 	

@@ -16,7 +16,7 @@ public class CardPo extends Po {
 	
 	private String reserveFingerPwd;
 	
-	private long accountId;
+	private String accountId;
 	
 	private int customerId;
 
@@ -85,11 +85,11 @@ public class CardPo extends Po {
 		this.reserveFingerPwd = reserveFingerPwd;
 	}
 
-	public long getAccountId() {
+	public String getAccountId() {
 		return accountId;
 	}
 
-	public void setAccountId(long accountId) {
+	public void setAccountId(String accountId) {
 		this.accountId = accountId;
 	}
 

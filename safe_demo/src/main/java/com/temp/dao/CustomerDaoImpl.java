@@ -30,12 +30,6 @@ public class CustomerDaoImpl implements CustomerDao {
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
-	public boolean validateCustomerByNameAndPwd(String name, String pwd) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public boolean validateCustomer(int accountId, PwdType pwdType, String pwd) {
 		StringBuilder sb = new StringBuilder("SELECT COUNT(cardRfid) AS sum FROM card WHERE accountId = ? ");
 		switch (pwdType) {
@@ -59,6 +53,12 @@ public class CustomerDaoImpl implements CustomerDao {
 				Integer.class);
 		return count == 1 ? true : false;
 	}
+	
+	@Override
+	public boolean validateCustomerByNameAndPwd(String name, String pwd) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 	@Override
 	public CustomerVo getCustomerDetailsById(int custormerId) {
@@ -77,28 +77,74 @@ public class CustomerDaoImpl implements CustomerDao {
 	}
 
 	@Override
-	public List<CustomerVo> getAllCustomersByAccountId(long accountId, AccountType accountType) {
-		String queryCustomersSQL = "";
+	public List<CustomerVo> getAllCustomersByAccountId(String accountId, AccountType accountType) {
+		List<CustomerVo> customerVos = null;
 		if (AccountType.SINGLE.equals(accountType)) {
 			// Card 信息绑定到 Box 上面
-			queryCustomersSQL = "SELECT customer.customerName, customer.customerSex, "
-					                 + "customer.certificateType, customer.certificateNo, "
-					                 + "customer.mobile " 
-					          + "FROM customer, account_customer_relationship "
-					          + "WHERE customer.customerId = account_customer_relationship.customerId "
-					            + "AND accountId = ?";
+			String queryCustomersSQL = "SELECT customer.customerName, "
+									 		+ "customer.customerSex, "
+									 		+ "customer.certificateType, "
+									 		+ "customer.certificateNo, "
+									 		+ "customer.mobile " 
+									 + "FROM customer, account_customer_relationship "
+									 + "WHERE customer.customerId = account_customer_relationship.customerId "
+									   + "AND accountId = ?";
+			customerVos = jdbcTemplate.query(queryCustomersSQL, 
+					new Object[] {accountId}, 
+					new int[] {Types.VARCHAR}, 
+					new RowMapper<CustomerVo>() {
+
+						@Override
+						public CustomerVo mapRow(ResultSet rs, int arg1) throws SQLException {
+							CustomerVo customerVo = new CustomerVo();
+							
+							customerVo.setCustomerName(rs.getString("customerName"));
+							customerVo.setCustomerSex(rs.getInt("customerSex"));
+							customerVo.setCertificateType(rs.getInt("certificateType"));
+							customerVo.setCertificateNo(rs.getString("certificateNo"));
+							customerVo.setMobile(rs.getString("mobile"));
+							
+							return customerVo;
+						}
+					}
+			);
 		} else if (AccountType.UION.equals(accountType)) {
 			// Card 信息绑定到 Customer 上面
-			queryCustomersSQL = "SELECT customer.customerName, customer.customerSex, "
-									 + "customer.certificateType, customer.certificateNo, customer.mobile, "
-									 + "card.cardNo, card.cardRfid, card.cardType, card.cardStatus "
-							  + "FROM customer, card "
-							  + "WHERE customer.customerId = card.customerId AND card.accountId = ?";
+			String queryCustomersSQL = "SELECT customer.customerName, "
+											+ "customer.customerSex, "
+											+ "customer.certificateType, "
+											+ "customer.certificateNo, "
+											+ "customer.mobile, "
+											+ "card.cardNo, "
+											+ "card.cardRfid, "
+											+ "card.cardType, "
+											+ "card.cardStatus "
+									 + "FROM customer, card "
+									 + "WHERE customer.customerId = card.customerId AND card.accountId = ?";
+			customerVos = jdbcTemplate.query(queryCustomersSQL, 
+					new Object[] {accountId}, 
+					new int[] {Types.VARCHAR}, 
+					new RowMapper<CustomerVo>() {
+
+						@Override
+						public CustomerVo mapRow(ResultSet rs, int arg1) throws SQLException {
+							CustomerVo customerVo = new CustomerVo();
+							
+							customerVo.setCustomerName(rs.getString("customerName"));
+							customerVo.setCustomerSex(rs.getInt("customerSex"));
+							customerVo.setCertificateType(rs.getInt("certificateType"));
+							customerVo.setCertificateNo(rs.getString("certificateNo"));
+							customerVo.setMobile(rs.getString("mobile"));
+							customerVo.setCardNo(rs.getString("cardNo"));
+							customerVo.setCardRfid(rs.getString("cardRfid"));
+							customerVo.setCardType(rs.getInt("cardType"));
+							customerVo.setCardStatus(rs.getInt("cardStatus"));
+							
+							return customerVo;
+						}
+					}
+			);
 		}
-		
-		List<CustomerVo> customerVos = jdbcTemplate.queryForList(queryCustomersSQL, 
-				new Object[] {accountId}, new int[] {Types.BIGINT}, CustomerVo.class);
-		
 		return customerVos;
 	}
 
@@ -139,9 +185,14 @@ public class CustomerDaoImpl implements CustomerDao {
 	}
 	
 	@Override
-	public boolean setAccountCustomerRelationship(long accountId, int customerId) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean setAccountCustomerRelationship(String accountId, int customerId) {
+		String insertAccountCustomerRelationshipSQL = 
+				"INSERT INTO account_customer_relationship(accountId, customerId)"
+			  + "VALUES(?, ?) ";
+		int count = jdbcTemplate.update(insertAccountCustomerRelationshipSQL, 
+				new Object[] {accountId, customerId}, 
+				new int[] {Types.VARCHAR, Types.INTEGER});
+		return count == 1 ? true : false;
 	}
 
 	@Override

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.temp.po.BankEmployeeLoginLogPo;
 import com.temp.util.ReportLossAction;
 
 @Repository
@@ -13,6 +14,17 @@ public class LogDaoImpl implements LogDao {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+
+	@Override
+	public boolean setEmployeeLoginLog(BankEmployeeLoginLogPo bankEmployeeLoginLogPo) {
+		String insertEmployeeLoginLogSQL = "INSERT INTO employee_login_log(loginDateTime, remark, employeeId) "
+										 + "VALUES(sysdate(), ?, ?) ";
+		int count = jdbcTemplate.update(insertEmployeeLoginLogSQL, 
+				new Object[] {bankEmployeeLoginLogPo.getEmployeeId(), 
+						      bankEmployeeLoginLogPo.getRemark()}, 
+				new int[] {Types.INTEGER, Types.VARCHAR});
+		return count == 1 ? true : false;
+	}
 	
 	@Override
 	public boolean setReportLossLog(ReportLossAction reportLossAction, 

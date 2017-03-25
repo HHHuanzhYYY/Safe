@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.temp.dao.BankEmployeeDao;
 import com.temp.dao.LogDao;
+import com.temp.po.BankEmployeeLoginLogPo;
 import com.temp.po.BankEmployeePo;
 import com.temp.util.JsonUtil;
 import com.temp.vo.BankEmployeeVo;
@@ -25,23 +26,25 @@ public class BankEmployeeServiceImpl implements BankEmployeeService {
 
 	@Override
 	public String validateBankEmployee(final String rawData) {
-		boolean isValidateSucceed = false;
+		boolean isSuccess = false;
+		int employeeId = 0;
 		try {
 			final String utf8Data = URLDecoder.decode(rawData, "UTF-8");
 			
-			Map<String, Object> requestInfo = JsonUtil.parseJson(utf8Data, "Name", "Password");
+			Map<String, Object> requestInfo = JsonUtil.parseJson(utf8Data, "name", "password");
 			
-			isValidateSucceed = bankEmployeeDao.validateBankEmployeeByNameAndPwd(
-					(String)requestInfo.get("Name"), (String)requestInfo.get("Password"));			
+			employeeId = bankEmployeeDao.validateBankEmployeeByNameAndPwd(
+					(String)requestInfo.get("name"), (String)requestInfo.get("password"));			
 		} catch (Exception e) {
-			isValidateSucceed = false;
+			isSuccess = false;
 		}
 		
-		// Log.
+		// Log BankEmployee`s Login Action.
+		BankEmployeeLoginLogPo bankEmployeeLoginLogPo = new BankEmployeeLoginLogPo();
+		bankEmployeeLoginLogPo.setEmployeeId(employeeId);
+		logDao.setEmployeeLoginLog(bankEmployeeLoginLogPo);
 		
-		String retJson = JsonUtil.constructJson(isValidateSucceed, null, null);
-		
-		return retJson;
+		return JsonUtil.constructJson(isSuccess, null, null);
 	}
 
 	@Override

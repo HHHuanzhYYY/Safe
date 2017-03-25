@@ -26,9 +26,15 @@ public class BankEmployeeDaoImpl implements BankEmployeeDao {
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
-	public boolean validateBankEmployeeByNameAndPwd(String employeeName, String employeePwd) {
-		// TODO Auto-generated method stub
-		return false;
+	public int validateBankEmployeeByNameAndPwd(String employeeName, String employeePwd) {
+		String validateBankEmployeeSQL = "SELECT employeeId "
+									   + "FROM bank_employee "
+									   + "WHERE employeeName = ? AND `password` = ? ";
+		int employeeId = jdbcTemplate.queryForObject(validateBankEmployeeSQL, 
+				new Object[] {employeeName, employeePwd}, 
+				new int[] {Types.VARCHAR, Types.VARCHAR}, 
+				Integer.class);
+		return employeeId;
 	}
 
 	@Override

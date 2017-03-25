@@ -11,19 +11,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.temp.service.CustomerManageService;
+import com.temp.service.BankEmployeeService;
 
 @Controller  
 public class UniformController {  
 	
     @Autowired
-    private CustomerManageService customerManageService;  
+    private BankEmployeeService bankEmployeeService;
       
     @RequestMapping(value="/login", method={RequestMethod.GET, RequestMethod.POST}) 
     public void login(HttpServletRequest request, HttpServletResponse response) {    	
 		final String rawData = request.getParameter("info");
 		try {
-			String resJSON = customerManageService.customerLogin(rawData);
+			String resJSON = bankEmployeeService.validateBankEmployee(rawData);
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			

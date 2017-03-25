@@ -14,7 +14,6 @@ import org.springframework.stereotype.Repository;
 
 import com.temp.po.BoxModelResumePo;
 import com.temp.po.BoxModelPo;
-import com.temp.po.ChangeBoxPo;
 import com.temp.util.AccountType;
 import com.temp.util.BoxStatus;
 import com.temp.vo.BoxModelResumeVo;
@@ -28,50 +27,93 @@ public class BoxDaoImpl implements BoxDao {
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
-	public List<BoxVo> getAllBoxsByAccountId(long accountId, AccountType accountType) {
+	public List<BoxVo> getAllBoxsByAccountId(String accountId, AccountType accountType) {
 		List<BoxVo> boxVos = null;
 		String queryBoxesSQL = "";
 		if (AccountType.SINGLE.equals(accountType)) {
 			// Card 信息绑定到 Box 上面
-			queryBoxesSQL = "SELECT box.boxId, box.boxModel, box.keyId, "
-					             + "cardtemp.cardNo, cardtemp.cardRfid, cardtemp.cardType, cardtemp.cardStatus, "
-					             + "rent.deposit, rent.actualRent, rent.endDate " 
-					      + "FROM rent, box, (SELECT card.cardNo, card.cardRfid, card.cardType, "
-					                              + "card.cardStatus, card.accountId "
+			queryBoxesSQL = "SELECT box.boxId, "
+								 + "box.boxModel, "
+								 + "box.keyNo, "
+					             + "cardtemp.cardNo, "
+					             + "cardtemp.cardRfid, "
+					             + "cardtemp.cardType, "
+					             + "cardtemp.cardStatus, "
+					             + "rent.deposit, "
+					             + "rent.actualRent, "
+					             + "rent.endDate " 
+					      + "FROM rent, box, (SELECT card.cardNo, "
+					      						  + "card.cardRfid, "
+					      						  + "card.cardType, "
+					                              + "card.cardStatus, "
+					                              + "card.accountId "
 					      				   + "FROM card "
 					      				   + "WHERE card.accountId = ?) AS cardtemp "
 					      + "WHERE rent.boxId = box.boxId "
 					        + "AND rent.accountId = cardtemp.accountId "
 					        + "AND rent.accountId = ?";
 			
-			boxVos = jdbcTemplate.queryForList(queryBoxesSQL, 
+			boxVos = jdbcTemplate.query(queryBoxesSQL, 
 					new Object[] {accountId, accountId}, 
-					new int[] {Types.BIGINT, Types.BIGINT}, 
-					BoxVo.class);
+					new int[] {Types.VARCHAR, Types.VARCHAR}, 
+					new RowMapper<BoxVo>() {
+
+						@Override
+						public BoxVo mapRow(ResultSet rs, int arg1) throws SQLException {
+							BoxVo boxVo = new BoxVo();
+							
+							boxVo.setBoxId(rs.getInt("boxId"));
+							boxVo.setBoxModel(rs.getInt("boxModel"));
+							boxVo.setKeyNo(rs.getString("keyNo"));
+							boxVo.setCardNo(rs.getString("cardNo"));
+							boxVo.setCardRfid(rs.getString("cardRfid"));
+							boxVo.setCardType(rs.getInt("cardType"));
+							boxVo.setCardStatus(rs.getInt("cardStatus"));
+							boxVo.setDeposit(rs.getFloat("deposit"));
+							boxVo.setActualRent(rs.getFloat("actualRent"));
+							boxVo.setEndDate(new java.util.Date(rs.getDate("endDate").getTime()));
+							
+							return boxVo;
+						}
+					});
 		} else if (AccountType.UION.equals(accountType)) {
 			// Card 信息绑定到 Customer 上面
-			queryBoxesSQL = "SELECT box.bankId, box.boxModel, box.keyId, "
-					             + "rent.deposit, rent.actualRent, rent.endDate "
+			queryBoxesSQL = "SELECT box.boxId, "
+								 + "box.boxModel, "
+								 + "box.keyNo, "
+					             + "rent.deposit, "
+					             + "rent.actualRent, "
+					             + "rent.endDate "
 					      + "FROM rent, box " 
-					      + "WHERE rent.boxId = box.boxId and rent.accountId = ? ";
-			boxVos = jdbcTemplate.queryForList(queryBoxesSQL, 
+					      + "WHERE rent.boxId = box.boxId "
+					        + "AND rent.accountId = ? ";
+			boxVos = jdbcTemplate.query(queryBoxesSQL, 
 					new Object[] {accountId}, 
-					new int[] {Types.BIGINT}, 
-					BoxVo.class);
-		}
-		
+					new int[] {Types.VARCHAR}, 
+					new RowMapper<BoxVo>() {
+
+						@Override
+						public BoxVo mapRow(ResultSet rs, int arg1) throws SQLException {
+							BoxVo boxVo = new BoxVo();
+							
+							boxVo.setBoxId(rs.getInt("boxId"));
+							boxVo.setBoxModel(rs.getInt("boxModel"));
+							boxVo.setKeyNo(rs.getString("keyNo"));
+							boxVo.setDeposit(rs.getFloat("deposit"));
+							boxVo.setActualRent(rs.getFloat("actualRent"));
+							boxVo.setEndDate(new java.util.Date(rs.getDate("endDate").getTime()));
+							
+							return boxVo;
+						}
+					});
+		}		
 		return boxVos;
 	}
 
 	@Override
-	public boolean setBox(BoxVo box) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public boolean setBoxCardRelationship(int boxId, String cardRfid) {
-		final String insertBoxCardRelationshipSQL = "INSERT INTO box_card_relationship(cardRfid, boxId) VALUES (?, ?)";
+		final String insertBoxCardRelationshipSQL = 
+				"INSERT INTO box_card_relationship(cardRfid, boxId) VALUES (?, ?)";
 		
 		int count = jdbcTemplate.update(insertBoxCardRelationshipSQL, 
 				new Object[] {cardRfid, boxId}, 
@@ -133,18 +175,6 @@ public class BoxDaoImpl implements BoxDao {
 		String modifySQL = "UPDATE box_card_relationship SET boxId = ? WHERE boxId = ? ";
 		int count = jdbcTemplate.update(modifySQL, newBoxId, oldBoxId);
 		return count > 0 ? true : false;
-	}
-
-	@Override
-	public boolean setChangeBoxDetails(ChangeBoxPo changeBoxPo) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean setBoxNewKey(int boxId, String keyId) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	@Override
@@ -239,6 +269,12 @@ public class BoxDaoImpl implements BoxDao {
 				new int[] {Types.FLOAT, Types.FLOAT, Types.FLOAT, Types.FLOAT, 
 						   Types.FLOAT, Types.FLOAT, Types.FLOAT, Types.VARCHAR});
 		return count == 1 ? true : false;
+	}
+
+	@Override
+	public boolean setBoxNewKey(int boxId, String keyId) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

@@ -1,6 +1,14 @@
 package com.temp.service;
 
 public interface CustomerManageService {
+		
+	/**
+	 * validateCustomer.
+	 * 
+	 * @param rawData String from HttpRequest
+	 * @return JSON String Contains Account Info.
+	 */
+	String validateCustomer(final String rawData);
 	
 	/**
 	 * customerLogin.
@@ -9,14 +17,6 @@ public interface CustomerManageService {
 	 * @return JSON String Contains Account Info.
 	 */
 	String customerLogin(final String rawData);
-	
-	/**
-	 * validateCustomer.
-	 * 
-	 * @param rawData String from HttpRequest
-	 * @return JSON String Contains Account Info.
-	 */
-	String validateCustomer(final String rawData);
 
 	/**
 	 * getCustomerInfo.

@@ -5,7 +5,6 @@ import java.util.Map;
 
 import com.temp.po.BoxModelResumePo;
 import com.temp.po.BoxModelPo;
-import com.temp.po.ChangeBoxPo;
 import com.temp.util.AccountType;
 import com.temp.util.BoxStatus;
 import com.temp.vo.BoxModelResumeVo;
@@ -21,15 +20,7 @@ public interface BoxDao {
 	 * @param accountType
 	 * @return List<BoxVo>
 	 */
-	List<BoxVo> getAllBoxsByAccountId(final long accountId, final AccountType accountType);
-	
-	/**
-	 * setBox.
-	 * 
-	 * @param box
-	 * @return boolean
-	 */
-	boolean setBox(BoxVo box);
+	List<BoxVo> getAllBoxsByAccountId(final String accountId, final AccountType accountType);
 	
 	/**
 	 * setBoxCardRelationship.
@@ -57,14 +48,6 @@ public interface BoxDao {
 	 * @return Map<String, Object>
 	 */
 	Map<String, Object> getBoxKeyDetails(int boxId);
-	
-	/**
-	 * setChangeBoxDetails.
-	 * 
-	 * @param changeBoxPo
-	 * @return boolean
-	 */
-	boolean setChangeBoxDetails(ChangeBoxPo changeBoxPo);
 	
 	/**
 	 * modifyBoxCardRelationship.

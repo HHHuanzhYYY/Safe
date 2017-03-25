@@ -12,15 +12,6 @@ import com.temp.vo.CustomerVo;
 public interface CustomerDao {
 	
 	/**
-	 * validateCustomerByNameAndPwd.
-	 * 
-	 * @param name
-	 * @param pwd
-	 * @return boolean
-	 */
-	boolean validateCustomerByNameAndPwd(String name, String pwd);
-
-	/**
 	 * validateCustomer.
 	 * 
 	 * @param accountId
@@ -29,6 +20,16 @@ public interface CustomerDao {
 	 * @return boolean
 	 */
 	boolean validateCustomer(int accountId, PwdType pwdType, String pwd);
+	
+	/**
+	 * validateCustomerByNameAndPwd.
+	 * 
+	 * @param name
+	 * @param pwd
+	 * @return boolean
+	 */
+	boolean validateCustomerByNameAndPwd(String name, String pwd);
+
 	
 	/**
 	 * getCustomerDetailsById.
@@ -54,7 +55,7 @@ public interface CustomerDao {
 	 * @param accountId
 	 * @return List<CustomerVo>
 	 */
-	List<CustomerVo> getAllCustomersByAccountId(final long accountId, final AccountType accountType);
+	List<CustomerVo> getAllCustomersByAccountId(final String accountId, final AccountType accountType);
 	
 	/**
 	 * setCustomer.
@@ -80,7 +81,7 @@ public interface CustomerDao {
 	 * @param customerId
 	 * @return boolean
 	 */
-	boolean setAccountCustomerRelationship(long accountId, int customerId);
+	boolean setAccountCustomerRelationship(String accountId, int customerId);
 	
 	/**
 	 * setCustomerData.

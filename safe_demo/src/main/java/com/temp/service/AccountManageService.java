@@ -1,5 +1,7 @@
 package com.temp.service;
 
+import java.util.Random;
+
 public interface AccountManageService {
 
 	/**
@@ -25,4 +27,13 @@ public interface AccountManageService {
 	 * @return JSON String Contains Account Info.
 	 */
 	String setAccountInfo(final String rawData);
+	
+	/**
+	 * generateAccountId.
+	 * 
+	 * @return accountId
+	 */
+	default String generateAccountId() {
+		return Long.toString(new Random().nextLong());
+	}
 }

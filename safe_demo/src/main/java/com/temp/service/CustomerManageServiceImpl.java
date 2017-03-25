@@ -20,21 +20,6 @@ public class CustomerManageServiceImpl implements CustomerManageService {
 	private CustomerDao customerDao;
 
 	@Override
-	public String customerLogin(String rawData) {
-		boolean isValidateSucceed = true;
-		try {
-			Map<String, Object> paramValues = JsonUtil.parseJson(rawData, "name", "password");
-			
-			isValidateSucceed = customerDao.validateCustomerByNameAndPwd(
-					(String)paramValues.get("name"), 
-					(String)paramValues.get("password"));
-		} catch (Exception e) {
-			isValidateSucceed = false;
-		}
-		return JsonUtil.constructJson(isValidateSucceed, null, null);
-	}
-	
-	@Override
 	public String validateCustomer(String rawData) {
 		boolean isValidateSucceed = true;
 		try {
@@ -49,7 +34,22 @@ public class CustomerManageServiceImpl implements CustomerManageService {
 		}
 		return JsonUtil.constructJson(isValidateSucceed, null, null);
 	}
-
+	
+	@Override
+	public String customerLogin(String rawData) {
+		boolean isValidateSucceed = true;
+		try {
+			Map<String, Object> paramValues = JsonUtil.parseJson(rawData, "name", "password");
+			
+			isValidateSucceed = customerDao.validateCustomerByNameAndPwd(
+					(String)paramValues.get("name"), 
+					(String)paramValues.get("password"));
+		} catch (Exception e) {
+			isValidateSucceed = false;
+		}
+		return JsonUtil.constructJson(isValidateSucceed, null, null);
+	}
+	
 	@Override
 	public String getCustomerInfoById(String rawData) {
 		boolean isSuccess = true;

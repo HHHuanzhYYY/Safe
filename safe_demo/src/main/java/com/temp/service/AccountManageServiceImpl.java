@@ -54,8 +54,7 @@ public class AccountManageServiceImpl implements AccountManageService {
 			
 			switch (certificateType) {
 			case 1:
-				accounts = accountDao.getAccountListById(
-						CertificateType.ID.getValue(), 
+				accounts = accountDao.getAccountListById(CertificateType.ID, 
 						(String)requestParams.get("certificateNo"));
 				break;
 			case 2:
@@ -81,10 +80,11 @@ public class AccountManageServiceImpl implements AccountManageService {
 					
 			// Customer List.
 			List<CustomerVo> allCustomers = customerDao.getAllCustomersByAccountId(
-					(Integer)requestParams.get("accountId"), accountType);
+					(String)requestParams.get("accountId"), accountType);
+			
 			// Box List.
 			List<BoxVo> allBoxs = boxDao.getAllBoxsByAccountId(
-					(Integer)requestParams.get("accountId"), accountType);
+					(String)requestParams.get("accountId"), accountType);
 			
 			dataContents.put("customerList", allCustomers);
 			dataContents.put("boxList", allBoxs);
@@ -100,6 +100,11 @@ public class AccountManageServiceImpl implements AccountManageService {
 		try {
 			// AccountPo.
 			AccountPo newAccount = (AccountPo) JsonUtil.parseJson(rawData, AccountPo.class);
+			
+			// Generate 'accountId'
+			newAccount.setAccountId(generateAccountId());
+			
+			// 新增账户信息.
 			isSuccess = accountDao.setAccount(newAccount);
 			
 			// Customer List.

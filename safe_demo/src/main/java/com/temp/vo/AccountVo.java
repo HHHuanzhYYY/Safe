@@ -2,34 +2,34 @@ package com.temp.vo;
 
 public class AccountVo extends Vo {
 
-	private int accountId;
+	private String accountId;
 	
 	private int accountType;
 	
 	private String bankId;
 	
-	private int customerNum;
+	private int customerSum;
 	
 	public AccountVo() {}
 	
-	public AccountVo(int accountId, int accountType, String bankId, int customerNum) {
+	public AccountVo(String accountId, int accountType, String bankId, int customerSum) {
 		this.accountId = accountId;
 		this.accountType = accountType;
 		this.bankId = bankId;
-		this.customerNum = customerNum;
+		this.customerSum = customerSum;
 	}
 	
 	@Override
 	public String toString() {
 		return "AccountVo [accountId=" + accountId + ", accountType=" + accountType + ", bankId=" + bankId
-				+ ", customerNum=" + customerNum + "]";
+				+ ", customerSum=" + customerSum + "]";
 	}
 
-	public int getAccountId() {
+	public String getAccountId() {
 		return accountId;
 	}
 
-	public void setAccountId(int accountId) {
+	public void setAccountId(String accountId) {
 		this.accountId = accountId;
 	}
 
@@ -49,12 +49,12 @@ public class AccountVo extends Vo {
 		this.bankId = bankId;
 	}
 
-	public int getCustomerNum() {
-		return customerNum;
+	public int getCustomerSum() {
+		return customerSum;
 	}
 
-	public void setCustomerNum(int customerNum) {
-		this.customerNum = customerNum;
+	public void setCustomerSum(int customerSum) {
+		this.customerSum = customerSum;
 	}
 
 }

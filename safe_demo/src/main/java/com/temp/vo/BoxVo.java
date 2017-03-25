@@ -8,7 +8,7 @@ public class BoxVo extends Vo {
 	
 	private int boxModel;
 	
-	private String keyId;
+	private String keyNo;
 	
 	private float deposit;
 	
@@ -28,9 +28,9 @@ public class BoxVo extends Vo {
 
 	@Override
 	public String toString() {
-		return "BoxVo [boxId=" + boxId + ", boxModel=" + boxModel + ", keyId=" + keyId + ", deposit=" + deposit
-				+ ", actualRent=" + actualRent + ", endDate=" + endDate + ", cardRfid=" + cardRfid + ", cardNo=" + cardNo
-				+ ", cardType=" + cardType + ", cardStatus=" + cardStatus + "]";
+		return "BoxVo [boxId=" + boxId + ", boxModel=" + boxModel + ", keyNo=" + keyNo 
+				+ ", deposit=" + deposit + ", actualRent=" + actualRent + ", endDate=" + endDate + ", cardRfid="
+				+ cardRfid + ", cardNo=" + cardNo + ", cardType=" + cardType + ", cardStatus=" + cardStatus + "]";
 	}
 
 	public int getBoxId() {
@@ -49,12 +49,12 @@ public class BoxVo extends Vo {
 		this.boxModel = boxModel;
 	}
 
-	public String getKeyId() {
-		return keyId;
+	public String getKeyNo() {
+		return keyNo;
 	}
 
-	public void setKeyId(String keyId) {
-		this.keyId = keyId;
+	public void setKeyNo(String keyNo) {
+		this.keyNo = keyNo;
 	}
 
 	public float getDeposit() {

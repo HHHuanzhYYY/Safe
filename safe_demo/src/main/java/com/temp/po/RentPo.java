@@ -38,7 +38,7 @@ public class RentPo extends Po {
 	
 	private float feeTotal;
 	
-	private long accountId;
+	private String accountId;
 	
 	public RentPo() {}
 
@@ -188,11 +188,11 @@ public class RentPo extends Po {
 		this.feeTotal = feeTotal;
 	}
 
-	public long getAccountId() {
+	public String getAccountId() {
 		return accountId;
 	}
 
-	public void setAccountId(long accountId) {
+	public void setAccountId(String accountId) {
 		this.accountId = accountId;
 	}
 
