@@ -44,7 +44,8 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 		try {
 			Map<String, Object> paramValues = JsonUtil.parseJson(rawData, "bankId");
 			
-			employeeResumeVos = systemConfigDao.getBankBranchEmployees((int)paramValues.get("bankId"));
+			employeeResumeVos = systemConfigDao.getBankBranchEmployees(
+					Integer.parseInt(((String)paramValues.get("bankId")).trim()));
 		} catch (Exception e) {
 			isSuccess = false;
 		}
@@ -54,26 +55,25 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 	@Override
 	public String setMessageDetails(String rawData) {
 		boolean isSuccess = true;
-		Map<String, Integer> messageId = new HashMap<>();
+		Map<String, Long> messageIdMap = new HashMap<>();
 		try {
 			MessagePo paramValues = (MessagePo) JsonUtil.parseJson(rawData, MessagePo.class);
 			
-			isSuccess = systemConfigDao.setMessageDetails(paramValues);
-			messageId.put("messageId", paramValues.getMessageId());
+			long messageId = systemConfigDao.setMessageDetails(paramValues);
+			messageIdMap.put("messageId", messageId);
 		} catch (Exception e) {
 			isSuccess = false;
 		}
-		return JsonUtil.constructJson(isSuccess, null, messageId);
+		return JsonUtil.constructJson(isSuccess, null, messageIdMap);
 	}
 
 	@Override
 	public String deleteMessage(String rawData) {
 		boolean isSuccess = true;
 		try {
-			Map<String, Object> paramValues = JsonUtil.parseJson(rawData, "messageIds");
-			
 			@SuppressWarnings("unchecked")
-			List<Integer> msgIds = (List<Integer>)paramValues.get("messageIds");
+			List<Long> msgIds = (List<Long>) JsonUtil.parseJson(rawData, Long.class, "messageIds");
+			
 			isSuccess = systemConfigDao.deleteMessage(msgIds);
 		} catch (Exception e) {
 			isSuccess = false;
@@ -96,12 +96,12 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 	@Override
 	public String setBankDetails(String rawData) {
 		boolean isSuccess = true;
-		Map<String, Integer> retId = new HashMap<>();
+		Map<String, Long> retId = new HashMap<>();
 		try {
 			BankBranchPo paramValues = (BankBranchPo) JsonUtil.parseJson(rawData, BankBranchPo.class);
 			
-			isSuccess = systemConfigDao.setBankDetails(paramValues);
-			retId.put("bankId", paramValues.getBankId());
+			long bankId = systemConfigDao.setBankDetails(paramValues);
+			retId.put("bankId", bankId);
 		} catch (Exception e) {
 			isSuccess = false;
 		}
@@ -112,10 +112,9 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 	public String deleteBank(String rawData) {
 		boolean isSuccess = true;
 		try {
-			Map<String, Object> paramValues = JsonUtil.parseJson(rawData, "messageIds");
-			
 			@SuppressWarnings("unchecked")
-			List<Integer> bankIds = (List<Integer>)paramValues.get("bankIds");
+			List<Long> bankIds = (List<Long>) JsonUtil.parseJson(rawData, Long.class, "bankIds");
+			
 			isSuccess = systemConfigDao.deleteBank(bankIds);
 		} catch (Exception e) {
 			isSuccess = false;

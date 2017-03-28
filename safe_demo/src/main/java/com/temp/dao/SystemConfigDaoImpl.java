@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +75,7 @@ public class SystemConfigDaoImpl implements SystemConfigDao {
 	}
 
 	@Override
-	public boolean setMessageDetails(MessagePo messagePo) {
+	public long setMessageDetails(MessagePo messagePo) {
 		long messageId = messagePo.getMessageId();
 		if (messagePo.getMessageId() == 0) {
 			final String updateMessageSQL = "INSERT INTO system_message("
@@ -85,9 +86,9 @@ public class SystemConfigDaoImpl implements SystemConfigDao {
 				
 				@Override
 				public PreparedStatement createPreparedStatement(Connection conn) throws SQLException {
-					PreparedStatement pst = conn.prepareStatement(updateMessageSQL);
+					PreparedStatement pst = conn.prepareStatement(updateMessageSQL, Statement.RETURN_GENERATED_KEYS);
 					
-					int parameterIndex = 0;
+					int parameterIndex = 1;
 					pst.setInt(parameterIndex++, messagePo.getMessageType());
 					pst.setString(parameterIndex++, messagePo.getMessageTitle());
 					pst.setString(parameterIndex++, messagePo.getMessageContent());
@@ -123,24 +124,24 @@ public class SystemConfigDaoImpl implements SystemConfigDao {
 					new Object[]{messageId}, new int[]{Types.BIGINT});
 		} else {
 			final String insertMessageReceiverSQL = 
-					"INSERT INTO message_receiver(messagereceiverType, messageId, employeeId) "
+					"INSERT INTO message_receiver(messagereceiverType, messageId, bankEmployeeId) "
 					+ "VALUES(0, ?, ?) ";
 			List<Object[]> batchArgs = new ArrayList<>();
 			for (Integer receiverId : messagePo.getMessageReceivers()) {
 				Object[] batchArg = new Object[] {messageId, receiverId};
 				batchArgs.add(batchArg);
 			}
-			jdbcTemplate.batchUpdate(insertMessageReceiverSQL, batchArgs, new int[]{Types.INTEGER, Types.INTEGER});
+			jdbcTemplate.batchUpdate(insertMessageReceiverSQL, batchArgs, new int[]{Types.BIGINT, Types.INTEGER});
 		}
 					
-		return true;
+		return messageId;
 	}
 
 	@Override
-	public boolean deleteMessage(List<Integer> messageIds) {
+	public boolean deleteMessage(List<Long> messageIds) {
 		String deleteMessageSQL = "DELETE FROM system_message WHERE messageId = ? ";
 		List<Object[]> batchArgs = new ArrayList<>();
-		for (Integer messageId : messageIds) {
+		for (Long messageId : messageIds) {
 			Object[] batchArg = new Object[] {messageId};
 			batchArgs.add(batchArg);
 		}
@@ -169,35 +170,48 @@ public class SystemConfigDaoImpl implements SystemConfigDao {
 	}
 
 	@Override
-	public boolean setBankDetails(BankBranchPo bankBranchPo) {
-		int count = 0;
+	public long setBankDetails(BankBranchPo bankBranchPo) {
+		long bankId = bankBranchPo.getBankId();
 		if (bankBranchPo.getBankId() == 0) {
 			// 新增网点
 			String insertBankSQL = "INSERT INTO bank_branch(bankTitle, remark) VALUES(?, ?) ";
 			
-			count = jdbcTemplate.update(insertBankSQL, 
-					new Object[] {bankBranchPo.getBankTitle(), bankBranchPo.getRemark()}, 
-					new int[] {Types.VARCHAR, Types.VARCHAR});
+			KeyHolder keyHolder = new GeneratedKeyHolder();
+			jdbcTemplate.update(new PreparedStatementCreator() {
+				
+				@Override
+				public PreparedStatement createPreparedStatement(Connection conn) throws SQLException {
+					PreparedStatement pst = conn.prepareStatement(insertBankSQL, Statement.RETURN_GENERATED_KEYS);
+					
+					int parameterIndex = 1;
+					pst.setString(parameterIndex++, bankBranchPo.getBankTitle());
+					pst.setString(parameterIndex++, bankBranchPo.getRemark());
+					
+					return pst;
+				}
+			}, keyHolder);
+			
+			bankId = (long) keyHolder.getKey();
 		} else {
 			// 修改网点信息
 			String updateBankSQL = "UPDATE bank_branch SET bankTitle = ?, remark = ? WHERE bankId = ? ";
 			
-			count = jdbcTemplate.update(updateBankSQL, 
+			jdbcTemplate.update(updateBankSQL, 
 					new Object[] {bankBranchPo.getBankTitle(), bankBranchPo.getRemark(), bankBranchPo.getBankId()}, 
 					new int[] {Types.VARCHAR, Types.VARCHAR, Types.INTEGER});
 		}
-		return count == 1 ? true : false;
+		return bankId;
 	}
 
 	@Override
-	public boolean deleteBank(List<Integer> bankIds) {
+	public boolean deleteBank(List<Long> bankIds) {
 		String deleteBankSQL = "DELETE FROM bank_branch WHERE bankId = ? ";
 		List<Object[]> batchArgs = new ArrayList<>();
-		for (Integer bankId : bankIds) {
+		for (Long bankId : bankIds) {
 			Object[] batchArg = new Object[] {bankId};
 			batchArgs.add(batchArg);
 		}
-		int[] ret = jdbcTemplate.batchUpdate(deleteBankSQL, batchArgs, new int[] {Types.INTEGER});
+		int[] ret = jdbcTemplate.batchUpdate(deleteBankSQL, batchArgs, new int[] {Types.BIGINT});
 		
 		return ret.length == 0 ? false : true;
 	}

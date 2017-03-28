@@ -33,9 +33,9 @@ public interface SystemConfigDao {
 	 * setMessageDetails.
 	 * 
 	 * @param messagePo
-	 * @return boolean
+	 * @return messageId
 	 */
-	boolean setMessageDetails(MessagePo messagePo);
+	long setMessageDetails(MessagePo messagePo);
 	
 	/**
 	 * deleteMessage.
@@ -43,7 +43,7 @@ public interface SystemConfigDao {
 	 * @param messageIds
 	 * @return boolean
 	 */
-	boolean deleteMessage(List<Integer> messageIds);
+	boolean deleteMessage(List<Long> messageIds);
 	
 	/**
 	 * getAllBankBranches.
@@ -56,9 +56,9 @@ public interface SystemConfigDao {
 	 * setBankDetails.
 	 * 
 	 * @param bankBranchPo
-	 * @return boolean
+	 * @return bankId
 	 */
-	boolean setBankDetails(BankBranchPo bankBranchPo);
+	long setBankDetails(BankBranchPo bankBranchPo);
 	
 	/**
 	 * deleteBank.
@@ -66,7 +66,7 @@ public interface SystemConfigDao {
 	 * @param bankIds
 	 * @return boolean
 	 */
-	boolean deleteBank(List<Integer> bankIds);
+	boolean deleteBank(List<Long> bankIds);
 	
 	/**
 	 * getAllSubjects.

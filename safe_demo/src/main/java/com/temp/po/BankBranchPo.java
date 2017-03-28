@@ -2,7 +2,7 @@ package com.temp.po;
 
 public class BankBranchPo extends Po {
 
-	private int bankId; // 网点ID (0-新增，非0-编辑)
+	private long bankId; // 网点ID (0-新增，非0-编辑)
 	
 	private String bankTitle; // 网点名称
 	
@@ -15,11 +15,11 @@ public class BankBranchPo extends Po {
 		return "BankBranchPo [bankId=" + bankId + ", bankTitle=" + bankTitle + ", remark=" + remark + "]";
 	}
 
-	public int getBankId() {
+	public long getBankId() {
 		return bankId;
 	}
 
-	public void setBankId(int bankId) {
+	public void setBankId(long bankId) {
 		this.bankId = bankId;
 	}
 
