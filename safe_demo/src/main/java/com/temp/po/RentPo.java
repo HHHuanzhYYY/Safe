@@ -4,19 +4,15 @@ import java.util.Date;
 
 public class RentPo extends Po {
 	
-	private int boxId;
+	private long rentId;
 	
-	private String cardRfid;
+	private String leaseNo;
 	
-	private String cardNo;
+	private String leaseRemark;
 	
-	private int rentId;
+	private String voucherNo;
 	
-	private int certificateId;
-	
-	private String rentRemark;
-	
-	private String certificateRemark;
+	private String voucherRemark;
 	
 	private int rentType;
 	
@@ -38,74 +34,62 @@ public class RentPo extends Po {
 	
 	private float feeTotal;
 	
+	private long boxId;
+	
 	private String accountId;
+	
+	private String cardRfid;
 	
 	public RentPo() {}
 
 	@Override
 	public String toString() {
-		return "RentPo [boxId=" + boxId + ", cardRfid=" + cardRfid + ", cardNo=" + cardNo + ", rentId=" + rentId
-				+ ", certificateId=" + certificateId + ", rentRemark=" + rentRemark + ", certificateRemark="
-				+ certificateRemark + ", rentType=" + rentType + ", rentTime=" + rentTime + ", startDate=" + startDate
-				+ ", endDate=" + endDate + ", deposit=" + deposit + ", rent=" + rent + ", rentDiscount=" + rentDiscount
-				+ ", actualRent=" + actualRent + ", paymentType=" + paymentType + ", feeTotal=" + feeTotal
-				+ ", accountId=" + accountId + "]";
+		return "RentPo [rentId=" + rentId + ", leaseNo=" + leaseNo + ", leaseRemark=" + leaseRemark + ", voucherNo="
+				+ voucherNo + ", voucherRemark=" + voucherRemark + ", rentType=" + rentType + ", rentTime=" + rentTime
+				+ ", startDate=" + startDate + ", endDate=" + endDate + ", deposit=" + deposit + ", rent=" + rent
+				+ ", rentDiscount=" + rentDiscount + ", actualRent=" + actualRent + ", paymentType=" + paymentType
+				+ ", feeTotal=" + feeTotal + ", boxId=" + boxId + ", accountId=" + accountId + ", cardRfid=" + cardRfid
+				+ "]";
 	}
 
-	public int getBoxId() {
-		return boxId;
-	}
-
-	public void setBoxId(int boxId) {
-		this.boxId = boxId;
-	}
-
-	public String getCardRfid() {
-		return cardRfid;
-	}
-
-	public void setCardRfid(String cardRfid) {
-		this.cardRfid = cardRfid;
-	}
-
-	public String getCardNo() {
-		return cardNo;
-	}
-
-	public void setCardNo(String cardNo) {
-		this.cardNo = cardNo;
-	}
-
-	public int getRentId() {
+	public long getRentId() {
 		return rentId;
 	}
 
-	public void setRentId(int rentId) {
+	public void setRentId(long rentId) {
 		this.rentId = rentId;
 	}
 
-	public int getCertificateId() {
-		return certificateId;
+	public String getLeaseNo() {
+		return leaseNo;
 	}
 
-	public void setCertificateId(int certificateId) {
-		this.certificateId = certificateId;
+	public void setLeaseNo(String leaseNo) {
+		this.leaseNo = leaseNo;
 	}
 
-	public String getRentRemark() {
-		return rentRemark;
+	public String getLeaseRemark() {
+		return leaseRemark;
 	}
 
-	public void setRentRemark(String rentRemark) {
-		this.rentRemark = rentRemark;
+	public void setLeaseRemark(String leaseRemark) {
+		this.leaseRemark = leaseRemark;
 	}
 
-	public String getCertificateRemark() {
-		return certificateRemark;
+	public String getVoucherNo() {
+		return voucherNo;
 	}
 
-	public void setCertificateRemark(String certificateRemark) {
-		this.certificateRemark = certificateRemark;
+	public void setVoucherNo(String voucherNo) {
+		this.voucherNo = voucherNo;
+	}
+
+	public String getVoucherRemark() {
+		return voucherRemark;
+	}
+
+	public void setVoucherRemark(String voucherRemark) {
+		this.voucherRemark = voucherRemark;
 	}
 
 	public int getRentType() {
@@ -188,12 +172,28 @@ public class RentPo extends Po {
 		this.feeTotal = feeTotal;
 	}
 
+	public long getBoxId() {
+		return boxId;
+	}
+
+	public void setBoxId(long boxId) {
+		this.boxId = boxId;
+	}
+
 	public String getAccountId() {
 		return accountId;
 	}
 
 	public void setAccountId(String accountId) {
 		this.accountId = accountId;
+	}
+
+	public String getCardRfid() {
+		return cardRfid;
+	}
+
+	public void setCardRfid(String cardRfid) {
+		this.cardRfid = cardRfid;
 	}
 
 }

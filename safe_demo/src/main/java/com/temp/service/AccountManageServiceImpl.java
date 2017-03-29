@@ -45,7 +45,7 @@ public class AccountManageServiceImpl implements AccountManageService {
 	
 	@Override
 	public String getAccoutListByIdOrRFID(String rawData) {
-		boolean isSuccess = true;
+		boolean isSuccess = false;
 		List<AccountVo> accounts = null;
 		try {
 			Map<String, Object> requestParams = JsonUtil.parseJson(rawData, "certificateType", "certificateNo");
@@ -63,6 +63,8 @@ public class AccountManageServiceImpl implements AccountManageService {
 			default:
 				break;
 			}
+			
+			isSuccess = true;
 		} catch (Exception e) {
 			isSuccess = false;
 		}
@@ -76,7 +78,8 @@ public class AccountManageServiceImpl implements AccountManageService {
 		try {
 			Map<String, Object> requestParams = JsonUtil.parseJson(rawData, "accountId", "accountType");
 			
-			AccountType accountType = Utility.classifyAccountType((Integer)requestParams.get("accountType"));
+			AccountType accountType = Utility.classifyAccountType(
+					Integer.parseInt(((String)requestParams.get("accountType")).trim()));
 					
 			// Customer List.
 			List<CustomerVo> allCustomers = customerDao.getAllCustomersByAccountId(
@@ -89,6 +92,7 @@ public class AccountManageServiceImpl implements AccountManageService {
 			dataContents.put("customerList", allCustomers);
 			dataContents.put("boxList", allBoxs);
 		} catch (Exception e) {
+			e.printStackTrace();
 			isSuccess = false;
 		}
 		return JsonUtil.constructJson(isSuccess, null, dataContents);
@@ -104,13 +108,13 @@ public class AccountManageServiceImpl implements AccountManageService {
 			// Generate 'accountId'
 			newAccount.setAccountId(generateAccountId());
 			
-			// ÐÂÔöÕË»§ÐÅÏ¢.
+			// ï¿½ï¿½ï¿½ï¿½ï¿½Ë»ï¿½ï¿½ï¿½Ï¢.
 			isSuccess = accountDao.setAccount(newAccount);
 			
 			// Customer List.
-			List<CustomerPo> newCustomers = newAccount.getCustomers();
+			List<CustomerPo> newCustomers = newAccount.getCustomerList();
 			for (CustomerPo newCustomer : newCustomers) {
-				int customerId = customerDao.setCustomer(newCustomer);
+				long customerId = customerDao.setCustomer(newCustomer);
 				
 				// SET TABLE: account_customer_relationship
 				isSuccess = customerDao.setAccountCustomerRelationship(newAccount.getAccountId(), customerId);
@@ -125,7 +129,7 @@ public class AccountManageServiceImpl implements AccountManageService {
 			}
 			
 			// Rent List.
-			List<RentPo> newRents = newAccount.getRents();
+			List<RentPo> newRents = newAccount.getRentList();
 			for (RentPo newRent : newRents) {
 				// SET TABLE: box_card_relationship
 				for (int i = 0; i < newCustomers.size(); i++) {
@@ -137,6 +141,7 @@ public class AccountManageServiceImpl implements AccountManageService {
 				isSuccess = rentDao.setRent(newRent);
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			isSuccess = false;
 		}
 		return JsonUtil.constructJson(isSuccess, null, null);

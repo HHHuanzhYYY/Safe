@@ -21,9 +21,9 @@ public class AccountPo extends Po {
 	
 	private int customerSum;
 	
-	private List<CustomerPo> customers = new ArrayList<>();
+	private List<CustomerPo> customerList = new ArrayList<>();
 	
-	private List<RentPo> rents = new ArrayList<>();
+	private List<RentPo> rentList = new ArrayList<>();
 	
 	public AccountPo() {}
 
@@ -31,8 +31,8 @@ public class AccountPo extends Po {
 	public String toString() {
 		return "AccountPo [accountId=" + accountId + ", accountType=" + accountType + ", bankId=" + bankId
 				+ ", isAccountFree=" + isAccountFree + ", openAccountFee=" + openAccountFee + ", paymentType="
-				+ paymentType + ", amountSum=" + amountSum + ", customerSum=" + customerSum + ", customers=" + customers
-				+ ", rents=" + rents + "]";
+				+ paymentType + ", amountSum=" + amountSum + ", customerSum=" + customerSum + ", customerList="
+				+ customerList + ", rentList=" + rentList + "]";
 	}
 
 	public String getAccountId() {
@@ -99,20 +99,20 @@ public class AccountPo extends Po {
 		this.customerSum = customerSum;
 	}
 
-	public List<CustomerPo> getCustomers() {
-		return customers;
+	public List<CustomerPo> getCustomerList() {
+		return customerList;
 	}
 
-	public void setCustomers(List<CustomerPo> customers) {
-		this.customers = customers;
+	public void setCustomerList(List<CustomerPo> customerList) {
+		this.customerList = customerList;
 	}
 
-	public List<RentPo> getRents() {
-		return rents;
+	public List<RentPo> getRentList() {
+		return rentList;
 	}
 
-	public void setRents(List<RentPo> rents) {
-		this.rents = rents;
+	public void setRentList(List<RentPo> rentList) {
+		this.rentList = rentList;
 	}
-	
+
 }

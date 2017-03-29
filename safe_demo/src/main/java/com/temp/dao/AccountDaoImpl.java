@@ -26,9 +26,9 @@ public class AccountDaoImpl implements AccountDao {
 	public List<AccountVo> getAccountListById(CertificateType type, String id) {
 		final String queryAccountSQL = 
 				"SELECT account.accountId, account.accountType, account.bankId, account.customerSum " + 
-				"FROM customer, account_customer_relation, account " + 
-				"WHERE account.accountId = account_customer_relation.accountId " + 
-				  "AND account_customer_relation.customerId = customer.customerId " + 
+				"FROM customer, account_customer_relationship, account " + 
+				"WHERE account.accountId = account_customer_relationship.accountId " + 
+				  "AND account_customer_relationship.customerId = customer.customerId " + 
 				  "AND customer.certificateType = ? " +
 				  "AND customer.certificateNo = ? ";
 		

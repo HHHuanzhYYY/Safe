@@ -29,22 +29,32 @@ public class RentDaoImpl implements RentDao {
 
 	@Override
 	public boolean setRent(RentPo rent) {
-		String insertRentSQL = "INSERT INTO rent VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String insertRentSQL = "INSERT INTO rent(rentStatus, leaseNo, leaseRemark, voucherNo, voucherRemark, "
+				+ "keySum, rentType, rentTime, startDate, endDate, deposit, rent, rentDiscount, actualRent, "
+				+ "paymentType, feeTotal, isRelet, boxId, accountId) "
+				+ "VALUES(0, ?, ?, ?, ?, 2, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?)";
 		
 		int count = jdbcTemplate.update(insertRentSQL, 
-				new Object[] {rent.getRentId(), rent.getRentRemark(), 
-						rent.getCertificateId(), rent.getCertificateRemark(), 
-						rent.getRentType(), rent.getRentTime(), 
-						rent.getStartDate(), rent.getEndDate(), 
-						rent.getDeposit(), rent.getRent(),
-						rent.getRentDiscount(), rent.getActualRent(),
-						rent.getPaymentType(), rent.getFeeTotal(),
-						rent.getAccountId(), rent.getBoxId()
-						}, 
-				new int[] {Types.INTEGER, Types.VARCHAR, Types.INTEGER, Types.VARCHAR, 
-						Types.INTEGER, Types.INTEGER, Types.DATE, Types.DATE, 
-						Types.DECIMAL, Types.DECIMAL, Types.DECIMAL, Types.DECIMAL, 
-						Types.INTEGER, Types.DECIMAL, Types.BIGINT, Types.INTEGER});
+				new Object[] {rent.getLeaseNo(), 
+							  rent.getLeaseRemark(),
+							  rent.getVoucherNo(),
+							  rent.getVoucherRemark(),
+							  rent.getRentType(), 
+							  rent.getRentTime(), 
+							  rent.getStartDate(), 
+							  rent.getEndDate(), 
+							  rent.getDeposit(), 
+							  rent.getRent(),
+							  rent.getRentDiscount(), 
+							  rent.getActualRent(),
+							  rent.getPaymentType(), 
+							  rent.getFeeTotal(),
+							  rent.getBoxId(),
+							  rent.getAccountId()}, 
+				new int[] {Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, 
+						   Types.INTEGER, Types.INTEGER, Types.DATE,    Types.DATE, 
+						   Types.DECIMAL, Types.DECIMAL, Types.DECIMAL, Types.DECIMAL, 
+						   Types.INTEGER, Types.DECIMAL, Types.BIGINT,  Types.VARCHAR});
 		
 		return count == 1 ? true : false;
 	}
@@ -76,19 +86,19 @@ public class RentDaoImpl implements RentDao {
 		}
 		
 		// Get: endDateAfterRelet
-		// ÏÈ²é¿´ÊÇ·ñÓÐÐø×âÐÐÎª.
+		// ï¿½È²é¿´ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª.
 		String queryEndDateSQL = null;
 		if ((Integer)rentInfo.get("isRelet") == 0) {
 			queryEndDateSQL = "SELECT endDate FROM rent WHERE rent.boxId = ? ";
 		} else if ((Integer)rentInfo.get("isRelet") == 1) {
-			// ÐøÔ¼¹ýÖÁÉÙÒ»´Î.
+			// ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½.
 			queryEndDateSQL = "SELECT MAX(relet.endDate) AS endDate "
 					        + "FROM rent, relet "
 					        + "WHERE rent.id = relet.id AND rent.boxId = ? ";
 		}
 		Date endDate = jdbcTemplate.queryForObject(queryEndDateSQL, Date.class, boxId);
-		// ÎÞÐø×âÐÐÎªÊ± = rent.endDate
-		// ÓÐÐø×âÐÐÎªÊ± = Max(relet.endDate)
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªÊ± = rent.endDate
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªÊ± = Max(relet.endDate)
 		retBoxInfo.put("endDateAfterRelet", endDate);
 		
 		return retBoxInfo;

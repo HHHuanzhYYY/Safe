@@ -13,9 +13,12 @@ public final class ImgUtil {
 	 * @param img IMG raw Data.
 	 * @return byte[]
 	 */
-	public static InputStream decodeFromBase64CodingImg (String img) {    	
-		byte[] imgRawByteArray = DatatypeConverter.parseBase64Binary(img);
-		InputStream inputStream = new ByteArrayInputStream(imgRawByteArray);
+	public static InputStream decodeFromBase64CodingImg (String img) {
+		InputStream inputStream = null;
+		if (img != null) {
+			byte[] imgRawByteArray = DatatypeConverter.parseBase64Binary(img);
+			inputStream = new ByteArrayInputStream(imgRawByteArray);
+		}
 		return inputStream;
 	}
 	

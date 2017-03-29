@@ -18,7 +18,7 @@ public class CardPo extends Po {
 	
 	private String accountId;
 	
-	private int customerId;
+	private long customerId;
 
 	public CardPo() {}
 
@@ -93,11 +93,11 @@ public class CardPo extends Po {
 		this.accountId = accountId;
 	}
 
-	public int getCustomerId() {
+	public long getCustomerId() {
 		return customerId;
 	}
 
-	public void setCustomerId(int customerId) {
+	public void setCustomerId(long customerId) {
 		this.customerId = customerId;
 	}
 

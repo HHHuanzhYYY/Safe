@@ -2,7 +2,11 @@ package com.temp.util;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -50,7 +54,7 @@ public final class JsonUtil {
 			retJsonMap.put("data", data);
 		}	
 		
-		// SerializerFeature.WriteMapNullValue: ʹnullֵ��ʾ��{"Message":null,"Data":null,"Success":true}��ʽ
+		// SerializerFeature.WriteMapNullValue: ʹnullֵ��ʾ��{"Message":null,"Data":null,"Success":true}��ʽ
 		return JSONObject.toJSONString(retJsonMap, SerializerFeature.WriteMapNullValue);
 	}
 	
@@ -79,7 +83,7 @@ public final class JsonUtil {
 	 */
 	public static Po parseJson(String rawData, Class<? extends Po> clazz) {
 		JSONObject data = getDataFieldInRawData(rawData);
-		Po retPo = JSON.parseObject(data.toJSONString(), clazz);	
+		Po retPo = JSON.parseObject(data.toJSONString(), clazz);
 		return retPo;
 	}
 	
@@ -162,14 +166,98 @@ public final class JsonUtil {
 //		
 //		System.out.println(constructJson(true, null, test));
 		
-		final String rawData = "{"
-				+ "\"success\":true,"
-				+ "\"message\":null,"
-				+ "\"data\":{"
-					+ "\"messageIds\":[14,15,16,17],"
-					+ "}"
-				+ "}";
+//		final String rawData = "{"
+//				+ "\"success\":true,"
+//				+ "\"message\":null,"
+//				+ "\"data\":{"
+//					+ "\"messageIds\":[14,15,16,17],"
+//					+ "}"
+//				+ "}";
+//		
+//		System.out.println(parseJson(rawData, Long.class, null));
 		
-		System.out.println(parseJson(rawData, Long.class, null));
+		
+//		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//		Date start = null;
+//		Date end = null;
+//		try {
+//			start = simpleDateFormat.parse("2017-4-5");
+//			end = simpleDateFormat.parse("2018-4-4");
+//		} catch (ParseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		System.out.println(JSON.toJSONString(start));
+//		System.out.println(JSON.toJSONString(end));
+		
+		final String rawData = "{"
+					+ "\"accountType\":0,"
+					+ "\"bankId\":101,"
+					+ "\"isAccountFree\":0,"
+					+ "\"openAccountFee\":0.0,"
+					+ "\"paymentType\":0,"
+					+ "\"amountSum\":550.5,"
+					+ "\"customerSum\":1,"
+					+ "\"customerList\":"
+						+ "[{"
+						+ "\"customerType\":0,"
+						+ "\"customerName\":\"张大麻子\","
+						+ "\"customerSex\":1,"
+						+ "\"certificateType\":1,"
+						+ "\"certificateNo\":\"110123456789\","
+						+ "\"unitAddress\":\"北京市朝阳区***路\","
+						+ "\"homeAddress\":\"北京市海淀区***小区\","
+						+ "\"phone\":\"010-56436789\","
+						+ "\"mobile\":\"18500003443\","
+						+ "\"post\":\"010\","
+						+ "\"remark\":\"这只是一个测试用例\","
+						+ "\"photo\":null,"
+						+ "\"cardType\":1,"
+						+ "\"cardNo\":\"PEK12345\","
+						+ "\"cardRfid\":\"PEK12345\","
+						+ "\"password\":\"asdfghjkl\","
+						+ "\"fingerPwd\":\"asdfghjkllkjhgfdsa\","
+						+ "\"reserveFingerPwd\":\"asdfghjkllkjhgfdsa\","
+						+ "}],"
+					+ "\"rentList\":"
+						+ "[{"
+						+ "\"boxId\":110,"
+						+ "\"cardRfid\":\"PEK12345\","
+						+ "\"leaseNo\":\"L11111\","
+						+ "\"leaseRemark\":\"无\","
+						+ "\"voucherNo\":\"V11111\","
+						+ "\"voucherRemark\":\"无\","
+						+ "\"rentType\":2,"
+						+ "\"rentTime\":2,"
+						+ "\"startDate\":1491321600000,"
+						+ "\"endDate\":1554307200000,"
+						+ "\"deposit\":1000.0,"
+						+ "\"rent\":5000.0,"
+						+ "\"rentDiscount \":0.8,"
+						+ "\"actualRent\":4000.0,"
+						+ "\"paymentType\":0,"
+						+ "\"feeTotal\":4000.0,"
+						+ "},"
+						+ "{"
+						+ "\"boxId\":111,"
+						+ "\"cardRfid\":\"PEK54321\","
+						+ "\"leaseNo\":\"L22222\","
+						+ "\"leaseRemark\":\"无\","
+						+ "\"voucherNo\":\"V22222\","
+						+ "\"voucherRemark\":\"无\","
+						+ "\"rentType\":2,"
+						+ "\"rentTime\":1,"
+						+ "\"startDate\":1491321600000,"
+						+ "\"endDate\":1522771200000,"
+						+ "\"deposit\":1000.0,"
+						+ "\"rent\":3000.0,"
+						+ "\"rentDiscount \":0.8,"
+						+ "\"actualRent\":2400.0,"
+						+ "\"paymentType\":0,"
+						+ "\"feeTotal\":2400.0,"
+						+ "}]"
+				+ "}";
+		System.out.println(JSON.parseObject(rawData, AccountPo.class).toString());
 	}
 }

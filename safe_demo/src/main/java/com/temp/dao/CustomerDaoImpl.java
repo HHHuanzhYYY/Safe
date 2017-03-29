@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Types;
 import java.util.List;
 
@@ -80,7 +81,7 @@ public class CustomerDaoImpl implements CustomerDao {
 	public List<CustomerVo> getAllCustomersByAccountId(String accountId, AccountType accountType) {
 		List<CustomerVo> customerVos = null;
 		if (AccountType.SINGLE.equals(accountType)) {
-			// Card ÐÅÏ¢°ó¶¨µ½ Box ÉÏÃæ
+			// Card ï¿½ï¿½Ï¢ï¿½ó¶¨µï¿½ Box ï¿½ï¿½ï¿½ï¿½
 			String queryCustomersSQL = "SELECT customer.customerName, "
 									 		+ "customer.customerSex, "
 									 		+ "customer.certificateType, "
@@ -109,7 +110,7 @@ public class CustomerDaoImpl implements CustomerDao {
 					}
 			);
 		} else if (AccountType.UION.equals(accountType)) {
-			// Card ÐÅÏ¢°ó¶¨µ½ Customer ÉÏÃæ
+			// Card ï¿½ï¿½Ï¢ï¿½ó¶¨µï¿½ Customer ï¿½ï¿½ï¿½ï¿½
 			String queryCustomersSQL = "SELECT customer.customerName, "
 											+ "customer.customerSex, "
 											+ "customer.certificateType, "
@@ -149,11 +150,11 @@ public class CustomerDaoImpl implements CustomerDao {
 	}
 
 	@Override
-	public int setCustomer(CustomerPo newCustomer) {
+	public long setCustomer(CustomerPo newCustomer) {
 		final String insertCustomerSQL = 
 				"INSERT INTO customer" + 
 						"(customerType, customerName, customerSex, " + 
-						 "certificateType, certificateNum, homeAddress, unitAddress, " + 
+						 "certificateType, certificateNo, homeAddress, unitAddress, " + 
 						 "phone, mobile, post, photo, remark) " + 
 				"VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
@@ -162,7 +163,7 @@ public class CustomerDaoImpl implements CustomerDao {
 			
 			@Override
 			public PreparedStatement createPreparedStatement(Connection conn) throws SQLException {
-				PreparedStatement pst = conn.prepareStatement(insertCustomerSQL);
+				PreparedStatement pst = conn.prepareStatement(insertCustomerSQL, Statement.RETURN_GENERATED_KEYS);
 				int i = 1;
 				pst.setInt(i++, newCustomer.getCustomerType());
 				pst.setString(i++, newCustomer.getCustomerName());
@@ -181,11 +182,11 @@ public class CustomerDaoImpl implements CustomerDao {
 			}
 		}, keyHolder);
 		
-		return (int) keyHolder.getKey();
+		return (long) keyHolder.getKey();
 	}
 	
 	@Override
-	public boolean setAccountCustomerRelationship(String accountId, int customerId) {
+	public boolean setAccountCustomerRelationship(String accountId, long customerId) {
 		String insertAccountCustomerRelationshipSQL = 
 				"INSERT INTO account_customer_relationship(accountId, customerId)"
 			  + "VALUES(?, ?) ";

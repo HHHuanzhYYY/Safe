@@ -29,7 +29,7 @@ public interface BoxDao {
 	 * @param cardRfid
 	 * @return boolean
 	 */
-	boolean setBoxCardRelationship(int boxId, String cardRfid);
+	boolean setBoxCardRelationship(long boxId, String cardRfid);
 	
 	/**
 	 * setBoxStatusChangeDetails.

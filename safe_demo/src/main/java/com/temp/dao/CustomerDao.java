@@ -63,7 +63,7 @@ public interface CustomerDao {
 	 * @param newCustomer
 	 * @return customerId
 	 */
-	int setCustomer(CustomerPo newCustomer);
+	long setCustomer(CustomerPo newCustomer);
 	
 	/**
 	 * setCustomerCardRelationship.
@@ -81,7 +81,7 @@ public interface CustomerDao {
 	 * @param customerId
 	 * @return boolean
 	 */
-	boolean setAccountCustomerRelationship(String accountId, int customerId);
+	boolean setAccountCustomerRelationship(String accountId, long customerId);
 	
 	/**
 	 * setCustomerData.

@@ -31,7 +31,7 @@ public class BoxDaoImpl implements BoxDao {
 		List<BoxVo> boxVos = null;
 		String queryBoxesSQL = "";
 		if (AccountType.SINGLE.equals(accountType)) {
-			// Card ÐÅÏ¢°ó¶¨µ½ Box ÉÏÃæ
+			// Card ï¿½ï¿½Ï¢ï¿½ó¶¨µï¿½ Box ï¿½ï¿½ï¿½ï¿½
 			queryBoxesSQL = "SELECT box.boxId, "
 								 + "box.boxModel, "
 								 + "box.keyNo, "
@@ -77,7 +77,7 @@ public class BoxDaoImpl implements BoxDao {
 						}
 					});
 		} else if (AccountType.UION.equals(accountType)) {
-			// Card ÐÅÏ¢°ó¶¨µ½ Customer ÉÏÃæ
+			// Card ï¿½ï¿½Ï¢ï¿½ó¶¨µï¿½ Customer ï¿½ï¿½ï¿½ï¿½
 			queryBoxesSQL = "SELECT box.boxId, "
 								 + "box.boxModel, "
 								 + "box.keyNo, "
@@ -111,13 +111,13 @@ public class BoxDaoImpl implements BoxDao {
 	}
 
 	@Override
-	public boolean setBoxCardRelationship(int boxId, String cardRfid) {
+	public boolean setBoxCardRelationship(long boxId, String cardRfid) {
 		final String insertBoxCardRelationshipSQL = 
 				"INSERT INTO box_card_relationship(cardRfid, boxId) VALUES (?, ?)";
 		
 		int count = jdbcTemplate.update(insertBoxCardRelationshipSQL, 
 				new Object[] {cardRfid, boxId}, 
-				new int[] {Types.VARCHAR, Types.INTEGER});
+				new int[] {Types.VARCHAR, Types.BIGINT});
 		
 		return count == 1 ? true : false;
 	}
@@ -158,7 +158,7 @@ public class BoxDaoImpl implements BoxDao {
 		// Map<String, Object> = {<"newKeyNo", ***>, <"newBoxKeyFee", ***>, <"newBoxRentDay", ***>}
 		Map<String, Object> retInfo = null;
 		
-		// ÐÂÏä×Óµ¥°ÑÔ¿³×·ÑÓÃºÍÈÕ×â½ð.
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½Ô¿ï¿½×·ï¿½ï¿½Ãºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 		String queryKeyFeeAndRentDaySQL = 
 				"SELECT keyNo AS newKeyNo, keyFee AS newBoxKeyFee, box_model.rentDay AS newBoxRentDay "
 			  + "FROM box, `key`, box_model "
