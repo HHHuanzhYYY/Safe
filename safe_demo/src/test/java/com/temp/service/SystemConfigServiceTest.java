@@ -73,14 +73,14 @@ public class SystemConfigServiceTest extends ServiceTestBase {
 				+ "\"data\":{"
 					+ "\"bankId\":0,"
 					+ "\"bankTitle\":\"BC\","
-					+ "\"remark\":\"÷–π˙“¯––\"}"
+					+ "\"remark\":\"ÔøΩ–πÔøΩÔøΩÔøΩÔøΩÔøΩ\"}"
 				+ "}";
 		String retJSON = systemConfigService.setBankDetails(rawData);
 		
 		System.out.println(retJSON);
 	}*/
 	
-	@Test
+	/*@Test
 	public void deleteBank() {
 		final String rawData = "{"
 				+ "\"success\":true,"
@@ -92,5 +92,104 @@ public class SystemConfigServiceTest extends ServiceTestBase {
 		
 		String retJSON = systemConfigService.deleteBank(rawData);
 		System.out.println(retJSON);
+	}*/
+	
+	/*@Test
+	public void listAllSubjects(){
+		String retJSON = systemConfigService.listAllSubjects();
+
+		//assertEquals(retJSON, "");
+		
+		System.out.println(retJSON);
+	}*/
+	
+	/*@Test
+	public void setSubjectDetails(){
+		final String rawData = "{"
+				+ "\"success\":true,"
+				+ "\"message\":null,"
+				+ "\"data\":{"
+					+ "\"subjectCode\":\"3004\","
+					+ "\"subjectTitle\":\"yajin\","
+					+ "\"direction\":0,"
+					+ "\"remark\":\"English\"}"
+				+ "}";
+		System.out.println(rawData);
+		String retJSON = systemConfigService.setSubjectDetails(rawData);
+		
+		System.out.println(retJSON);
+	}*/
+	
+	/*@Test
+	public void deleteSubject(){
+		final String rawData = "{"
+				+ "\"success\":true,"
+				+ "\"message\":null,"
+				+ "\"data\":{"
+					+ "\"subjectIds\":[701,702],"
+					+ "}"
+				+ "}";
+		
+		String retJSON = systemConfigService.deleteSubject(rawData);
+		
+		System.out.println(retJSON);
+	}*/
+	
+	/*@Test
+	public void listAllFeeTypes(){
+		String retJSON = systemConfigService.listAllFeeTypes();
+
+		//assertEquals(retJSON, "");
+		
+		System.out.println(retJSON);
+	}*/
+	
+	
+	/*@Test
+	public void setFeeTypeDetails(){
+		final String rawData = "{"
+				+ "\"success\":true,"
+				+ "\"message\":null,"
+				+ "\"data\":{"
+				    + "\"feeTypeId\":606,"
+					+ "\"feeTypeTitle\":\"‰øùËØÅÈáë\","
+					+ "\"subjectId\":755,"
+					+ "\"remark\":\"Áª≠Á∫¶ÁßüÈáë\","
+					+ "\"feeValue\":200,"
+					+ "\"status\":1}"
+				+ "}";
+		String retJSON = systemConfigService.setFeeTypeDetails(rawData);
+		
+		System.out.println(retJSON);
+	}*/
+	
+	
+	@Test
+	public void operateFeeType(){
+		final String rawData = "{"
+				+ "\"success\":true,"
+				+ "\"message\":null,"
+				+ "\"data\":{"
+				    + "\"feeTypeId\":606,"					
+					+ "\"status\":4}"
+				+ "}";
+		String retJSON = systemConfigService.operateFeeType(rawData);
+		
+		System.out.println(retJSON);
 	}
+	
+	/*@Test
+	public void deleteFeeType(){
+		final String rawData = "{"
+				+ "\"success\":true,"
+				+ "\"message\":null,"
+				+ "\"data\":{"
+					+ "\"feeTypeIds\":[0,601],"
+					+ "}"
+				+ "}";
+		
+		String retJSON = systemConfigService.deleteFeeType(rawData);
+		
+		System.out.println(retJSON);
+	}*/
 }

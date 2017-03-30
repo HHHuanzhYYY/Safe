@@ -137,11 +137,11 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 	@Override
 	public String setSubjectDetails(String rawData) {
 		boolean isSuccess = true;
-		Map<String, Integer> retId = new HashMap<>();
+		Map<String, Long> retId = new HashMap<>();
 		try {
 			SubjectPo paramValues = (SubjectPo) JsonUtil.parseJson(rawData, SubjectPo.class);
 			
-			int subjectId = systemConfigDao.setSubjectDetails(paramValues);
+			long subjectId = systemConfigDao.setSubjectDetails(paramValues);
 			
 			retId.put("subjectId", subjectId);
 		} catch (Exception e) {
@@ -154,10 +154,10 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 	public String deleteSubject(String rawData) {
 		boolean isSuccess = true;
 		try {
-			Map<String, Object> paramValues = JsonUtil.parseJson(rawData, "subjectIds");
-			
 			@SuppressWarnings("unchecked")
-			List<Integer> subjectIds = (List<Integer>)paramValues.get("subjectIds");
+			List<Long> subjectIds = (List<Long>) JsonUtil.parseJson(rawData, 
+					Long.class, "subjectIds");
+			
 			isSuccess = systemConfigDao.deleteSubject(subjectIds);
 		} catch (Exception e) {
 			isSuccess = false;
@@ -194,11 +194,11 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 	public String operateFeeType(String rawData) {
 		boolean isSuccess = true;
 		try {
-			Map<String, Object> paramValues = JsonUtil.parseJson(rawData, "feeTypeId", "action");
+			Map<String, Object> paramValues = JsonUtil.parseJson(rawData, "feeTypeId", "status");
 			
 			isSuccess = systemConfigDao.setFeeTypeStatus(
-					(Integer)paramValues.get("feeTypeId"), 
-					(Integer)paramValues.get("action"));
+					Long.parseLong((String)paramValues.get("feeTypeId")), 
+					Integer.parseInt((String)paramValues.get("status")));
 		} catch (Exception e) {
 			isSuccess = false;
 		}
@@ -209,10 +209,9 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 	public String deleteFeeType(String rawData) {
 		boolean isSuccess = true;
 		try {
-			Map<String, Object> paramValues = JsonUtil.parseJson(rawData, "feeTypeIds");
-			
 			@SuppressWarnings("unchecked")
-			List<Integer> feeTypeIds = (List<Integer>)paramValues.get("feeTypeIds");
+			List<Long> feeTypeIds = (List<Long>) JsonUtil.parseJson(rawData, 
+					Long.class, "feeTypeIds");
 			isSuccess = systemConfigDao.deleteFeeType(feeTypeIds);
 		} catch (Exception e) {
 			isSuccess = false;

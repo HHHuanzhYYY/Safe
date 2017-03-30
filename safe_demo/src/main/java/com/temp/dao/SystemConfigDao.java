@@ -81,7 +81,7 @@ public interface SystemConfigDao {
 	 * @param subjectPo
 	 * @return subjectId
 	 */
-	int setSubjectDetails(SubjectPo subjectPo);
+	long setSubjectDetails(SubjectPo subjectPo);
 	
 	/**
 	 * deleteSubject.
@@ -89,7 +89,7 @@ public interface SystemConfigDao {
 	 * @param subjectIds
 	 * @return boolean
 	 */
-	boolean deleteSubject(List<Integer> subjectIds);
+	boolean deleteSubject(List<Long> subjectIds);
 	
 	/**
 	 * getAllFeeTypes.
@@ -113,7 +113,7 @@ public interface SystemConfigDao {
 	 * @param status
 	 * @return boolean
 	 */
-	boolean setFeeTypeStatus(final int feeTypeId, final int status);
+	boolean setFeeTypeStatus(final long feeTypeId, final int status);
 	
 	/**
 	 * deleteFeeType.
@@ -121,5 +121,5 @@ public interface SystemConfigDao {
 	 * @param feeTypeIds
 	 * @return boolean
 	 */
-	boolean deleteFeeType(List<Integer> feeTypeIds);
+	boolean deleteFeeType(List<Long> feeTypeIds);
 }

@@ -111,12 +111,12 @@ public class SystemConfigDaoImpl implements SystemConfigDao {
 								  messagePo.getMessageId()}, 
 					new int[] {Types.INTEGER, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.INTEGER});
 			
-			// …æ≥˝æ…–≈œ¢.
+			// Âà†Èô§Êóß‰ø°ÊÅØ.
 			String deleteMessageAndRecevierSQL = "DELETE FROM message_receiver WHERE messageId = ? ";
 			jdbcTemplate.update(deleteMessageAndRecevierSQL, messagePo.getMessageId());
 		}
 		
-		// ≤Â»Î ˝æ›µΩ±Ì message_receiver
+		// ÊèíÂÖ•Êï∞ÊçÆÂà∞Ë°® message_receiver
 		if (messagePo.getMessageReceiverType() == 1) {
 			final String insertMessageReceiverSQL = "INSERT INTO message_receiver(messageId, messagereceiverType) "
 					+ "VALUES(?, 1) ";
@@ -173,7 +173,7 @@ public class SystemConfigDaoImpl implements SystemConfigDao {
 	public long setBankDetails(BankBranchPo bankBranchPo) {
 		long bankId = bankBranchPo.getBankId();
 		if (bankBranchPo.getBankId() == 0) {
-			// –¬‘ˆÕ¯µ„
+			// Êñ∞Â¢ûÁΩëÁÇπ
 			String insertBankSQL = "INSERT INTO bank_branch(bankTitle, remark) VALUES(?, ?) ";
 			
 			KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -193,7 +193,7 @@ public class SystemConfigDaoImpl implements SystemConfigDao {
 			
 			bankId = (long) keyHolder.getKey();
 		} else {
-			// –ﬁ∏ƒÕ¯µ„–≈œ¢
+			// ‰øÆÊîπÁΩëÁÇπ‰ø°ÊÅØ
 			String updateBankSQL = "UPDATE bank_branch SET bankTitle = ?, remark = ? WHERE bankId = ? ";
 			
 			jdbcTemplate.update(updateBankSQL, 
@@ -239,10 +239,10 @@ public class SystemConfigDaoImpl implements SystemConfigDao {
 	}
 
 	@Override
-	public int setSubjectDetails(SubjectPo subjectPo) {
-		int subjectId = 0;
+	public long setSubjectDetails(SubjectPo subjectPo) {
+		long subjectId = subjectPo.getSubjectId();
 		if (subjectPo.getSubjectId() == 0) {
-			// ≤Â»Î–¬µƒø∆ƒø.
+			// ÊèíÂÖ•Êñ∞ÁöÑÁßëÁõÆ.
 			final String insertSubjectSQL = "INSERT INTO subject(subjectCode, subjectTitle, direction, remark) "
 										  + "VALUES(?, ?, ?, ?) ";
 			KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -250,7 +250,7 @@ public class SystemConfigDaoImpl implements SystemConfigDao {
 
 				@Override
 				public PreparedStatement createPreparedStatement(Connection conn) throws SQLException {
-					PreparedStatement pst = conn.prepareStatement(insertSubjectSQL);
+					PreparedStatement pst = conn.prepareStatement(insertSubjectSQL, Statement.RETURN_GENERATED_KEYS);
 					
 					int parameterIndex = 1;
 					pst.setString(parameterIndex++, subjectPo.getSubjectCode());
@@ -262,9 +262,9 @@ public class SystemConfigDaoImpl implements SystemConfigDao {
 				}
 				
 			}, keyHolder);
-			subjectId = (int) keyHolder.getKey();
+			subjectId = (long) keyHolder.getKey();
 		} else {
-			// ∏¸–¬æ…µƒø∆ƒø.
+			// Êõ¥Êñ∞ÊóßÁöÑÁßëÁõÆ.
 			subjectId = subjectPo.getSubjectId();
 			
 			String updateSubjectSQL = "UPDATE subject "
@@ -282,21 +282,21 @@ public class SystemConfigDaoImpl implements SystemConfigDao {
 	}
 
 	@Override
-	public boolean deleteSubject(List<Integer> subjectIds) {
+	public boolean deleteSubject(List<Long> subjectIds) {
 		String deleteSubjectSQL = "DELETE FROM subject WHERE subjectId = ? ";
 		List<Object[]> batchArgs = new ArrayList<>();
-		for (Integer subjectId : subjectIds) {
+		for (long subjectId : subjectIds) {
 			Object[] batchArg = new Object[] {subjectId};
 			batchArgs.add(batchArg);
 		}
-		int[] ret = jdbcTemplate.batchUpdate(deleteSubjectSQL, batchArgs, new int[] {Types.INTEGER});
+		int[] ret = jdbcTemplate.batchUpdate(deleteSubjectSQL, batchArgs, new int[] {Types.BIGINT});
 		
 		return ret.length == 0 ? false : true;
 	}
 
 	@Override
 	public List<FeeTypeVo> getAllFeeTypes() {
-		String queryFeeTypeSQL = "SELECT feeTypeId, feeTypeTitle, remark, feeValue, status, "
+		String queryFeeTypeSQL = "SELECT feeTypeId, feeTypeTitle, fee_type.remark, feeValue, status, "
 									  + "subject.subjectId, subject.subjectTitle "
 							   + "FROM fee_type, subject "
 							   + "WHERE fee_type.subjectId = subject.subjectId";
@@ -339,23 +339,23 @@ public class SystemConfigDaoImpl implements SystemConfigDao {
 	}
 
 	@Override
-	public boolean setFeeTypeStatus(int feeTypeId, int status) {
+	public boolean setFeeTypeStatus(long feeTypeId, int status) {
 		String updateStatusSQL = "UPDATE fee_type SET status = ? WHERE feeTypeId = ? ";
 		int count = jdbcTemplate.update(updateStatusSQL, 
 				new Object[] {status, feeTypeId}, 
-				new int[] {Types.INTEGER, Types.INTEGER});
+				new int[] {Types.BIGINT, Types.INTEGER});
 		return count == 1 ? true : false;
 	}
 
 	@Override
-	public boolean deleteFeeType(List<Integer> feeTypeIds) {
+	public boolean deleteFeeType(List<Long> feeTypeIds) {
 		String deleteFeeTypeSQL = "DELETE FROM fee_type WHERE feeTypeId = ? ";
 		List<Object[]> batchArgs = new ArrayList<>();
-		for (Integer feeTypeId : feeTypeIds) {
+		for (Long feeTypeId : feeTypeIds) {
 			Object[] batchArg = new Object[] {feeTypeId};
 			batchArgs.add(batchArg);
 		}
-		int[] ret = jdbcTemplate.batchUpdate(deleteFeeTypeSQL, batchArgs, new int[] {Types.INTEGER});
+		int[] ret = jdbcTemplate.batchUpdate(deleteFeeTypeSQL, batchArgs, new int[] {Types.BIGINT});
 		
 		return ret.length == 0 ? false : true;
 	}
