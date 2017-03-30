@@ -77,10 +77,10 @@ public class BankEmployeeDaoImpl implements BankEmployeeDao {
 	}
 
 	@Override
-	public int setBankEmployeeDetails(BankEmployeePo bankEmployeePo) {
-		int employeeId = 0;
+	public long setBankEmployeeDetails(BankEmployeePo bankEmployeePo) {
+		long employeeId = 0;
 		if (bankEmployeePo.getEmployeeId() == 0) {
-			// 新增职员
+			// 锟斤拷锟斤拷职员
 			final String insertBankEmployeeSQL = 
 					"INSERT INTO bank_employee(loginId, employeeName, priority, "
 											+ "certificateType, certificateId, mobile, bankId, "
@@ -101,7 +101,7 @@ public class BankEmployeeDaoImpl implements BankEmployeeDao {
 					pst.setInt(parameterIndex++, bankEmployeePo.getCertificateType());
 					pst.setString(parameterIndex++, bankEmployeePo.getCertificateId());
 					pst.setString(parameterIndex++, bankEmployeePo.getMobile());
-					pst.setInt(parameterIndex++, bankEmployeePo.getBankId());
+					pst.setLong(parameterIndex++, bankEmployeePo.getBankId());
 					pst.setString(parameterIndex++, bankEmployeePo.getIcCardNo());
 					pst.setInt(parameterIndex++, bankEmployeePo.getIsAdministrator());
 					pst.setString(parameterIndex++, bankEmployeePo.getRemark());
@@ -112,7 +112,7 @@ public class BankEmployeeDaoImpl implements BankEmployeeDao {
 			
 			employeeId = (int) keyHolder.getKey();
 		} else {
-			// 更新职员信息
+			// 锟斤拷锟斤拷职员锟斤拷息
 			employeeId = bankEmployeePo.getEmployeeId();
 			
 			String updateBankEmployeeSQL = "UPDATE bank_employee "

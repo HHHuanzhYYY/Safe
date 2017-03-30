@@ -64,11 +64,11 @@ public class BankEmployeeServiceImpl implements BankEmployeeService {
 	@Override
 	public String setBankEmployeeDetails(final String rawData) {
 		boolean isSuccess = true;
-		Map<String, Integer> bankEmployeeId = new HashMap<>();
+		Map<String, Long> bankEmployeeId = new HashMap<>();
 		try {
 			BankEmployeePo paramValues = (BankEmployeePo) JsonUtil.parseJson(rawData, BankEmployeePo.class);
 			
-			int employeeId = bankEmployeeDao.setBankEmployeeDetails(paramValues);
+			long employeeId = bankEmployeeDao.setBankEmployeeDetails(paramValues);
 			
 			bankEmployeeId.put("employeeId", employeeId);
 		} catch (Exception e) {

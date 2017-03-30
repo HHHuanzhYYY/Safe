@@ -2,7 +2,7 @@ package com.temp.po;
 
 public class CustomerPo extends Po {
 	
-	private int customerId;
+	private long customerId;
 	
 	private int customerType;
 	
@@ -69,11 +69,11 @@ public class CustomerPo extends Po {
 				+ reserveFingerPwd + "]";
 	}
 
-	public int getCustomerId() {
+	public long getCustomerId() {
 		return customerId;
 	}
 
-	public void setCustomerId(int customerId) {
+	public void setCustomerId(long customerId) {
 		this.customerId = customerId;
 	}
 

@@ -2,27 +2,27 @@ package com.temp.po;
 
 public class BankEmployeePo extends Po {
 
-	private int employeeId; // ÒøÐÐÖ°Ô±ID
+	private long employeeId; // ï¿½ï¿½ï¿½ï¿½Ö°Ô±ID
 	
-	private String loginId; // µÇÂ¼ID
+	private String loginId; // ï¿½ï¿½Â¼ID
 	
-	private String employeeName; // ÒøÐÐÖ°Ô±Ãû
+	private String employeeName; // ï¿½ï¿½ï¿½ï¿½Ö°Ô±ï¿½ï¿½
 	
-	private int priority; // ÓÃ»§È¨ÏÞ
+	private int priority; // ï¿½Ã»ï¿½È¨ï¿½ï¿½
 	
-	private int certificateType; // Ö¤¼þÀàÐÍ
+	private int certificateType; // Ö¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	
-	private String certificateId; // Ö¤¼þºÅÂë
+	private String certificateId; // Ö¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	
-	private String mobile; // ÊÖ»úºÅ
+	private String mobile; // ï¿½Ö»ï¿½ï¿½ï¿½
 	
-	private int bankId; // ÍøµãID
+	private long bankId; // ï¿½ï¿½ï¿½ï¿½ID
 	
-	private String icCardNo; // IC¿¨ºÅ
+	private String icCardNo; // ICï¿½ï¿½ï¿½ï¿½
 	
-	private int isAdministrator; // ¹ÜÀíÔ±¿¨
+	private int isAdministrator; // ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½
 	
-	private String remark; // ±¸×¢
+	private String remark; // ï¿½ï¿½×¢
 	
 	public BankEmployeePo() {}
 
@@ -34,11 +34,11 @@ public class BankEmployeePo extends Po {
 				+ ", isAdministrator=" + isAdministrator + ", remark=" + remark + "]";
 	}
 
-	public int getEmployeeId() {
+	public long getEmployeeId() {
 		return employeeId;
 	}
 
-	public void setEmployeeId(int employeeId) {
+	public void setEmployeeId(long employeeId) {
 		this.employeeId = employeeId;
 	}
 
@@ -90,11 +90,11 @@ public class BankEmployeePo extends Po {
 		this.mobile = mobile;
 	}
 
-	public int getBankId() {
+	public long getBankId() {
 		return bankId;
 	}
 
-	public void setBankId(int bankId) {
+	public void setBankId(long bankId) {
 		this.bankId = bankId;
 	}
 

@@ -2,9 +2,9 @@ package com.temp.vo;
 
 public class BankEmployeeResumeVo extends Vo {
 
-	private int employeeId; // 银行雇员ID
+	private long employeeId; // 锟斤拷锟叫癸拷员ID
 	
-	private String employeeName; // 银行职员名
+	private String employeeName; // 锟斤拷锟斤拷职员锟斤拷
 	
 	public BankEmployeeResumeVo() {}
 
@@ -13,11 +13,11 @@ public class BankEmployeeResumeVo extends Vo {
 		return "BankEmployeeResumeVo [employeeId=" + employeeId + ", employeeName=" + employeeName + "]";
 	}
 
-	public int getEmployeeId() {
+	public long getEmployeeId() {
 		return employeeId;
 	}
 
-	public void setEmployeeId(int employeeId) {
+	public void setEmployeeId(long employeeId) {
 		this.employeeId = employeeId;
 	}
 

@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class BoxVo extends Vo {
 	
-	private int boxId;
+	private long boxId;
 	
 	private int boxModel;
 	
@@ -33,11 +33,11 @@ public class BoxVo extends Vo {
 				+ cardRfid + ", cardNo=" + cardNo + ", cardType=" + cardType + ", cardStatus=" + cardStatus + "]";
 	}
 
-	public int getBoxId() {
+	public long getBoxId() {
 		return boxId;
 	}
 
-	public void setBoxId(int boxId) {
+	public void setBoxId(long boxId) {
 		this.boxId = boxId;
 	}
 

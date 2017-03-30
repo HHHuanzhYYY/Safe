@@ -2,15 +2,15 @@ package com.temp.vo;
 
 public class SubjectVo extends Vo {
 
-	private int subjectId; // ¿ÆÄ¿ID
+	private long subjectId; // ï¿½ï¿½Ä¿ID
 	
-	private String subjectCode; // ¿ÆÄ¿´úÂë
+	private String subjectCode; // ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½
 	
-	private String subjectTitle; // ¿ÆÄ¿Ãû³Æ
+	private String subjectTitle; // ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½
 	
-	private int direction; // ·½Ïò
+	private int direction; // ï¿½ï¿½ï¿½ï¿½
 	
-	private String remark; // ±¸×¢
+	private String remark; // ï¿½ï¿½×¢
 
 	public SubjectVo() {}
 
@@ -20,11 +20,11 @@ public class SubjectVo extends Vo {
 				+ ", direction=" + direction + ", remark=" + remark + "]";
 	}
 
-	public int getSubjectId() {
+	public long getSubjectId() {
 		return subjectId;
 	}
 
-	public void setSubjectId(int subjectId) {
+	public void setSubjectId(long subjectId) {
 		this.subjectId = subjectId;
 	}
 

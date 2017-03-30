@@ -43,7 +43,7 @@ public class AccountDaoImpl implements AccountDao {
 						
 						accountVo.setAccountId(rs.getString("accountId"));
 						accountVo.setAccountType(rs.getInt("accountType"));
-						accountVo.setBankId(rs.getString("bankId"));
+						accountVo.setBankId(rs.getLong("bankId"));
 						accountVo.setCustomerSum(rs.getInt("customerSum"));
 						
 						return accountVo;
@@ -69,7 +69,7 @@ public class AccountDaoImpl implements AccountDao {
 						
 						accountVo.setAccountId(rs.getString("accountId"));
 						accountVo.setAccountType(rs.getInt("accountType"));
-						accountVo.setBankId(rs.getString("bankId"));
+						accountVo.setBankId(rs.getLong("bankId"));
 						accountVo.setCustomerSum(rs.getInt("customerSum"));
 						
 						return accountVo;
@@ -94,7 +94,7 @@ public class AccountDaoImpl implements AccountDao {
 				pst.setInt(i++, accountPo.getPaymentType());
 				pst.setFloat(i++, accountPo.getAmountSum());
 				pst.setInt(i++, accountPo.getCustomerSum());
-				pst.setInt(i++, accountPo.getBankId());
+				pst.setLong(i++, accountPo.getBankId());
 			}			
 		});	
 		return count == 1 ? true : false;

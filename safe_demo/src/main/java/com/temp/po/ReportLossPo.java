@@ -8,21 +8,21 @@ public class ReportLossPo extends Po {
 	
 	private String certificateNo;
 
-	private int reportLossType; // ¹ÒÊ§ÀàÐÍ (ÃÜÂë¶ªÊ§-1,¿¨¹ÒÊ§-2,Ô¿³×¶ªÊ§-3)	
+	private int reportLossType; // ï¿½ï¿½Ê§ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ë¶ªÊ§-1,ï¿½ï¿½ï¿½ï¿½Ê§-2,Ô¿ï¿½×¶ï¿½Ê§-3)	
 	
-	private int boxId; // ÏäºÅ	
+	private long boxId; // ï¿½ï¿½ï¿½	
 	
-	private String cardRfid; // ¿¨RFID	
+	private String cardRfid; // ï¿½ï¿½RFID	
 	
-	private String cardNo; // ¿¨ºÅ	
+	private String cardNo; // ï¿½ï¿½ï¿½ï¿½	
 	
-	private String password; // ÃÜÂë	
+	private String password; // ï¿½ï¿½ï¿½ï¿½	
 	
-	private String keyId; // Ô¿³×ºÅ	
+	private long keyId; // Ô¿ï¿½×ºï¿½	
 	
-	private int paymentType; // ¸¶¿î·½Ê½	
+	private int paymentType; // ï¿½ï¿½ï¿½î·½Ê½	
 	
-	private float feeTotal; // ·ÑÓÃ×Ü¼Æ	
+	private float feeTotal; // ï¿½ï¿½ï¿½ï¿½ï¿½Ü¼ï¿½	
 
 	public ReportLossPo() {}
 
@@ -76,11 +76,11 @@ public class ReportLossPo extends Po {
 		this.reportLossType = reportLossType;
 	}
 
-	public int getBoxId() {
+	public long getBoxId() {
 		return boxId;
 	}
 
-	public void setBoxId(int boxId) {
+	public void setBoxId(long boxId) {
 		this.boxId = boxId;
 	}
 
@@ -108,11 +108,11 @@ public class ReportLossPo extends Po {
 		this.password = password;
 	}
 
-	public String getKeyId() {
+	public long getKeyId() {
 		return keyId;
 	}
 
-	public void setKeyId(String keyId) {
+	public void setKeyId(long keyId) {
 		this.keyId = keyId;
 	}
 

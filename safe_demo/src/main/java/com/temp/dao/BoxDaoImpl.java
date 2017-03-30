@@ -272,7 +272,7 @@ public class BoxDaoImpl implements BoxDao {
 	}
 
 	@Override
-	public boolean setBoxNewKey(int boxId, String keyId) {
+	public boolean setBoxNewKey(long boxId, long keyId) {
 		// TODO Auto-generated method stub
 		return false;
 	}

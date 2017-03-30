@@ -2,19 +2,19 @@ package com.temp.vo;
 
 public class FeeTypeVo extends Vo {
 
-	private int feeTypeId; // ·ÑÓÃÀàÐÍID
+	private long feeTypeId; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ID
 	
-	private String feeTypeTitle; // ·ÑÓÃÀàÐÍÃû³Æ
+	private String feeTypeTitle; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	
-	private int subjectId; // ËùÊô¿ÆÄ¿
+	private int subjectId; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿
 	
 	private String subjectTitle;
 	
-	private String remark; // ±¸×¢
+	private String remark; // ï¿½ï¿½×¢
 	
-	private float feeValue; // ·ÑÓÃÖµ
+	private float feeValue; // ï¿½ï¿½ï¿½ï¿½Öµ
 	
-	private int status; // ·ÑÓÃÀàÐÍ×´Ì¬
+	private int status; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
 	
 	public FeeTypeVo() {}
 
@@ -25,11 +25,11 @@ public class FeeTypeVo extends Vo {
 				+ status + "]";
 	}
 
-	public int getFeeTypeId() {
+	public long getFeeTypeId() {
 		return feeTypeId;
 	}
 
-	public void setFeeTypeId(int feeTypeId) {
+	public void setFeeTypeId(long feeTypeId) {
 		this.feeTypeId = feeTypeId;
 	}
 

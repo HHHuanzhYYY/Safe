@@ -65,7 +65,7 @@ public interface BoxDao {
 	 * @param keyId
 	 * @return boolean
 	 */
-	boolean setBoxNewKey(int boxId, String keyId);
+	boolean setBoxNewKey(long boxId, long keyId);
 	
 	/**
 	 * getAllBoxModelResumes.

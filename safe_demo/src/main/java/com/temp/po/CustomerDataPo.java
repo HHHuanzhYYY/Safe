@@ -2,13 +2,13 @@ package com.temp.po;
 
 public class CustomerDataPo extends Po {
 
-	private int customerId; // ¿Í»§ID	
-	private String unitAddress; // µ¥Î»µØÖ·	
-	private String homeAddress; // ¼ÒÍ¥µØÖ·	
-	private String phone; // ÁªÏµ·½Ê½	
-	private String mobile; // ÊÖ»úºÅ	
-	private String post; // ÓÊ±à	
-	private String remark; // ±¸×¢
+	private long customerId; // ï¿½Í»ï¿½ID	
+	private String unitAddress; // ï¿½ï¿½Î»ï¿½ï¿½Ö·	
+	private String homeAddress; // ï¿½ï¿½Í¥ï¿½ï¿½Ö·	
+	private String phone; // ï¿½ï¿½Ïµï¿½ï¿½Ê½	
+	private String mobile; // ï¿½Ö»ï¿½ï¿½ï¿½	
+	private String post; // ï¿½Ê±ï¿½	
+	private String remark; // ï¿½ï¿½×¢
 	
 	public CustomerDataPo() {}
 
@@ -19,11 +19,11 @@ public class CustomerDataPo extends Po {
 				+ "]";
 	}
 
-	public int getCustomerId() {
+	public long getCustomerId() {
 		return customerId;
 	}
 
-	public void setCustomerId(int customerId) {
+	public void setCustomerId(long customerId) {
 		this.customerId = customerId;
 	}
 

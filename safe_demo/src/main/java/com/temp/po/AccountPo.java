@@ -9,7 +9,7 @@ public class AccountPo extends Po {
 	
 	private int accountType;
 	
-	private int bankId;
+	private long bankId;
 	
 	private int isAccountFree;
 	
@@ -51,11 +51,11 @@ public class AccountPo extends Po {
 		this.accountType = accountType;
 	}
 
-	public int getBankId() {
+	public long getBankId() {
 		return bankId;
 	}
 
-	public void setBankId(int bankId) {
+	public void setBankId(long bankId) {
 		this.bankId = bankId;
 	}
 

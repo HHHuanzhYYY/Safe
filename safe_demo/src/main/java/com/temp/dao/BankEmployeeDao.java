@@ -39,7 +39,7 @@ public interface BankEmployeeDao {
 	 * @param bankEmployeePo
 	 * @return employeeId
 	 */
-	int setBankEmployeeDetails(BankEmployeePo bankEmployeePo);
+	long setBankEmployeeDetails(BankEmployeePo bankEmployeePo);
 	
 	/**
 	 * deleteMessage.

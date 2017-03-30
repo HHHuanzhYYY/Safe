@@ -116,7 +116,7 @@ public class RentDaoImpl implements RentDao {
 			public void setValues(PreparedStatement pst) throws SQLException {
 				int index = 1;
 				
-				pst.setInt(index++, reletPo.getId());
+				pst.setLong(index++, reletPo.getId());
 				pst.setInt(index++, reletPo.getRentTime());
 				pst.setDate(index++, new java.sql.Date(reletPo.getStartDate().getTime()));
 				pst.setDate(index++, new java.sql.Date(reletPo.getEndDate().getTime()));

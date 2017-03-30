@@ -8,18 +8,18 @@ import java.util.Date;
  */
 public class CustomerDataVo extends Vo {
 
-	private int customerId; // ¿Í»§ID	
-	private String customerName;  // ÐÕÃû	
-	private int customerSex; // ÐÔ±ð	
-	private int certificateType; // Ö¤¼þÀàÐÍ	
-	private String certificateNo; // Ö¤¼þºÅ	
-	private Date openAccountDate; // ¿ª»§ÈÕÆÚ	
-	private String unitAddress; // µ¥Î»µØÖ·	
-	private String homeAddress; // ¼ÒÍ¥µØÖ·	
-	private String phone; // ÁªÏµ·½Ê½	
-	private String mobile; // ÊÖ»úºÅ	
-	private String post; // ÓÊ±à	
-	private String remark; // ±¸×¢	
+	private long customerId; // ï¿½Í»ï¿½ID	
+	private String customerName;  // ï¿½ï¿½ï¿½ï¿½	
+	private int customerSex; // ï¿½Ô±ï¿½	
+	private int certificateType; // Ö¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	
+	private String certificateNo; // Ö¤ï¿½ï¿½ï¿½ï¿½	
+	private Date openAccountDate; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	
+	private String unitAddress; // ï¿½ï¿½Î»ï¿½ï¿½Ö·	
+	private String homeAddress; // ï¿½ï¿½Í¥ï¿½ï¿½Ö·	
+	private String phone; // ï¿½ï¿½Ïµï¿½ï¿½Ê½	
+	private String mobile; // ï¿½Ö»ï¿½ï¿½ï¿½	
+	private String post; // ï¿½Ê±ï¿½	
+	private String remark; // ï¿½ï¿½×¢	
 	
 	public CustomerDataVo() {}
 
@@ -32,11 +32,11 @@ public class CustomerDataVo extends Vo {
 				+ "]";
 	}
 
-	public int getCustomerId() {
+	public long getCustomerId() {
 		return customerId;
 	}
 
-	public void setCustomerId(int customerId) {
+	public void setCustomerId(long customerId) {
 		this.customerId = customerId;
 	}
 

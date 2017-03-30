@@ -4,7 +4,7 @@ import java.util.List;
 
 public class MessagePo extends Po {
 
-	private int messageId;
+	private long messageId;
 	
 	private int messageType;
 	
@@ -12,7 +12,7 @@ public class MessagePo extends Po {
 	
 	private String messageContent;
 	
-	private int messageReceiverType; // 0-部分员工, 1-全部员工(消息收件人为NULL)
+	private int messageReceiverType; // 0-锟斤拷锟斤拷员锟斤拷, 1-全锟斤拷员锟斤拷(锟斤拷息锟秸硷拷锟斤拷为NULL)
 	
 	private List<Integer> messageReceivers;
 	
@@ -27,11 +27,11 @@ public class MessagePo extends Po {
 				+ ", messageReceivers=" + messageReceivers + ", remark=" + remark + "]";
 	}
 
-	public int getMessageId() {
+	public long getMessageId() {
 		return messageId;
 	}
 
-	public void setMessageId(int messageId) {
+	public void setMessageId(long messageId) {
 		this.messageId = messageId;
 	}
 

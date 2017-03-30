@@ -4,23 +4,23 @@ import java.util.Date;
 
 public class ReletPo extends Po {
 	
-	private int id; // ×âÁÞID
+	private long id; // ï¿½ï¿½ï¿½ï¿½ID
 	
-	private int rentTime; // Ðø×âÊ±¼ä	
+	private int rentTime; // ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½	
 	
-	private Date startDate; // ¿ªÊ¼ÈÕÆÚ
+	private Date startDate; // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
 	
-	private Date endDate; // µ½ÆÚÈÕÆÚ	
+	private Date endDate; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	
 	
-	private float rent; // ÐøÔ¼×â½ð
+	private float rent; // ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½
 	
-	private float overdueFine; // ÖÍÄÉ½ð
+	private float overdueFine; // ï¿½ï¿½ï¿½É½ï¿½
 	
-	private float overdueRent; // ÖÍÄÉ×â½ð	
+	private float overdueRent; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	
 	
-	private int paymentType; // ¸¶¿î·½Ê½
+	private int paymentType; // ï¿½ï¿½ï¿½î·½Ê½
 	
-	private float feeTotal; // ·ÑÓÃ×Ü¼Æ
+	private float feeTotal; // ï¿½ï¿½ï¿½ï¿½ï¿½Ü¼ï¿½
 	
 	public ReletPo() {}
 
@@ -31,11 +31,11 @@ public class ReletPo extends Po {
 				+ paymentType + ", feeTotal=" + feeTotal + "]";
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

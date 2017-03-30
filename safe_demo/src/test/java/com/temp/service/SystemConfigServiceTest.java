@@ -17,9 +17,9 @@ public class SystemConfigServiceTest extends ServiceTestBase {
 		//assertEquals(retJSON, "");
 		
 		System.out.println(retJSON);
-	}
+	}*/
 	
-	@Test
+	/*@Test
 	public void listBankBranchEmployees() {
 		final String rawData = "{\"success\":true,\"message\":null,\"data\":{\"bankId\":101}}";
 		String retJSON = systemConfigService.listBankBranchEmployees(rawData);
@@ -73,7 +73,7 @@ public class SystemConfigServiceTest extends ServiceTestBase {
 				+ "\"data\":{"
 					+ "\"bankId\":0,"
 					+ "\"bankTitle\":\"BC\","
-					+ "\"remark\":\"�й�����\"}"
+					+ "\"remark\":\"民生银行\"}"
 				+ "}";
 		String retJSON = systemConfigService.setBankDetails(rawData);
 		
@@ -86,7 +86,7 @@ public class SystemConfigServiceTest extends ServiceTestBase {
 				+ "\"success\":true,"
 				+ "\"message\":null,"
 				+ "\"data\":{"
-					+ "\"bankIds\":[107,108,114,115],"
+					+ "\"bankIds\":[107,108,106],"
 					+ "}"
 				+ "}";
 		
@@ -114,7 +114,7 @@ public class SystemConfigServiceTest extends ServiceTestBase {
 					+ "\"direction\":0,"
 					+ "\"remark\":\"English\"}"
 				+ "}";
-		System.out.println(rawData);
+		
 		String retJSON = systemConfigService.setSubjectDetails(rawData);
 		
 		System.out.println(retJSON);
@@ -126,7 +126,7 @@ public class SystemConfigServiceTest extends ServiceTestBase {
 				+ "\"success\":true,"
 				+ "\"message\":null,"
 				+ "\"data\":{"
-					+ "\"subjectIds\":[701,702],"
+					+ "\"subjectIds\":[706,707,711,712],"
 					+ "}"
 				+ "}";
 		
@@ -164,7 +164,7 @@ public class SystemConfigServiceTest extends ServiceTestBase {
 	}*/
 	
 	
-	@Test
+	/*@Test
 	public void operateFeeType(){
 		final String rawData = "{"
 				+ "\"success\":true,"
@@ -176,9 +176,9 @@ public class SystemConfigServiceTest extends ServiceTestBase {
 		String retJSON = systemConfigService.operateFeeType(rawData);
 		
 		System.out.println(retJSON);
-	}
+	}*/
 	
-	/*@Test
+	@Test
 	public void deleteFeeType(){
 		final String rawData = "{"
 				+ "\"success\":true,"
@@ -191,5 +191,5 @@ public class SystemConfigServiceTest extends ServiceTestBase {
 		String retJSON = systemConfigService.deleteFeeType(rawData);
 		
 		System.out.println(retJSON);
-	}*/
+	}
 }

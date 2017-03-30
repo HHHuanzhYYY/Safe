@@ -2,17 +2,17 @@ package com.temp.po;
 
 public class FeeTypePo extends Po {
 
-	private int feeTypeId; // ·ÑÓÃÀàÐÍID
+	private long feeTypeId; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ID
 	
-	private String feeTypeTitle; // ·ÑÓÃÀàÐÍÃû³Æ
+	private String feeTypeTitle; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	
-	private int subjectId; // ËùÊô¿ÆÄ¿
+	private long subjectId; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿
 	
-	private String remark; // ±¸×¢
+	private String remark; // ï¿½ï¿½×¢
 	
-	private float feeValue; // ·ÑÓÃÖµ
+	private float feeValue; // ï¿½ï¿½ï¿½ï¿½Öµ
 	
-	private int status; // ·ÑÓÃÀàÐÍ×´Ì¬
+	private int status; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
 	
 	public FeeTypePo() {}
 
@@ -22,11 +22,11 @@ public class FeeTypePo extends Po {
 				+ ", remark=" + remark + ", feeValue=" + feeValue + ", status=" + status + "]";
 	}
 
-	public int getFeeTypeId() {
+	public long getFeeTypeId() {
 		return feeTypeId;
 	}
 
-	public void setFeeTypeId(int feeTypeId) {
+	public void setFeeTypeId(long feeTypeId) {
 		this.feeTypeId = feeTypeId;
 	}
 
@@ -38,11 +38,11 @@ public class FeeTypePo extends Po {
 		this.feeTypeTitle = feeTypeTitle;
 	}
 
-	public int getSubjectId() {
+	public long getSubjectId() {
 		return subjectId;
 	}
 
-	public void setSubjectId(int subjectId) {
+	public void setSubjectId(long subjectId) {
 		this.subjectId = subjectId;
 	}
 

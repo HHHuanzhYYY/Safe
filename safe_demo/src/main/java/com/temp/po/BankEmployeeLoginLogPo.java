@@ -2,7 +2,7 @@ package com.temp.po;
 
 public class BankEmployeeLoginLogPo extends Po {
 
-	private int employeeId;
+	private long employeeId;
 	
 	private String remark;
 	
@@ -13,11 +13,11 @@ public class BankEmployeeLoginLogPo extends Po {
 		return "BankEmployeeLoginLogPo [employeeId=" + employeeId + ", remark=" + remark + "]";
 	}
 
-	public int getEmployeeId() {
+	public long getEmployeeId() {
 		return employeeId;
 	}
 
-	public void setEmployeeId(int employeeId) {
+	public void setEmployeeId(long employeeId) {
 		this.employeeId = employeeId;
 	}
 

@@ -2,7 +2,7 @@ package com.temp.po;
 
 public class OffleasePo extends Po {
 	
-	private int id;
+	private long id;
 
 	private float returnDeposit;
 	
@@ -12,7 +12,7 @@ public class OffleasePo extends Po {
 	
 	private float overdueFine;
 	
-	private int unrecycleKeySum; // Ô¿³×ÊýÄ¿
+	private int unrecycleKeySum; // Ô¿ï¿½ï¿½ï¿½ï¿½Ä¿
 	
 	private float keyFee;
 	
@@ -30,11 +30,11 @@ public class OffleasePo extends Po {
 				+ "]";
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

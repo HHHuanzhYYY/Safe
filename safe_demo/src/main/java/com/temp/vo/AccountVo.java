@@ -6,13 +6,13 @@ public class AccountVo extends Vo {
 	
 	private int accountType;
 	
-	private String bankId;
+	private long bankId;
 	
 	private int customerSum;
 	
 	public AccountVo() {}
 	
-	public AccountVo(String accountId, int accountType, String bankId, int customerSum) {
+	public AccountVo(String accountId, int accountType, long bankId, int customerSum) {
 		this.accountId = accountId;
 		this.accountType = accountType;
 		this.bankId = bankId;
@@ -41,11 +41,11 @@ public class AccountVo extends Vo {
 		this.accountType = accountType;
 	}
 
-	public String getBankId() {
+	public long getBankId() {
 		return bankId;
 	}
 
-	public void setBankId(String bankId) {
+	public void setBankId(long bankId) {
 		this.bankId = bankId;
 	}
 

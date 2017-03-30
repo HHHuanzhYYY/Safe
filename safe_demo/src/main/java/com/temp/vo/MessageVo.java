@@ -2,7 +2,7 @@ package com.temp.vo;
 
 public class MessageVo extends Vo {
 
-	private int messageId;
+	private long messageId;
 	
 	private int messageType;
 	
@@ -16,11 +16,11 @@ public class MessageVo extends Vo {
 				+ "]";
 	}
 
-	public int getMessageId() {
+	public long getMessageId() {
 		return messageId;
 	}
 
-	public void setMessageId(int messageId) {
+	public void setMessageId(long messageId) {
 		this.messageId = messageId;
 	}
 

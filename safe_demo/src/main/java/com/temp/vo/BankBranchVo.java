@@ -2,7 +2,7 @@ package com.temp.vo;
 
 public class BankBranchVo {
 
-	private int bankId;
+	private long bankId;
 	
 	private String bankTitle;
 	
@@ -13,11 +13,11 @@ public class BankBranchVo {
 		return "BankBranchVo [bankId=" + bankId + ", bankTitle=" + bankTitle + "]";
 	}
 
-	public int getBankId() {
+	public long getBankId() {
 		return bankId;
 	}
 
-	public void setBankId(int bankId) {
+	public void setBankId(long bankId) {
 		this.bankId = bankId;
 	}
 
