@@ -266,8 +266,36 @@ public class CustomerDaoImpl implements CustomerDao {
 
 	@Override
 	public List<CustomerFullInfoVo> getCustomersByCardRfid(String cardRfid) {
-		// TODO Auto-generated method stub
-		return null;
+		final String queryCustomerSQL = "SELECT * "
+									  + "FROM customer, card "
+									  + "WHERE card.customerId = customer.customerId AND card.cardRfid = ? ";
+		List<CustomerFullInfoVo> customerFullInfoVos = jdbcTemplate.query(queryCustomerSQL, 
+				new Object[] {cardRfid}, new int[] {Types.VARCHAR}, 
+				new RowMapper<CustomerFullInfoVo>() {
+
+					@Override
+					public CustomerFullInfoVo mapRow(ResultSet rs, int arg1) throws SQLException {
+						CustomerFullInfoVo customerFullInfoVo = new CustomerFullInfoVo();
+						
+						customerFullInfoVo.setCustomerId(rs.getLong("customerId"));
+						customerFullInfoVo.setCertificateType(rs.getInt("customerType"));
+						customerFullInfoVo.setCustomerName(rs.getString("customerName"));
+						customerFullInfoVo.setCustomerPwd(rs.getString("customerPwd"));
+						customerFullInfoVo.setCustomerSex(rs.getInt("customerSex"));
+						customerFullInfoVo.setCertificateType(rs.getInt("certificateType"));
+						customerFullInfoVo.setCertificateNo(rs.getString("certificateNo"));
+						customerFullInfoVo.setHomeAddress(rs.getString("homeAddress"));
+						customerFullInfoVo.setUnitAddress(rs.getString("unitAddress"));
+						customerFullInfoVo.setPhone(rs.getString("phone"));
+						customerFullInfoVo.setMobile(rs.getString("mobile"));
+						customerFullInfoVo.setPost(rs.getString("post"));
+						customerFullInfoVo.setPhoto(ImgUtil.encodeToBase64CodingImg(rs.getBlob("photo")));
+						customerFullInfoVo.setRemark(rs.getString("remark"));
+						
+						return customerFullInfoVo;
+					}
+				});
+		return customerFullInfoVos;
 	}
 
 }
