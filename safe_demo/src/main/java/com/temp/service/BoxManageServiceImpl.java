@@ -35,24 +35,29 @@ public class BoxManageServiceImpl implements BoxManageService {
 		// retChangeBoxDetails = {<"keyNo", ***>, <"amountDifference", ***>, <"keyFee", ***>}
 		Map<String, Object> retChangeBoxDetails = new HashMap<>();
 		try {
-			Map<String, Object> paramValues = JsonUtil.parseJson(rawData, "boxId");
+			Map<String, Object> paramValues = JsonUtil.parseJson(rawData, "oldBoxId", "newBoxId");
 			
-			Map<String, Object> boxKeyDetails = boxDao.getBoxKeyDetails((int)paramValues.get("boxId"));
-			retChangeBoxDetails.put("keyFee", (float)boxKeyDetails.get("newBoxKeyFee") * Utility.DEFAULT_BOXKEY_SUM);
-			retChangeBoxDetails.put("keyNo", boxKeyDetails.get("newKeyNo"));
-			
-			Map<String, Object> rentDetails = rentDao.getUnrentInfo((int)paramValues.get("boxId"));
-			float rentBalance = Utility.calculateRefoundRent(
-					(Float)rentDetails.get("actualRent"), 
-					(Date)rentDetails.get("startDate"), 
-					(Date)rentDetails.get("endDate"),
-					(Date)rentDetails.get("endDateAfterRelet"),
-					(Float)rentDetails.get("rentDay"));
-			float newRent = (float)boxKeyDetails.get("newBoxRentDay") 
-					* DateTimeUtil.daysBetween2Date(new Date(), (Date)rentDetails.get("endDateAfterRelet"));
-			float amountDifference = newRent - rentBalance;
-			retChangeBoxDetails.put("amountDifference", amountDifference);
-			
+			Map<String, Object> boxKeyDetails = boxDao.getBoxKeyDetails(
+					Long.parseLong((String)paramValues.get("newBoxId")));
+			if (boxKeyDetails != null) {
+				retChangeBoxDetails.put("keyFee", 
+						((java.math.BigDecimal)boxKeyDetails.get("newBoxKeyFee")).floatValue() 
+						* Utility.DEFAULT_BOXKEY_SUM);
+				retChangeBoxDetails.put("keyNo", boxKeyDetails.get("newKeyNo"));
+				
+				Map<String, Object> rentDetails = rentDao.getUnrentInfo(
+						Long.parseLong((String)paramValues.get("oldBoxId")));
+				float rentBalance = Utility.calculateRefoundRent(
+						((java.math.BigDecimal)rentDetails.get("actualRent")).floatValue(), 
+						(Date)rentDetails.get("startDate"), 
+						(Date)rentDetails.get("endDate"),
+						(Date)rentDetails.get("endDateAfterRelet"),
+						((java.math.BigDecimal)rentDetails.get("rentDay")).floatValue());
+				float newRent = ((java.math.BigDecimal)boxKeyDetails.get("newBoxRentDay")).floatValue() 
+						* DateTimeUtil.daysBetween2Date(new Date(), (Date)rentDetails.get("endDateAfterRelet"));
+				float amountDifference = newRent - rentBalance;
+				retChangeBoxDetails.put("amountDifference", amountDifference);
+			}
 		} catch (Exception e) {
 			isSuccess = false;
 		}		
@@ -65,23 +70,21 @@ public class BoxManageServiceImpl implements BoxManageService {
 		try {
 			ChangeBoxPo changeBoxPo = (ChangeBoxPo) JsonUtil.parseJson(rawData, ChangeBoxPo.class);
 			
-			// 修改 Card 和 Box 的关联关系
+			// 
 			isSuccess = boxDao.modifyBoxCardRelationship(changeBoxPo.getOldBoxId(), changeBoxPo.getNewBoxId());
 			
 			/*
-			 *  新增换箱行为日志, 即 changebox_log 表新增一项
-			 *  (使用旧箱的 boxId 来获取 rentId, 所以操作顺序不能变)
+			 *  
 			 */
 			isSuccess = rentDao.setChangeBoxLogInfo(changeBoxPo);
 			
 			/*
-			 *  修改 租赁关系, 即 rent 表
-			 *  1. 修改 boxId
-			 *  2. 修改 feeTotal = (旧的)feeTotal + amountDifference
+			 *  
 			 */
 			isSuccess = rentDao.setChangeBoxInfo(changeBoxPo.getOldBoxId(), changeBoxPo.getNewBoxId(), 
 					changeBoxPo.getAmountDifference());
 		} catch (Exception e) {
+			e.printStackTrace();
 			isSuccess = false;
 		}
 		return JsonUtil.constructJson(isSuccess, null, null);
@@ -91,12 +94,12 @@ public class BoxManageServiceImpl implements BoxManageService {
 	public String modifyBoxStatus(String rawData, BoxStatus boxStatus) {
 		boolean isSuccess = true;
 		try {
-			Map<String, Object> paramValues = JsonUtil.parseJson(rawData, "boxId", "freezeReason");
+			Map<String, Object> paramValues = JsonUtil.parseJson(rawData, "boxId", "changeReason");
 			
 			isSuccess = boxDao.setBoxStatusChangeDetails(
-					(Integer)paramValues.get("boxId"), 
+					Long.parseLong((String)paramValues.get("boxId")), 
 					boxStatus,
-					(String)paramValues.get("freezeReason"));
+					(String)paramValues.get("changeReason"));
 		} catch (Exception e) {
 			isSuccess = false;
 		}		
@@ -132,11 +135,9 @@ public class BoxManageServiceImpl implements BoxManageService {
 	public String deleteBoxModel(String rawData) {
 		boolean isSuccess = true;
 		try {
-			Map<String, Object> paramValues = JsonUtil.parseJson(rawData, "boxModels");
+			List<String> boxModels = JsonUtil.parseJson(null, rawData, "boxModels");
 			
-			@SuppressWarnings("unchecked")
-			List<String> boxIds = (List<String>)paramValues.get("boxModels");
-			isSuccess = boxDao.deleteBoxModel(boxIds);
+			isSuccess = boxDao.deleteBoxModel(boxModels);
 		} catch (Exception e) {
 			isSuccess = false;
 		}

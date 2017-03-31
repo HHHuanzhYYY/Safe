@@ -12,7 +12,7 @@ public class BankEmployeePo extends Po {
 	
 	private int certificateType; // ֤������
 	
-	private String certificateId; // ֤������
+	private String certificateNo; // ֤������
 	
 	private String mobile; // �ֻ���
 	
@@ -29,8 +29,8 @@ public class BankEmployeePo extends Po {
 	@Override
 	public String toString() {
 		return "BankEmployeePo [employeeId=" + employeeId + ", loginId=" + loginId + ", employeeName="
-				+ employeeName + ", priority=" + priority + ", certificateType=" + certificateType + ", certificateId="
-				+ certificateId + ", mobile=" + mobile + ", bankId=" + bankId + ", icCardNo=" + icCardNo
+				+ employeeName + ", priority=" + priority + ", certificateType=" + certificateType + ", certificateNo="
+				+ certificateNo + ", mobile=" + mobile + ", bankId=" + bankId + ", icCardNo=" + icCardNo
 				+ ", isAdministrator=" + isAdministrator + ", remark=" + remark + "]";
 	}
 
@@ -74,12 +74,12 @@ public class BankEmployeePo extends Po {
 		this.certificateType = certificateType;
 	}
 
-	public String getCertificateId() {
-		return certificateId;
+	public String getCertificateNo() {
+		return certificateNo;
 	}
 
-	public void setCertificateId(String certificateId) {
-		this.certificateId = certificateId;
+	public void setCertificateNo(String certificateNo) {
+		this.certificateNo = certificateNo;
 	}
 
 	public String getMobile() {

@@ -26,7 +26,7 @@ public class BankEmployeeServiceImpl implements BankEmployeeService {
 
 	@Override
 	public String validateBankEmployee(final String rawData) {
-		boolean isSuccess = false;
+		boolean isSuccess = true;
 		int employeeId = 0;
 		try {
 			final String utf8Data = URLDecoder.decode(rawData, "UTF-8");
@@ -42,7 +42,7 @@ public class BankEmployeeServiceImpl implements BankEmployeeService {
 		// Log BankEmployee`s Login Action.
 		BankEmployeeLoginLogPo bankEmployeeLoginLogPo = new BankEmployeeLoginLogPo();
 		bankEmployeeLoginLogPo.setEmployeeId(employeeId);
-		logDao.setEmployeeLoginLog(bankEmployeeLoginLogPo);
+		isSuccess = logDao.setEmployeeLoginLog(bankEmployeeLoginLogPo);
 		
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}
@@ -54,7 +54,7 @@ public class BankEmployeeServiceImpl implements BankEmployeeService {
 		try {
 			Map<String, Object> paramValues = JsonUtil.parseJson(rawData, "bankId");
 			
-			bankEmployeeVos = bankEmployeeDao.getAllBankEmployees((int)paramValues.get("bankId"));
+			bankEmployeeVos = bankEmployeeDao.getAllBankEmployees(Long.parseLong((String)paramValues.get("bankId")));
 		} catch (Exception e) {
 			isSuccess = false;
 		}		
@@ -72,6 +72,7 @@ public class BankEmployeeServiceImpl implements BankEmployeeService {
 			
 			bankEmployeeId.put("employeeId", employeeId);
 		} catch (Exception e) {
+			e.printStackTrace();
 			isSuccess = false;
 		}
 		return JsonUtil.constructJson(isSuccess, null, bankEmployeeId);
@@ -81,10 +82,9 @@ public class BankEmployeeServiceImpl implements BankEmployeeService {
 	public String deleteBankEmployee(String rawData) {
 		boolean isSuccess = true;
 		try {
-			Map<String, Object> paramValues = JsonUtil.parseJson(rawData, "bankEmployeeIds");
-			
 			@SuppressWarnings("unchecked")
-			List<Integer> bankEmployeeIds = (List<Integer>)paramValues.get("bankEmployeeIds");
+			List<Long> bankEmployeeIds = (List<Long>) JsonUtil.parseJson(rawData, Long.class, "bankEmployeeIds");
+			
 			isSuccess = bankEmployeeDao.deleteBankEmployee(bankEmployeeIds);
 		} catch (Exception e) {
 			isSuccess = false;

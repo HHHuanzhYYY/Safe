@@ -20,16 +20,16 @@ public class LogDaoImpl implements LogDao {
 		String insertEmployeeLoginLogSQL = "INSERT INTO employee_login_log(loginDateTime, remark, employeeId) "
 										 + "VALUES(sysdate(), ?, ?) ";
 		int count = jdbcTemplate.update(insertEmployeeLoginLogSQL, 
-				new Object[] {bankEmployeeLoginLogPo.getEmployeeId(), 
-						      bankEmployeeLoginLogPo.getRemark()}, 
-				new int[] {Types.INTEGER, Types.VARCHAR});
+				new Object[] {bankEmployeeLoginLogPo.getRemark(), 
+							  bankEmployeeLoginLogPo.getEmployeeId()}, 
+				new int[] {Types.BIGINT, Types.VARCHAR});
 		return count == 1 ? true : false;
 	}
 	
 	@Override
 	public boolean setReportLossLog(ReportLossAction reportLossAction, 
 			int boxId, int reportLossType, int paymentType, float feeTotal) {
-		// ²éÑ¯ rentId.
+		// ï¿½ï¿½Ñ¯ rentId.
 		String queryRentIdSQL = "SELECT rentId FROM rent WHERE boxId = ? ";
 		int rentId = jdbcTemplate.queryForObject(queryRentIdSQL, Integer.class, boxId);
 		
@@ -42,7 +42,7 @@ public class LogDaoImpl implements LogDao {
 				new Object[] {reportLossAction.getValue(), reportLossType, paymentType, feeTotal, boxId, rentId}, 
 				new int[] {Types.INTEGER, Types.INTEGER, Types.INTEGER, Types.FLOAT, Types.INTEGER, Types.INTEGER});
 		
-		// ÉèÖÃÏä×Ó×´Ì¬Îª "¹ÒÊ§"
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬Îª "ï¿½ï¿½Ê§"
 		String setBoxStatusSQL = "UPDATE box SET status = ? WHERE boxId = ? ";
 		int count1 = jdbcTemplate.update(setBoxStatusSQL, 
 				new Object[] {reportLossAction.getValue(), boxId}, 

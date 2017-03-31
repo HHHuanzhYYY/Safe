@@ -35,18 +35,16 @@ public class CardDaoImpl implements CardDao {
 
 	@Override
 	public boolean changeCardPwd(String cardRfid, String pwd) {
-		String modifyCardPwdSQL = "UPDATE card SET password = ? WHERE cardRfid = ? ";
-		
+		String modifyCardPwdSQL = "UPDATE card SET password = ? WHERE cardRfid = ? ";	
 		int count = jdbcTemplate.update(modifyCardPwdSQL, 
 				new Object[] {pwd, cardRfid}, 
-				new int[] {Types.VARCHAR, Types.VARCHAR});
-		
+				new int[] {Types.VARCHAR, Types.VARCHAR});		
 		return count == 1 ? true : false;
 	}
 
 	@Override
 	public boolean changeCard(ReportLossPo reportLossPo) {
-		// ²éÕÒ¾ÉµÄ Card.
+		// ï¿½ï¿½ï¿½Ò¾Éµï¿½ Card.
 		String queryOldCardInfoSQL = "SELECT card.cardRfid, "
 										  + "card.accountId, "
 										  + "card.cardType, "
@@ -64,13 +62,13 @@ public class CardDaoImpl implements CardDao {
 							  reportLossPo.getBoxId()}, 
 				new int[] {Types.INTEGER, Types.VARCHAR, Types.INTEGER});
 		
-		// ½¨Á¢ Box ºÍ Card µÄÁªÏµ
+		// ï¿½ï¿½ï¿½ï¿½ Box ï¿½ï¿½ Card ï¿½ï¿½ï¿½ï¿½Ïµ
 		String insertBoxCardRelationshipSQL = "INSERT INTO box_card_relationship(boxId, cardRfid) VALUES(?, ?) ";
 		int count = jdbcTemplate.update(insertBoxCardRelationshipSQL, 
 				new Object[] {reportLossPo.getBoxId(), reportLossPo.getCardRfid()}, 
 				new int[] {Types.INTEGER, Types.VARCHAR});
 		
-		// ²åÈëÐÂ Card ÐÅÏ¢
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Card ï¿½ï¿½Ï¢
 		String insertCardInfoSQL = "INSERT INTO card VALUES(?, ?, ?, 0, ?, NULL, NULL, 1, ?, ?) ";
 		int count1 = jdbcTemplate.update(insertCardInfoSQL, 
 				new Object[] {reportLossPo.getCardRfid(), 
@@ -82,11 +80,11 @@ public class CardDaoImpl implements CardDao {
 				new int[] {Types.VARCHAR, Types.VARCHAR, Types.INTEGER, 
 						   Types.VARCHAR, Types.INTEGER, Types.INTEGER});
 		
-		// É¾³ý ¾ÉCard ºÍ Box µÄÁªÏµ.
+		// É¾ï¿½ï¿½ ï¿½ï¿½Card ï¿½ï¿½ Box ï¿½ï¿½ï¿½ï¿½Ïµ.
 		String deleteBoxCardRelationshipSQL = "DELETE FROM box_card_relationship WHERE relationshipId = ? ";
 		int count2 = jdbcTemplate.update(deleteBoxCardRelationshipSQL, oldCardInfo.get("relationshipId"));
 		
-		// É¾³ý ¾ÉCard ÐÅÏ¢.
+		// É¾ï¿½ï¿½ ï¿½ï¿½Card ï¿½ï¿½Ï¢.
 		String deleteCardInfoSQL = "DELETE FROM card WHERE cardRfid = ? ";
 		int count3 = jdbcTemplate.update(deleteCardInfoSQL, reportLossPo.getCardRfid());
 		

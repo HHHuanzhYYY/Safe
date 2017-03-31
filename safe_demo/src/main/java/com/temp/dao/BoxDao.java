@@ -7,6 +7,7 @@ import com.temp.po.BoxModelResumePo;
 import com.temp.po.BoxModelPo;
 import com.temp.util.AccountType;
 import com.temp.util.BoxStatus;
+import com.temp.vo.BoxFullInfoVo;
 import com.temp.vo.BoxModelResumeVo;
 import com.temp.vo.BoxModelVo;
 import com.temp.vo.BoxVo;
@@ -39,7 +40,7 @@ public interface BoxDao {
 	 * @param reason
 	 * @return boolean
 	 */
-	boolean setBoxStatusChangeDetails(int boxId, BoxStatus boxStatusFuture, String reason);
+	boolean setBoxStatusChangeDetails(long boxId, BoxStatus boxStatusFuture, String reason);
 	
 	/**
 	 * getBoxKeyDetails.
@@ -47,7 +48,7 @@ public interface BoxDao {
 	 * @param boxId
 	 * @return Map<String, Object>
 	 */
-	Map<String, Object> getBoxKeyDetails(int boxId);
+	Map<String, Object> getBoxKeyDetails(long boxId);
 	
 	/**
 	 * modifyBoxCardRelationship.
@@ -56,7 +57,7 @@ public interface BoxDao {
 	 * @param newBoxId
 	 * @return
 	 */
-	boolean modifyBoxCardRelationship(int oldBoxId, int newBoxId);
+	boolean modifyBoxCardRelationship(long oldBoxId, long newBoxId);
 	
 	/**
 	 * setBoxNewKey.
@@ -105,4 +106,11 @@ public interface BoxDao {
 	 */
 	boolean setBoxModelDetails(BoxModelPo boxModelPo);
 	
+	/**
+	 * getBoxsByCardRfid.
+	 * 
+	 * @param cardRfid
+	 * @return List<BoxFullInfoVo>
+	 */
+	List<BoxFullInfoVo> getBoxsByCardRfid(String cardRfid);
 }

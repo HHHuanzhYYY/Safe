@@ -22,6 +22,7 @@ import com.temp.util.AccountType;
 import com.temp.util.ImgUtil;
 import com.temp.util.PwdType;
 import com.temp.vo.CustomerDataVo;
+import com.temp.vo.CustomerFullInfoVo;
 import com.temp.vo.CustomerVo;
 
 @Repository
@@ -31,7 +32,7 @@ public class CustomerDaoImpl implements CustomerDao {
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
-	public boolean validateCustomer(int accountId, PwdType pwdType, String pwd) {
+	public boolean validateCustomer(String accountId, PwdType pwdType, String pwd) {
 		StringBuilder sb = new StringBuilder("SELECT COUNT(cardRfid) AS sum FROM card WHERE accountId = ? ");
 		switch (pwdType) {
 		case CHARPWD:
@@ -50,31 +51,18 @@ public class CustomerDaoImpl implements CustomerDao {
 		
 		int count = jdbcTemplate.queryForObject(queryCustomerSQL, 
 				new Object[] {accountId, pwd}, 
-				new int[] {Types.BIGINT, Types.VARCHAR}, 
+				new int[] {Types.VARCHAR, Types.VARCHAR}, 
 				Integer.class);
 		return count == 1 ? true : false;
 	}
 	
 	@Override
 	public boolean validateCustomerByNameAndPwd(String name, String pwd) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public CustomerVo getCustomerDetailsById(int custormerId) {
-		final String sql = "";
-		CustomerVo customerVo = jdbcTemplate.queryForObject(sql, new CustomerVoMapper(), custormerId);
-		return customerVo;
-	}
-	
-	class CustomerVoMapper implements RowMapper<CustomerVo> {
-
-		@Override
-		public CustomerVo mapRow(ResultSet arg0, int arg1) throws SQLException {
-			// TODO Auto-generated method stub
-			return null;
-		}		
+		final String queryCustomerSQL = "SELECT COUNT(customerId) SUM "
+				+ "FROM customer WHERE customerName = ? AND customerPwd = ? ";
+		int count = jdbcTemplate.queryForObject(queryCustomerSQL, 
+				new Object[] {name, pwd}, new int[] {Types.VARCHAR, Types.VARCHAR}, Integer.class);
+		return count >= 1 ? true : false;
 	}
 
 	@Override
@@ -206,34 +194,35 @@ public class CustomerDaoImpl implements CustomerDao {
 	public List<CustomerDataVo> getCustomerDataByCertificateNo(int certificateType, String certificateNo, long accountId) {
 		List<CustomerDataVo> retCustomerDataVos = null;
 		String queryCustomerDataSQL = null;
-		if (certificateType == 0) {
+		if (certificateType == 1) {
 			// Identification Card.
 			queryCustomerDataSQL = 
-					"SELECT customerId, customerName, customerSex, certificateType, "
-					     + "certificateNo, unitAddress, homeAddress, phone, mobile, "
-					     + "post, remark, openAccountDate "
+					"SELECT customer.customerId, customer.customerName, "
+					     + "customer.customerSex, customer.certificateType, "
+					     + "customer.certificateNo, customer.unitAddress, customer.homeAddress, "
+					     + "customer.phone, customer.mobile, customer.post, customer.remark, "
+					     + "account.openAccountDate "
 				  + "FROM customer, account, account_customer_relationship "
 				  + "WHERE customer.customerId = account_customer_relationship.customerId "
 				    + "AND account_customer_relationship.accountId = account.accountId "
-				    + "AND certificateType = 0 "
-				    + "AND certificateNo = ? "
-				    + "AND accountId = ? ";
-		} else if (certificateType == 1) {
+				    + "AND customer.certificateType = 1 "
+				    + "AND customer.certificateNo = ? "
+				    + "AND account_customer_relationship.accountId = ? ";
+		} else if (certificateType == 2) {
 			// RFID
 			queryCustomerDataSQL = 
 					"SELECT customer.customerId, customerName, customerSex, certificateType, "
 					     + "certificateNo, unitAddress, homeAddress, phone, mobile, "
 					     + "post, remark, openAccountDate "
-			      + "FROM card, customer, account, account_customer_relationship "
+			      + "FROM card, customer, account "
 			      + "WHERE card.customerId = customer.customerId "
 			        + "AND card.cardRfid = ? "
-			        + "AND customer.customerId = account_customer_relationship.customerId "
-			        + "AND account_customer_relationship.accountId = account.accountId "
-			        + "AND account.accountId = ? ";
+			        + "AND card.accountId = account.accountId "
+			        + "AND card.accountId = ? ";
 		}
 		retCustomerDataVos = jdbcTemplate.query(queryCustomerDataSQL, 
 				new Object[] {certificateNo, accountId}, 
-				new int[] {Types.VARCHAR, Types.BIGINT}, 
+				new int[] {Types.VARCHAR, Types.VARCHAR}, 
 				new RowMapper<CustomerDataVo>() {
 
 					@Override
@@ -271,10 +260,14 @@ public class CustomerDaoImpl implements CustomerDao {
 						      customerDataPo.getPost(),        customerDataPo.getRemark(), 
 						      customerDataPo.getCustomerId()}, 
 				new int[] {Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, 
-						   Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.INTEGER});
-		
+						   Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.BIGINT});		
 		return count == 1 ? true : false;
 	}
 
-	
+	@Override
+	public List<CustomerFullInfoVo> getCustomersByCardRfid(String cardRfid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

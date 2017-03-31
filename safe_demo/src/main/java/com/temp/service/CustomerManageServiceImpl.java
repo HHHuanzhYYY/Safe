@@ -11,7 +11,6 @@ import com.temp.po.CustomerDataPo;
 import com.temp.util.JsonUtil;
 import com.temp.util.PwdType;
 import com.temp.vo.CustomerDataVo;
-import com.temp.vo.CustomerVo;
 
 @Service
 public class CustomerManageServiceImpl implements CustomerManageService {
@@ -26,8 +25,8 @@ public class CustomerManageServiceImpl implements CustomerManageService {
 			Map<String, Object> paramValues = JsonUtil.parseJson(rawData, "accountId", "pwdType", "pwd");
 			
 			isValidateSucceed = customerDao.validateCustomer(
-					(Integer)paramValues.get("accountId"), 
-					PwdType.convert2PwdType((Integer)paramValues.get("pwdType")), 
+					(String)paramValues.get("accountId"), 
+					PwdType.convert2PwdType(Integer.parseInt((String)paramValues.get("pwdType"))), 
 					(String)paramValues.get("pwd"));
 		} catch (Exception e) {
 			isValidateSucceed = false;
@@ -49,21 +48,7 @@ public class CustomerManageServiceImpl implements CustomerManageService {
 		}
 		return JsonUtil.constructJson(isValidateSucceed, null, null);
 	}
-	
-	@Override
-	public String getCustomerInfoById(String rawData) {
-		boolean isSuccess = true;
-		CustomerVo customerDetails = null;
-		try {
-			Map<String, Object> paramValues = JsonUtil.parseJson(rawData, "customerId");
-			
-			customerDetails = customerDao.getCustomerDetailsById((Integer)paramValues.get("customerId"));		
-		} catch (Exception e) {
-			isSuccess = false;
-		}		
-		return JsonUtil.constructJson(isSuccess, null, customerDetails);
-	}
-	
+
 	@Override
 	public String getCustomerData(String rawData) {
 		boolean isSuccess = true;
@@ -73,10 +58,11 @@ public class CustomerManageServiceImpl implements CustomerManageService {
 					JsonUtil.parseJson(rawData, "certificateType", "certificateNo", "accountId");
 			
 			customerDataVos = customerDao.getCustomerDataByCertificateNo(
-					(Integer)paramValues.get("certificateType"), 
+					Integer.parseInt((String)paramValues.get("certificateType")), 
 					(String)paramValues.get("certificateNo"), 
-					(Long)paramValues.get("accountId"));
+					Long.parseLong((String)paramValues.get("accountId")));
 		} catch (Exception e) {
+			e.printStackTrace();
 			isSuccess = false;
 		}		
 		return JsonUtil.constructJson(isSuccess, null, customerDataVos);

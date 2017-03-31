@@ -33,24 +33,25 @@ public class RentServiceImpl implements RentService {
 			/*
 			 * rent Primary Key:id
 			 */
-			overdueFineAndRent.put("id", overdueFineInfo.get("id"));
+			overdueFineAndRent.put("id", overdueFineInfo.get("rentId"));
 			 
 			/*
 			 *  Count overdueFine.
 			 *  overdueFine = rent * overdueFineStrategy
 			 */
+		    
 			overdueFineAndRent.put("overdueFine", 
-					calculateOverdueFine((float)overdueFineInfo.get("rentDay"), 
-										 (Date)overdueFineInfo.get("endDate"),
-							             (float)overdueFineInfo.get("overdueFineStrategy")));
+					calculateOverdueFine(((java.math.BigDecimal)overdueFineInfo.get("rentDay")).floatValue(),
+							               (Date)overdueFineInfo.get("endDate"),
+							               ((java.math.BigDecimal)overdueFineInfo.get("overdueFineStrategy")).floatValue()));
 			
 			/*
 			 *  Count overdueRent.
 			 *  overdueRent = rentDay * (currentDate - endDate)
-			 */						
+			 */
 			overdueFineAndRent.put("overdueRent", 
-					calculateOverdueRent((Date)overdueFineInfo.get("endDate"), 
-							             (float)overdueFineInfo.get("rentDay")));
+					calculateOverdueRent((Date)overdueFineInfo.get("endDate"),
+							             ((java.math.BigDecimal)overdueFineInfo.get("rentDay")).floatValue()));
 		} catch (Exception e) {
 			isSuccess = false;
 		}
@@ -78,32 +79,33 @@ public class RentServiceImpl implements RentService {
 			Map<String, Object> offleaseInfo = rentDao.getUnrentInfo(
 					Integer.parseInt((String)requestParams.get("boxId")));
 			
-			unrentInfo.put("id", offleaseInfo.get("id"));
+			unrentInfo.put("id", offleaseInfo.get("rentId"));
 			unrentInfo.put("keySum", offleaseInfo.get("keySum"));
 			unrentInfo.put("keyFee", offleaseInfo.get("keyFee"));
 			
 			if (new Date().before((Date)offleaseInfo.get("endDate"))) {
-				// »¹Î´µ½ Ïä×ÓµÄµ½ÆÚÈÕÆÚ
+				// ï¿½ï¿½Î´ï¿½ï¿½ ï¿½ï¿½ï¿½ÓµÄµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				unrentInfo.put("refoundRent", Utility.calculateRefoundRent(
-						(Float)offleaseInfo.get("actualRent"), 
+						((java.math.BigDecimal)offleaseInfo.get("actualRent")).floatValue(),
 						(Date)offleaseInfo.get("startDate"), 
 						(Date)offleaseInfo.get("endDate"),
 						(Date)offleaseInfo.get("endDateAfterRelet"),
-						(Float)offleaseInfo.get("rentDay")));
+				        ((java.math.BigDecimal)offleaseInfo.get("rentDay")).floatValue()));
 				unrentInfo.put("overdueFine", 0);
 				unrentInfo.put("overdueRent", 0);
 			} else {
-				// ÒÑ¾­³¬¹ý Ïä×ÓµÄµ½ÆÚÈÕÆÚ
+				// ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ÓµÄµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				unrentInfo.put("refoundRent", 0);
 				unrentInfo.put("overdueFine", 
-						calculateOverdueFine((Integer)offleaseInfo.get("rentDay"), 
+						calculateOverdueFine((Integer.parseInt((String)offleaseInfo.get("rentDay"))), 
 											 (Date)offleaseInfo.get("endDateAfterRelet"), 
-											 (Float)offleaseInfo.get("overdueFineStrategy")));
+											 ((java.math.BigDecimal)offleaseInfo.get("overdueFineStrategy")).floatValue()));
 				unrentInfo.put("overdueRent", 
-						calculateOverdueRent((Date)offleaseInfo.get("endDateAfterRelet"), 
-											 (Float)offleaseInfo.get("rentDay")));
+						calculateOverdueRent((Date)offleaseInfo.get("endDateAfterRelet"),
+								             ((java.math.BigDecimal)offleaseInfo.get("rentDay")).floatValue()));
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			isSuccess = false;
 		}
 		return JsonUtil.constructJson(isSuccess, null, unrentInfo);

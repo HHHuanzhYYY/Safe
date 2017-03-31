@@ -51,7 +51,7 @@ public class SystemConfigServiceTest extends ServiceTestBase {
 				+ "\"success\":true,"
 				+ "\"message\":null,"
 				+ "\"data\":{"
-					+ "\"messageIds\":[14,15,16,17],"
+					+ "\"messageIds\":[11,12,13],"
 					+ "}"
 				+ "}";
 		
@@ -86,7 +86,7 @@ public class SystemConfigServiceTest extends ServiceTestBase {
 				+ "\"success\":true,"
 				+ "\"message\":null,"
 				+ "\"data\":{"
-					+ "\"bankIds\":[107,108,106],"
+					+ "\"bankIds\":[106],"
 					+ "}"
 				+ "}";
 		
@@ -126,7 +126,7 @@ public class SystemConfigServiceTest extends ServiceTestBase {
 				+ "\"success\":true,"
 				+ "\"message\":null,"
 				+ "\"data\":{"
-					+ "\"subjectIds\":[706,707,711,712],"
+					+ "\"subjectIds\":[713,714],"
 					+ "}"
 				+ "}";
 		
@@ -170,7 +170,7 @@ public class SystemConfigServiceTest extends ServiceTestBase {
 				+ "\"success\":true,"
 				+ "\"message\":null,"
 				+ "\"data\":{"
-				    + "\"feeTypeId\":606,"					
+				    + "\"feeTypeId\":602,"					
 					+ "\"status\":4}"
 				+ "}";
 		String retJSON = systemConfigService.operateFeeType(rawData);
@@ -184,7 +184,7 @@ public class SystemConfigServiceTest extends ServiceTestBase {
 				+ "\"success\":true,"
 				+ "\"message\":null,"
 				+ "\"data\":{"
-					+ "\"feeTypeIds\":[0,601],"
+					+ "\"feeTypeIds\":[606],"
 					+ "}"
 				+ "}";
 		

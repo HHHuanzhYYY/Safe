@@ -35,7 +35,8 @@ public class ReportLossServiceImpl implements ReportLossService {
 			Map<String, Object> paramValues = JsonUtil.parseJson(rawData, "bankEmployeeID", "bankEmployeePwd");
 			
 			isSuccess = bankEmployeeDao.validateBankEmployeeByIdAndPwd(
-					(Integer)paramValues.get("bankEmployeeID"), (String)paramValues.get("bankEmployeePwd"));
+					Integer.parseInt((String)paramValues.get("bankEmployeeID")),
+					(String)paramValues.get("bankEmployeePwd"));
 		} catch (Exception e) {
 			isSuccess = false;
 		}		
@@ -51,10 +52,10 @@ public class ReportLossServiceImpl implements ReportLossService {
 			
 			isSuccess = logDao.setReportLossLog(
 					reportLossAction,
-					(int)paramValues.get("boxId"), 
-					(int)paramValues.get("reportLossType"), 
-					(int)paramValues.get("paymentType"), 
-					(float)paramValues.get("feeTotal"));
+					Integer.parseInt((String)paramValues.get("boxId")),
+					Integer.parseInt((String)paramValues.get("reportLossType")),
+					Integer.parseInt((String)paramValues.get("paymentType")),
+					Float.parseFloat((String)paramValues.get("feeTotal")));
 		} catch (Exception e) {
 			isSuccess = false;
 		}		

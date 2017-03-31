@@ -17,7 +17,7 @@ public interface CustomerManageService {
 	 * @return JSON String Contains Account Info.
 	 */
 	String customerLogin(final String rawData);
-
+	
 	/**
 	 * getCustomerInfo.
 	 * 
@@ -34,11 +34,4 @@ public interface CustomerManageService {
 	 */
 	String setCustomerData(final String rawData);
 	
-	/**
-	 * getCustomerInfoById.
-	 * 
-	 * @param rawData String from HttpRequest
-	 * @return JSON String Contains Account Info.
-	 */
-	String getCustomerInfoById(final String rawData);
 }

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -16,6 +17,7 @@ import com.temp.po.BoxModelResumePo;
 import com.temp.po.BoxModelPo;
 import com.temp.util.AccountType;
 import com.temp.util.BoxStatus;
+import com.temp.vo.BoxFullInfoVo;
 import com.temp.vo.BoxModelResumeVo;
 import com.temp.vo.BoxModelVo;
 import com.temp.vo.BoxVo;
@@ -123,14 +125,14 @@ public class BoxDaoImpl implements BoxDao {
 	}
 
 	@Override
-	public boolean setBoxStatusChangeDetails(int boxId, BoxStatus boxStatusFuture, String reason) {
+	public boolean setBoxStatusChangeDetails(long boxId, BoxStatus boxStatusFuture, String reason) {
 		boolean isSucceed = false;
 		int modifyRows = 0;
 		int insertRows = 0;
 		try {
 			String queryBoxStatusAndRentIdSQL = "SELECT status, rentId FROM box WHERE boxId = ?";
 			Map<String, Object> statusAndRentId = jdbcTemplate.queryForMap(queryBoxStatusAndRentIdSQL, 
-					new Object[] {boxId}, new int[] {Types.INTEGER});
+					new Object[] {boxId}, new int[] {Types.BIGINT});
 			
 			String modifyBoxStatusSQL = "UPDATE box SET status = ? WHERE boxId = ?";		
 			modifyRows = jdbcTemplate.update(modifyBoxStatusSQL, boxStatusFuture.getValue(), boxId);
@@ -138,9 +140,17 @@ public class BoxDaoImpl implements BoxDao {
 			String insertTalbeBoxStatusChangeSQL = 
 					"INSERT INTO box_status_change(boxId, rentId, statusChangeDateTime, statusBefore, statusCurrent, changeReason)" +  
 					"VALUES(?, ?, NOW(), ?, ?, ?)";
-			insertRows = jdbcTemplate.update(insertTalbeBoxStatusChangeSQL, boxId, (int)statusAndRentId.get("rentId"), 
-					(int)statusAndRentId.get("status"), boxStatusFuture.getValue(), reason);
+			insertRows = jdbcTemplate.update(insertTalbeBoxStatusChangeSQL, 
+					new Object[] {
+							boxId, 
+							statusAndRentId.get("rentId"), 
+							statusAndRentId.get("status"),
+							boxStatusFuture.getValue(), 
+							reason
+							},
+					new int[] {Types.BIGINT, Types.BIGINT, Types.INTEGER, Types.INTEGER, Types.VARCHAR});
 		} catch (Exception e) {
+			e.printStackTrace();
 			isSucceed = false;
 		}
 		
@@ -154,24 +164,26 @@ public class BoxDaoImpl implements BoxDao {
 	}
 	
 	@Override
-	public Map<String, Object> getBoxKeyDetails(int boxId) {
+	public Map<String, Object> getBoxKeyDetails(long boxId) {
 		// Map<String, Object> = {<"newKeyNo", ***>, <"newBoxKeyFee", ***>, <"newBoxRentDay", ***>}
 		Map<String, Object> retInfo = null;
 		
-		// �����ӵ���Կ�׷��ú������.
 		String queryKeyFeeAndRentDaySQL = 
-				"SELECT keyNo AS newKeyNo, keyFee AS newBoxKeyFee, box_model.rentDay AS newBoxRentDay "
+				"SELECT box.keyNo AS newKeyNo, `key`.keyFee AS newBoxKeyFee, box_model.rentDay AS newBoxRentDay "
 			  + "FROM box, `key`, box_model "
 			  + "WHERE box.keyNo = `key`.keyNo "
 				+ "AND box.boxModel = box_model.boxModel "
 				+ "AND box.boxId = ? ";
-		retInfo = jdbcTemplate.queryForMap(queryKeyFeeAndRentDaySQL, boxId);
-		
+		try {
+			retInfo = jdbcTemplate.queryForMap(queryKeyFeeAndRentDaySQL, boxId);
+		} catch (EmptyResultDataAccessException e) {
+			retInfo = null;
+		}		
 		return retInfo;
 	}
 	
 	@Override
-	public boolean modifyBoxCardRelationship(int oldBoxId, int newBoxId) {
+	public boolean modifyBoxCardRelationship(long oldBoxId, long newBoxId) {
 		String modifySQL = "UPDATE box_card_relationship SET boxId = ? WHERE boxId = ? ";
 		int count = jdbcTemplate.update(modifySQL, newBoxId, oldBoxId);
 		return count > 0 ? true : false;
@@ -275,6 +287,12 @@ public class BoxDaoImpl implements BoxDao {
 	public boolean setBoxNewKey(long boxId, long keyId) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public List<BoxFullInfoVo> getBoxsByCardRfid(String cardRfid) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

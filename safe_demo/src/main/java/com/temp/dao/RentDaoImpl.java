@@ -1,7 +1,7 @@
 package com.temp.dao;
 
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.Date;
@@ -10,10 +10,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
-import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
 
 import com.temp.po.ChangeBoxPo;
@@ -60,7 +58,7 @@ public class RentDaoImpl implements RentDao {
 	}
 
 	@Override
-	public Map<String, Object> getBoxInfo4CountOverdueFineInfo(int boxId) {
+	public Map<String, Object> getBoxInfo4CountOverdueFineInfo(long boxId) {
 		// Map<String, Object> = {<"id",***>
 		//                        <"overdueFineStrategy",***>, 
 		//                        <"rentDay",***>, 
@@ -78,7 +76,7 @@ public class RentDaoImpl implements RentDao {
 		}
 		
 		// Get: startDate && endDate && actualRent && id && keySum
-		String queryRentInfoSQL = "SELECT id, isRelet, keySum, startDate, endDate, actualRent "
+		String queryRentInfoSQL = "SELECT rentId, isRelet, keySum, startDate, endDate, actualRent "
 							    + "FROM rent WHERE boxId = ? ";		
 		Map<String, Object> rentInfo = jdbcTemplate.queryForMap(queryRentInfoSQL, boxId);
 		for (Entry<String, Object> entry : rentInfo.entrySet()) {
@@ -106,7 +104,7 @@ public class RentDaoImpl implements RentDao {
 
 	@Override
 	public boolean setReletInfo(ReletPo reletPo) {
-		String insertReletSQL = "INSERT INTO relet (id, reletTime, startDate, endDate, "
+		String insertReletSQL = "INSERT INTO relet (reletId, reletTime, startDate, endDate, "
 				                                 + "overdueFine, overdueRent, rent, "
 				                                 + "paymentType, feeTotal, reletDate) " 
 				              + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, CURDATE()) ";
@@ -132,7 +130,7 @@ public class RentDaoImpl implements RentDao {
 	}
 
 	@Override
-	public Map<String, Object> getUnrentInfo(int boxId) {
+	public Map<String, Object> getUnrentInfo(long boxId) {
 		// Map<String, Object> = {<"id",***>
 		//                        <"overdueFineStrategy",***>, 
 		//                        <"rentDay",***>, 
@@ -144,17 +142,9 @@ public class RentDaoImpl implements RentDao {
 		//  					  <"keyFee",***>}
 		Map<String, Object> unrentInfo = getBoxInfo4CountOverdueFineInfo(boxId);
 		
-		String queryKeyFeeSQL = "SELECT keyFee FROM box, key "
-							  + "WHERE box.keyId = key.keyId AND box.boxId = ? ";
-		float keyFee = jdbcTemplate.query(queryKeyFeeSQL, new Object[] {boxId}, 
-				new ResultSetExtractor<Float> () {
-
-			@Override
-			public Float extractData(ResultSet rs) throws SQLException, DataAccessException {
-				return rs.getFloat("keyFee");
-			}
-			
-		});
+		String queryKeyFeeSQL = "SELECT keyFee FROM box, `key` "
+							  + "WHERE box.keyNo = `key`.keyNo AND box.boxId = ? ";
+		float keyFee = jdbcTemplate.queryForObject(queryKeyFeeSQL, new Object[] {boxId}, new int[] {Types.BIGINT}, BigDecimal.class).floatValue();
 		unrentInfo.put("keyFee", keyFee);
 		
 		return unrentInfo;
@@ -177,7 +167,7 @@ public class RentDaoImpl implements RentDao {
 		return count == 1 ? true : false;
 	}
 	
-	private Map<String, Object> getOverdueFineStrategyAndRentDay(int boxId) {
+	private Map<String, Object> getOverdueFineStrategyAndRentDay(long boxId) {
 		String queryOverdueFineStrategyAndRentDaySQL = 
 				"SELECT box.boxId, box_model.rentDay, box_model.overdueFineStrategy "
 			  + "FROM box, box_model "
@@ -188,11 +178,11 @@ public class RentDaoImpl implements RentDao {
 	}
 
 	@Override
-	public boolean setChangeBoxInfo(int oldBoxId, int newBoxId, float amountDifference) {
+	public boolean setChangeBoxInfo(long oldBoxId, long newBoxId, float amountDifference) {
 		String changeBoxSQL = "UPDATE rent SET boxId = ?, feeTotal = feeTotal + ? WHERE boxId = ? ";
 		int count = jdbcTemplate.update(changeBoxSQL, 
 				new Object[] {newBoxId, amountDifference, oldBoxId}, 
-				new int[] {Types.INTEGER, Types.FLOAT, Types.INTEGER});
+				new int[] {Types.BIGINT, Types.FLOAT, Types.BIGINT});
 		return count == 1 ? true : false;
 	}
 
@@ -211,13 +201,13 @@ public class RentDaoImpl implements RentDao {
 							  changeBoxPo.getPaymentType(), 
 							  changeBoxPo.getFeeTotal(), 
 							  changeBoxPo.getOldBoxId()}, 
-				new int[] {Types.INTEGER, 
-						   Types.INTEGER, 
+				new int[] {Types.BIGINT, 
+						   Types.BIGINT, 
 						   Types.FLOAT, 
 						   Types.FLOAT, 
 						   Types.INTEGER, 
 						   Types.FLOAT, 
-						   Types.INTEGER});
+						   Types.BIGINT});
 		return count == 1 ? true : false;
 	}
 

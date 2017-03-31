@@ -7,6 +7,7 @@ import com.temp.po.CustomerPo;
 import com.temp.util.AccountType;
 import com.temp.util.PwdType;
 import com.temp.vo.CustomerDataVo;
+import com.temp.vo.CustomerFullInfoVo;
 import com.temp.vo.CustomerVo;
 
 public interface CustomerDao {
@@ -19,7 +20,7 @@ public interface CustomerDao {
 	 * @param fingerPwd
 	 * @return boolean
 	 */
-	boolean validateCustomer(int accountId, PwdType pwdType, String pwd);
+	boolean validateCustomer(String accountId, PwdType pwdType, String pwd);
 	
 	/**
 	 * validateCustomerByNameAndPwd.
@@ -30,15 +31,6 @@ public interface CustomerDao {
 	 */
 	boolean validateCustomerByNameAndPwd(String name, String pwd);
 
-	
-	/**
-	 * getCustomerDetailsById.
-	 * 
-	 * @param custormerId
-	 * @return CustomerDetails
-	 */
-	CustomerVo getCustomerDetailsById(int custormerId);
-	
 	/**
 	 * getCustomerDataByCertificateNo.
 	 * 
@@ -90,5 +82,13 @@ public interface CustomerDao {
 	 * @return boolean
 	 */
 	boolean setCustomerData(CustomerDataPo customerDataPo);
+	
+	/**
+	 * getCustomersByCardRfid.
+	 * 
+	 * @param cardRfid
+	 * @return List<CustomerFullInfoVo>
+	 */
+	List<CustomerFullInfoVo> getCustomersByCardRfid(String cardRfid);
 	
 }

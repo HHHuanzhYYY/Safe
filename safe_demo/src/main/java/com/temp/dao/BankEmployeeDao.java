@@ -31,7 +31,7 @@ public interface BankEmployeeDao {
 	 * @param bankId
 	 * @return List<BankEmployeeVo>
 	 */
-	List<BankEmployeeVo> getAllBankEmployees(int bankId);
+	List<BankEmployeeVo> getAllBankEmployees(long bankId);
 	
 	/**
 	 * setBankEmployeeDetails.
@@ -47,5 +47,5 @@ public interface BankEmployeeDao {
 	 * @param messageIds
 	 * @return boolean
 	 */
-	boolean deleteBankEmployee(List<Integer> bankEmployeeIds); 
+	boolean deleteBankEmployee(List<Long> bankEmployeeIds); 
 }

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 
 import com.temp.po.AccountPo;
 import com.temp.util.CertificateType;
+import com.temp.vo.AccountFullInfoVo;
 import com.temp.vo.AccountVo;
 
 @Repository
@@ -98,6 +99,12 @@ public class AccountDaoImpl implements AccountDao {
 			}			
 		});	
 		return count == 1 ? true : false;
+	}
+
+	@Override
+	public List<AccountFullInfoVo> getAccountsByCardRfid(String cardRfid) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

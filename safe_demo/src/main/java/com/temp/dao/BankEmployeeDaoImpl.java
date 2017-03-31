@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,13 +47,15 @@ public class BankEmployeeDaoImpl implements BankEmployeeDao {
 	}
 
 	@Override
-	public List<BankEmployeeVo> getAllBankEmployees(int bankId) {
+	public List<BankEmployeeVo> getAllBankEmployees(long bankId) {
 		String queryBankEmployeeSQL = "SELECT employeeId, loginId, employeeName, priority, icCardNo, "
 				                           + "certificateType, certificateId, isAdministrator, "
 				                           + "bank_branch.bankId, bank_branch.bankTitle "
 				                    + "FROM bank_employee, bank_branch "
-				                    + "WHERE bank_employee.bankId = bank_branch.bankId ";
+				                    + "WHERE bank_employee.bankId = bank_branch.bankId "
+				                      + "AND bank_employee.bankId = ? ";
 		List<BankEmployeeVo> bankEmployeeVos = jdbcTemplate.query(queryBankEmployeeSQL, 
+				new Object[] {bankId}, new int[] {Types.BIGINT},
 				new RowMapper<BankEmployeeVo>() {
 
 					@Override
@@ -78,28 +81,28 @@ public class BankEmployeeDaoImpl implements BankEmployeeDao {
 
 	@Override
 	public long setBankEmployeeDetails(BankEmployeePo bankEmployeePo) {
-		long employeeId = 0;
+		long employeeId = bankEmployeePo.getEmployeeId();
 		if (bankEmployeePo.getEmployeeId() == 0) {
-			// ����ְԱ
+			// 新建银行雇员.
 			final String insertBankEmployeeSQL = 
 					"INSERT INTO bank_employee(loginId, employeeName, priority, "
-											+ "certificateType, certificateId, mobile, bankId, "
+											+ "certificateType, certificateNo, mobile, bankId, "
 											+ "icCardNo, isAdministrator, remark ) "
-				  + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+				  + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
 			KeyHolder keyHolder = new GeneratedKeyHolder();
 			
 			jdbcTemplate.update(new PreparedStatementCreator() {
 				
 				@Override
 				public PreparedStatement createPreparedStatement(Connection conn) throws SQLException {
-					PreparedStatement pst = conn.prepareStatement(insertBankEmployeeSQL);
+					PreparedStatement pst = conn.prepareStatement(insertBankEmployeeSQL, Statement.RETURN_GENERATED_KEYS);
 					
 					int parameterIndex = 1;
 					pst.setString(parameterIndex++, bankEmployeePo.getLoginId());
 					pst.setString(parameterIndex++, bankEmployeePo.getEmployeeName());
 					pst.setInt(parameterIndex++, bankEmployeePo.getPriority());
 					pst.setInt(parameterIndex++, bankEmployeePo.getCertificateType());
-					pst.setString(parameterIndex++, bankEmployeePo.getCertificateId());
+					pst.setString(parameterIndex++, bankEmployeePo.getCertificateNo());
 					pst.setString(parameterIndex++, bankEmployeePo.getMobile());
 					pst.setLong(parameterIndex++, bankEmployeePo.getBankId());
 					pst.setString(parameterIndex++, bankEmployeePo.getIcCardNo());
@@ -110,14 +113,12 @@ public class BankEmployeeDaoImpl implements BankEmployeeDao {
 				}
 			}, keyHolder);
 			
-			employeeId = (int) keyHolder.getKey();
+			employeeId = (long) keyHolder.getKey();
 		} else {
-			// ����ְԱ��Ϣ
-			employeeId = bankEmployeePo.getEmployeeId();
-			
+			// 修改现有银行雇员.
 			String updateBankEmployeeSQL = "UPDATE bank_employee "
 										 + "SET loginId = ?, employeeName = ?, priority = ?, "
-										     + "certificateType = ?, certificateId = ?, mobile = ?, "
+										     + "certificateType = ?, certificateNo = ?, mobile = ?, "
 										     + "bankId = ?, icCardNo = ?, isAdministrator = ?, "
 										     + "remark = ? "
 										 + "WHERE employeeId = ? ";
@@ -126,7 +127,7 @@ public class BankEmployeeDaoImpl implements BankEmployeeDao {
 							      bankEmployeePo.getEmployeeName(), 
 							      bankEmployeePo.getPriority(), 
 							      bankEmployeePo.getCertificateType(), 
-							      bankEmployeePo.getCertificateId(), 
+							      bankEmployeePo.getCertificateNo(), 
 							      bankEmployeePo.getMobile(), 
 								  bankEmployeePo.getBankId(), 
 								  bankEmployeePo.getIcCardNo(), 
@@ -135,21 +136,21 @@ public class BankEmployeeDaoImpl implements BankEmployeeDao {
 								  bankEmployeePo.getEmployeeId()}, 
 					new int[] {Types.VARCHAR, Types.VARCHAR, Types.INTEGER, Types.INTEGER, 
 							   Types.VARCHAR, Types.VARCHAR, Types.INTEGER, Types.VARCHAR, 
-							   Types.INTEGER, Types.VARCHAR, Types.INTEGER});
+							   Types.INTEGER, Types.VARCHAR, Types.BIGINT});
 		}
 		return employeeId;
 	}
 
 	@Override
-	public boolean deleteBankEmployee(List<Integer> bankEmployeeIds) {
+	public boolean deleteBankEmployee(List<Long> bankEmployeeIds) {
 		String deleteBankEmployeeSQL = "DELETE FROM bank_employee WHERE employeeId = ? ";
 		
 		 List<Object[]> batchArgs = new ArrayList<>();
-		 for (int bankEmployeeId : bankEmployeeIds) {
+		 for (long bankEmployeeId : bankEmployeeIds) {
 			Object[] batchArg = new Object[] {bankEmployeeId};
 			batchArgs.add(batchArg);
 		}
-		int[] ret = jdbcTemplate.batchUpdate(deleteBankEmployeeSQL, batchArgs, new int[] {Types.INTEGER});
+		int[] ret = jdbcTemplate.batchUpdate(deleteBankEmployeeSQL, batchArgs, new int[] {Types.BIGINT});
 		
 		return ret.length == 0 ? false : true;
 	}

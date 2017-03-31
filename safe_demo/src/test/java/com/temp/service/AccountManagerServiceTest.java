@@ -13,23 +13,23 @@ public class AccountManagerServiceTest extends ServiceTestBase {
 	/*@Test
 	public void getAccoutListByIdOrRFID() {
 		// Identification Card.
-//		final String rawData = "{"
-//				+ "\"success\":true,"
-//				+ "\"message\":null,"
-//				+ "\"data\":{"
-//					+ "\"certificateType\":1,"
-//					+ "\"certificateNo\":\"111111111111111111\""
-//					+ "}"
-//				+ "}";
-		// RFID.
 		final String rawData = "{"
 				+ "\"success\":true,"
 				+ "\"message\":null,"
 				+ "\"data\":{"
-					+ "\"certificateType\":2,"
-					+ "\"certificateNo\":\"34567\""
+					+ "\"certificateType\":1,"
+					+ "\"certificateNo\":\"111111111111111111\""
 					+ "}"
 				+ "}";
+//		// RFID.
+//		final String rawData = "{"
+//				+ "\"success\":true,"
+//				+ "\"message\":null,"
+//				+ "\"data\":{"
+//					+ "\"certificateType\":2,"
+//					+ "\"certificateNo\":\"34567\""
+//					+ "}"
+//				+ "}";
 		
 		String jsonStr = accountManageService.getAccoutListByIdOrRFID(rawData);
 		
@@ -80,8 +80,8 @@ public class AccountManagerServiceTest extends ServiceTestBase {
 						+ "\"remark\":\"这只是一个测试用例\","
 						+ "\"photo\":null,"
 						+ "\"cardType\":1,"
-						+ "\"cardNo\":\"PEK123455\","
-						+ "\"cardRfid\":\"PEK123455\","
+						+ "\"cardNo\":\"PEK1234555\","
+						+ "\"cardRfid\":\"PEK1234555\","
 						+ "\"password\":\"asdfghjkl\","
 						+ "\"fingerPwd\":\"asdfghjkllkjhgfdsa\","
 						+ "\"reserveFingerPwd\":\"asdfghjkllkjhgfdsa\","
@@ -89,7 +89,7 @@ public class AccountManagerServiceTest extends ServiceTestBase {
 					+ "\"rentList\":"
 						+ "[{"
 						+ "\"boxId\":110,"
-						+ "\"cardRfid\":\"PEK123455\","
+						+ "\"cardRfid\":\"PEK1234555\","
 						+ "\"leaseNo\":\"L11111\","
 						+ "\"leaseRemark\":\"无\","
 						+ "\"voucherNo\":\"V11111\","
@@ -107,7 +107,7 @@ public class AccountManagerServiceTest extends ServiceTestBase {
 						+ "},"
 						+ "{"
 						+ "\"boxId\":111,"
-						+ "\"cardRfid\":\"PEK554321\","
+						+ "\"cardRfid\":\"PEK5554321\","
 						+ "\"leaseNo\":\"L22222\","
 						+ "\"leaseRemark\":\"无\","
 						+ "\"voucherNo\":\"V22222\","

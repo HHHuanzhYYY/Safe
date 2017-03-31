@@ -2,19 +2,19 @@ package com.temp.po;
 
 public class ChangeBoxPo extends Po {
 
-	private int oldBoxId; // ¾ÉÏäÏäºÅ	
+	private long oldBoxId; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	
 	
-	private int newBoxId; // ÐÂÏäÏäºÅ	
+	private long newBoxId; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	
 	
-	private String newKeyNo; // Ô¿³×ºÅ
+	private String newKeyNo; // Ô¿ï¿½×ºï¿½
 	
-	private float amountDifference; // ²î¼Û½ð¶î	
+	private float amountDifference; // ï¿½ï¿½Û½ï¿½ï¿½	
 	
-	private float keyFee; // Ô¿³×·ÑÓÃ	
+	private float keyFee; // Ô¿ï¿½×·ï¿½ï¿½ï¿½	
 	
-	private int paymentType; // ¸¶¿î·½Ê½	
+	private int paymentType; // ï¿½ï¿½ï¿½î·½Ê½	
 	
-	private float feeTotal; // ·ÑÓÃ×Ü¼Æ
+	private float feeTotal; // ï¿½ï¿½ï¿½ï¿½ï¿½Ü¼ï¿½
 	
 	public ChangeBoxPo() {}
 
@@ -25,19 +25,19 @@ public class ChangeBoxPo extends Po {
 				+ ", feeTotal=" + feeTotal + "]";
 	}
 
-	public int getOldBoxId() {
+	public long getOldBoxId() {
 		return oldBoxId;
 	}
 
-	public void setOldBoxId(int oldBoxId) {
+	public void setOldBoxId(long oldBoxId) {
 		this.oldBoxId = oldBoxId;
 	}
 
-	public int getNewBoxId() {
+	public long getNewBoxId() {
 		return newBoxId;
 	}
 
-	public void setNewBoxId(int newBoxId) {
+	public void setNewBoxId(long newBoxId) {
 		this.newBoxId = newBoxId;
 	}
 

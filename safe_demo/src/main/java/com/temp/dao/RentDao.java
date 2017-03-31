@@ -23,7 +23,7 @@ public interface RentDao {
 	 * @param boxId
 	 * @return Map<String, Object> = {<"overdueFineStrategy",***>, <"rentDay",***>, <"endDate",***>}
 	 */
-	Map<String, Object> getBoxInfo4CountOverdueFineInfo(int boxId);
+	Map<String, Object> getBoxInfo4CountOverdueFineInfo(long boxId);
 	
 	/**
 	 * setReletInfo.
@@ -39,7 +39,7 @@ public interface RentDao {
 	 * @param boxId
 	 * @return Map<String, Object>
 	 */
-	Map<String, Object> getUnrentInfo(final int boxId);
+	Map<String, Object> getUnrentInfo(final long boxId);
 	
 	/**
 	 * setUnrentInfo.
@@ -57,7 +57,7 @@ public interface RentDao {
 	 * @param amountDifference
 	 * @return boolean
 	 */
-	boolean setChangeBoxInfo(int oldBoxId, int newBoxId, float amountDifference);
+	boolean setChangeBoxInfo(long oldBoxId, long newBoxId, float amountDifference);
 	
 	/**
 	 * setChangeBoxLogInfo.

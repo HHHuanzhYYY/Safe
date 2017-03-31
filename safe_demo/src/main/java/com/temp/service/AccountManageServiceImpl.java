@@ -108,6 +108,8 @@ public class AccountManageServiceImpl implements AccountManageService {
 			// Generate 'accountId'
 			newAccount.setAccountId(generateAccountId());
 			
+			System.out.println(newAccount.getAccountId());
+			
 			// �����˻���Ϣ.
 			isSuccess = accountDao.setAccount(newAccount);
 			
