@@ -2,6 +2,8 @@ package com.temp.dao;
 
 import java.util.List;
 
+import com.temp.po.AccountAddBoxPo;
+import com.temp.po.AccountAddCustomerPo;
 import com.temp.po.AccountPo;
 import com.temp.util.CertificateType;
 import com.temp.vo.AccountFullInfoVo;
@@ -40,5 +42,21 @@ public interface AccountDao {
 	 * @return List<AccountFullInfoVo>
 	 */
 	List<AccountFullInfoVo> getAccountsByCardRfid(String cardRfid);
+	
+	/**
+	 * setAccountNewBox.
+	 * 
+	 * @param accountAddBoxPo
+	 * @return boolean
+	 */
+	boolean setAccountNewBox(AccountAddBoxPo accountAddBoxPo);
+	
+	/**
+	 * setAccountNewCustomer.
+	 * 
+	 * @param AccountAddCustomerPo
+	 * @return boolean
+	 */
+	boolean setAccountNewCustomer(AccountAddCustomerPo accountAddCustomerPo);
 	
 }

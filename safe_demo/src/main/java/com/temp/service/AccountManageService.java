@@ -5,6 +5,15 @@ import java.util.Random;
 public interface AccountManageService {
 
 	/**
+	 * generateAccountId.
+	 * 
+	 * @return accountId
+	 */
+	default String generateAccountId() {
+		return Long.toString(new Random().nextLong());
+	}
+	
+	/**
 	 * getAccoutListByIdOrRFID.
 	 * 
 	 * @param rawData String from HttpRequest
@@ -29,11 +38,18 @@ public interface AccountManageService {
 	String setAccountInfo(final String rawData);
 	
 	/**
-	 * generateAccountId.
+	 * setAccountNewBox.
 	 * 
-	 * @return accountId
+	 * @param rawData String from HttpRequest
+	 * @return JSON String Contains Account Info.
 	 */
-	default String generateAccountId() {
-		return Long.toString(new Random().nextLong());
-	}
+	String setAccountNewBox(final String rawData);
+	
+	/**
+	 * setAccountNewCustomer.
+	 * 
+	 * @param rawData String from HttpRequest
+	 * @return JSON String Contains Account Info.
+	 */
+	String setAccountNewCustomer(final String rawData);
 }

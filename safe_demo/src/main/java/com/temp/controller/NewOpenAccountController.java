@@ -73,4 +73,30 @@ public class NewOpenAccountController {
 			e.printStackTrace();
 		}
 	}
+	
+	@RequestMapping("/setAccountNewBox")
+	public void setAccountNewBox(HttpServletRequest request, HttpServletResponse response) {
+		String rawData = request.getParameter("info");
+		try {
+			String resJSON = accountManagerService.setAccountNewBox(rawData);
+			
+			PrintWriter writer = response.getWriter();
+			writer.print(resJSON);			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping("/setAccountNewCustomer")
+	public void setAccountNewCustomer(HttpServletRequest request, HttpServletResponse response) {
+		String rawData = request.getParameter("info");
+		try {
+			String resJSON = accountManagerService.setAccountNewCustomer(rawData);
+			
+			PrintWriter writer = response.getWriter();
+			writer.print(resJSON);			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

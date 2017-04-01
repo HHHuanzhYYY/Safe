@@ -289,7 +289,8 @@ public class CustomerDaoImpl implements CustomerDao {
 						customerFullInfoVo.setPhone(rs.getString("phone"));
 						customerFullInfoVo.setMobile(rs.getString("mobile"));
 						customerFullInfoVo.setPost(rs.getString("post"));
-						customerFullInfoVo.setPhoto(ImgUtil.encodeToBase64CodingImg(rs.getBlob("photo")));
+						customerFullInfoVo.setPhoto(
+								rs.getBlob("photo") == null ? null : ImgUtil.encodeToBase64CodingImg(rs.getBlob("photo")));
 						customerFullInfoVo.setRemark(rs.getString("remark"));
 						
 						return customerFullInfoVo;

@@ -2,11 +2,6 @@ package com.temp.util;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -15,8 +10,6 @@ import java.util.Map;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.temp.po.AccountPo;
-import com.temp.po.MessagePo;
 import com.temp.po.Po;
 
 public final class JsonUtil {
@@ -101,6 +94,14 @@ public final class JsonUtil {
 		return numericList;
 	}
 	
+	/**
+	 * parseJson.
+	 * 
+	 * @param tagParam
+	 * @param rawData
+	 * @param type
+	 * @return
+	 */
 	public static List<String> parseJson(TagParam tagParam, String rawData, String type) {
 		JSONObject data = getDataFieldInRawData(rawData);
 		List<String> numericList = JSON.parseArray(data.getString(type), String.class);

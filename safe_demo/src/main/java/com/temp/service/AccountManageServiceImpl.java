@@ -12,6 +12,8 @@ import com.temp.dao.BoxDao;
 import com.temp.dao.CardDao;
 import com.temp.dao.CustomerDao;
 import com.temp.dao.RentDao;
+import com.temp.po.AccountAddBoxPo;
+import com.temp.po.AccountAddCustomerPo;
 import com.temp.po.AccountPo;
 import com.temp.po.CardPo;
 import com.temp.po.CustomerPo;
@@ -142,6 +144,52 @@ public class AccountManageServiceImpl implements AccountManageService {
 				newRent.setAccountId(newAccount.getAccountId());
 				isSuccess = rentDao.setRent(newRent);
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			isSuccess = false;
+		}
+		return JsonUtil.constructJson(isSuccess, null, null);
+	}
+
+	@Override
+	public String setAccountNewBox(String rawData) {
+		boolean isSuccess = true;
+		try {
+			AccountAddBoxPo accountAddBoxPo = (AccountAddBoxPo) JsonUtil.parseJson(rawData, AccountAddBoxPo.class);
+			
+			final RentPo rentPo = accountAddBoxPo.getBoxRent();
+			rentPo.setAccountId(accountAddBoxPo.getAccountId());
+			
+			// Write table: box_card_relationship.
+			isSuccess = boxDao.setBoxCardRelationship(rentPo.getBoxId(), rentPo.getCardRfid());
+			
+			// Write table: rent
+			isSuccess = rentDao.setRent(rentPo);
+		} catch (Exception e) {
+			isSuccess = false;
+		}
+		return JsonUtil.constructJson(isSuccess, null, null);
+	}
+
+	@Override
+	public String setAccountNewCustomer(String rawData) {
+		boolean isSuccess = true;
+		try {
+			AccountAddCustomerPo accountAddCustomerPo = (AccountAddCustomerPo) JsonUtil.parseJson(
+					rawData, AccountAddCustomerPo.class);
+			
+			// Write table "customer".
+			long customerId = customerDao.setCustomer(accountAddCustomerPo.getCustomer());
+			
+			// Write table "card".
+			CardPo cardPo = accountAddCustomerPo.getCustomer().buildCardPo();
+			cardPo.setAccountId(accountAddCustomerPo.getAccountId());
+			cardPo.setCustomerId(customerId);
+			isSuccess = cardDao.setCard(cardPo);
+			
+			// Write table "account_customer_relationship".
+			isSuccess = customerDao.setAccountCustomerRelationship(
+					accountAddCustomerPo.getAccountId(), customerId);
 		} catch (Exception e) {
 			e.printStackTrace();
 			isSuccess = false;

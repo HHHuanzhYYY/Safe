@@ -13,6 +13,8 @@ import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.temp.po.AccountAddBoxPo;
+import com.temp.po.AccountAddCustomerPo;
 import com.temp.po.AccountPo;
 import com.temp.util.CertificateType;
 import com.temp.vo.AccountFullInfoVo;
@@ -118,8 +120,10 @@ public class AccountDaoImpl implements AccountDao {
 						
 						accountFullInfoVo.setAccountId(rs.getString("accountId"));
 						accountFullInfoVo.setAccountType(rs.getInt("accountType"));
-						accountFullInfoVo.setOpenAccountDate(new Date(rs.getDate("openAccountDate").getTime()));
-						accountFullInfoVo.setCancelAccountDate(new Date(rs.getDate("cancelAccountDate").getTime()));
+						accountFullInfoVo.setOpenAccountDate(
+								rs.getDate("openAccountDate") == null ? null : new Date(rs.getDate("openAccountDate").getTime()));
+						accountFullInfoVo.setCancelAccountDate(
+								rs.getDate("cancelAccountDate") == null ? null : new Date(rs.getDate("cancelAccountDate").getTime()));
 						accountFullInfoVo.setIsAccountFree(rs.getInt("isAccountFree"));
 						accountFullInfoVo.setOpenAccountFee(rs.getBigDecimal("openAccountFee").floatValue());
 						accountFullInfoVo.setPaymentType(rs.getInt("paymentType"));
@@ -131,6 +135,18 @@ public class AccountDaoImpl implements AccountDao {
 					}
 				});
 		return accountFullInfoVos;
+	}
+
+	@Override
+	public boolean setAccountNewBox(AccountAddBoxPo accountAddBoxPo) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean setAccountNewCustomer(AccountAddCustomerPo accountAddCustomerPo) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 }
