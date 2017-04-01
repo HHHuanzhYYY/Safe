@@ -63,10 +63,10 @@ public interface BoxDao {
 	 * setBoxNewKey.
 	 * 
 	 * @param boxId
-	 * @param keyId
+	 * @param keyNo
 	 * @return boolean
 	 */
-	boolean setBoxNewKey(long boxId, long keyId);
+	boolean setBoxNewKey(long boxId, long keyNo);
 	
 	/**
 	 * getAllBoxModelResumes.
@@ -113,4 +113,13 @@ public interface BoxDao {
 	 * @return List<BoxFullInfoVo>
 	 */
 	List<BoxFullInfoVo> getBoxsByCardRfid(String cardRfid);
+	
+	/**
+	 * setBoxStatus.
+	 * 
+	 * @param boxId
+	 * @param futureBoxStatus
+	 * @return boolean
+	 */
+	boolean setBoxStatus(final long boxId, final int futureBoxStatus);
 }

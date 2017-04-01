@@ -2,7 +2,7 @@ package com.temp.util;
 
 public enum ReportLossAction {
 
-	APPLYREPORTLOSS(3), REMOVEREPORTLOSS(1);
+	APPLYREPORTLOSS(3), HANDLEEPORTLOSS(2), REMOVEREPORTLOSS(1);
 	
 	private ReportLossAction(int v) {
 		value = v;

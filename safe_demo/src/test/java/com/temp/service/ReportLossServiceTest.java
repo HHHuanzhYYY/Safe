@@ -61,7 +61,7 @@ public class ReportLossServiceTest extends ServiceTestBase {
                     + "\"paymentType\":1,"
 					+ "\"feeTotal\":300}"
 				+ "}";
-		String retJSON = reportLossService.setReportLossDetails(rawData);
+		String retJSON = reportLossService.setReportLossDetails(rawData, ReportLossAction.HANDLEEPORTLOSS);
 		
 		System.out.println(retJSON);
 	}

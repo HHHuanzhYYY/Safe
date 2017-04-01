@@ -28,12 +28,12 @@ public class LogDaoImpl implements LogDao {
 	
 	@Override
 	public boolean setReportLossLog(ReportLossAction reportLossAction, 
-			int boxId, int reportLossType, int paymentType, float feeTotal) {
-		// ��ѯ rentId.
+			long boxId, int reportLossType, int paymentType, float feeTotal) {
+		// Query "rentId" corresponding to the box.
 		String queryRentIdSQL = "SELECT rentId FROM rent WHERE boxId = ? ";
 		int rentId = jdbcTemplate.queryForObject(queryRentIdSQL, Integer.class, boxId);
 		
-		// д reportloss_log.
+		// Log the Action in table reportloss_log.
 		String insertReportLossSQL = 
 				"INSERT INTO reportloss_log(occurrenceTime, reportlossAction, "
 										 + "reportLossType, paymentType, feeTotal, boxId, rentId) "
@@ -42,13 +42,7 @@ public class LogDaoImpl implements LogDao {
 				new Object[] {reportLossAction.getValue(), reportLossType, paymentType, feeTotal, boxId, rentId}, 
 				new int[] {Types.INTEGER, Types.INTEGER, Types.INTEGER, Types.FLOAT, Types.INTEGER, Types.INTEGER});
 		
-		// ��������״̬Ϊ "��ʧ"
-		String setBoxStatusSQL = "UPDATE box SET status = ? WHERE boxId = ? ";
-		int count1 = jdbcTemplate.update(setBoxStatusSQL, 
-				new Object[] {reportLossAction.getValue(), boxId}, 
-				new int[] {Types.INTEGER, Types.INTEGER});
-		
-		return ((count == 1) && (count1 == 1))  ? true : false;
+		return count == 1  ? true : false;
 	}
 
 }

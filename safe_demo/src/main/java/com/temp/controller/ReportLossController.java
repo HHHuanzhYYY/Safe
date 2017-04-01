@@ -49,7 +49,7 @@ public class ReportLossController {
 	public void setReportLossDetails(HttpServletRequest request, HttpServletResponse response) {
 		String rawData = request.getParameter("info");
 		try {
-			String resJSON = reportLossService.setReportLossDetails(rawData);
+			String resJSON = reportLossService.setReportLossDetails(rawData, ReportLossAction.HANDLEEPORTLOSS);
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			

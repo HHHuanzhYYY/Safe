@@ -26,6 +26,6 @@ public interface ReportLossService {
 	 * @param rawData String from HttpRequest
 	 * @return JSON String Contains Account Info.
 	 */
-	String setReportLossDetails(final String rawData);
+	String setReportLossDetails(final String rawData, final ReportLossAction reportLossAction);
 	
 }

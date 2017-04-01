@@ -18,13 +18,21 @@ public class ReportLossPo extends Po {
 	
 	private String password; // ����	
 	
-	private long keyId; // Կ�׺�	
+	private long keyNo; // Կ�׺�	
 	
 	private int paymentType; // ���ʽ	
 	
 	private float feeTotal; // �����ܼ�	
 
 	public ReportLossPo() {}
+	
+	@Override
+	public String toString() {
+		return "ReportLossPo [certificateType=" + certificateType + ", certificateNo=" + certificateNo
+				+ ", reportLossType=" + reportLossType + ", boxId=" + boxId + ", cardRfid=" + cardRfid + ", cardNo="
+				+ cardNo + ", password=" + password + ", keyNo=" + keyNo + ", paymentType=" + paymentType
+				+ ", feeTotal=" + feeTotal + "]";
+	}
 
 	public ReportLossType getVisualReportLossType() {
 		ReportLossType ret = null;
@@ -108,12 +116,12 @@ public class ReportLossPo extends Po {
 		this.password = password;
 	}
 
-	public long getKeyId() {
-		return keyId;
+	public long getKeyNo() {
+		return keyNo;
 	}
 
-	public void setKeyId(long keyId) {
-		this.keyId = keyId;
+	public void setKeyNo(long keyNo) {
+		this.keyNo = keyNo;
 	}
 
 	public int getPaymentType() {

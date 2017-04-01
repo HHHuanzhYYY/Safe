@@ -284,15 +284,55 @@ public class BoxDaoImpl implements BoxDao {
 	}
 
 	@Override
-	public boolean setBoxNewKey(long boxId, long keyId) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean setBoxNewKey(long boxId, long keyNo) {
+		// Hand out key of the box, always keep the rent.keySum = 2, 
+		// so it doesn`t need to write a new keyNo in Database.
+		// then, Log this kinds of Action, 
+		// At last, everything is OK.
+		return true;
 	}
 
 	@Override
 	public List<BoxFullInfoVo> getBoxsByCardRfid(String cardRfid) {
-		// TODO Auto-generated method stub
-		return null;
+		String queryBoxSQL = "SELECT box.boxId, boxNo, lockId, `status`, remark, sideNo, rowNo, columnNo, "
+								  + "rowPosX, columnPosX, boxModel, bankId, rentId, keyNo "
+						   + "FROM box_card_relationship, box "
+						   + "WHERE box_card_relationship.boxId = box.boxId AND box_card_relationship.cardRfid = ? ";
+		List<BoxFullInfoVo> boxFullInfoVos = jdbcTemplate.query(queryBoxSQL, 
+				new Object[] {cardRfid}, new int[] {Types.VARCHAR}, 
+				new RowMapper<BoxFullInfoVo>() {
+
+					@Override
+					public BoxFullInfoVo mapRow(ResultSet rs, int arg1) throws SQLException {
+						BoxFullInfoVo boxFullInfoVo = new BoxFullInfoVo();
+						
+						boxFullInfoVo.setBoxId(rs.getLong("boxId"));
+						boxFullInfoVo.setBoxNo(rs.getLong("boxNo"));
+						boxFullInfoVo.setLockId(rs.getString("status"));
+						boxFullInfoVo.setRemark(rs.getString("remark"));
+						boxFullInfoVo.setSideNo(rs.getInt("sideNo"));
+						boxFullInfoVo.setRowNo(rs.getInt("rowNo"));
+						boxFullInfoVo.setColumnNo(rs.getInt("columnNo"));
+						boxFullInfoVo.setRowPosX(rs.getString("rowPosX"));
+						boxFullInfoVo.setColumnPosX(rs.getString("columnPosX"));
+						boxFullInfoVo.setBoxModel(rs.getString("boxModel"));
+						boxFullInfoVo.setBankId(rs.getLong("bankId"));
+						boxFullInfoVo.setRentId(rs.getLong("rentId"));
+						boxFullInfoVo.setKeyNo(rs.getLong("keyNo"));
+						
+						return boxFullInfoVo;
+					}
+				});
+		return boxFullInfoVos;
+	}
+
+	@Override
+	public boolean setBoxStatus(long boxId, int futureBoxStatus) {
+		String setBoxStatusSQL = "UPDATE box SET status = ? WHERE boxId = ? ";
+		int count = jdbcTemplate.update(setBoxStatusSQL, 
+				new Object[] {futureBoxStatus, boxId}, 
+				new int[] {Types.INTEGER, Types.BIGINT});
+		return count == 1 ? true : false;
 	}
 
 }

@@ -24,5 +24,5 @@ public interface LogDao {
 	 * @return boolean
 	 */
 	boolean setReportLossLog(ReportLossAction reportLossAction, 
-			int boxId, int reportLossType, int paymentType, float feeTotal);
+			long boxId, int reportLossType, int paymentType, float feeTotal);
 }

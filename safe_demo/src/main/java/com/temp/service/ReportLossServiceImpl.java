@@ -50,12 +50,20 @@ public class ReportLossServiceImpl implements ReportLossService {
 			Map<String, Object> paramValues = JsonUtil.parseJson(rawData, 
 					"boxId", "reportLossType", "paymentType", "feeTotal");
 			
+			// Set the Status of corresponding Box.
+			// reportLossAction.getValue() = 1 : BoxStatus.INRENT
+			// reportLossAction.getValue() = 3 : BoxStatus.REPORTLOSS
+			boxDao.setBoxStatus(Long.parseLong((String)paramValues.get("boxId")), 
+					reportLossAction.getValue());
+			
+			// Log the Action of Apply/Remove the Report Loss.
 			isSuccess = logDao.setReportLossLog(
 					reportLossAction,
-					Integer.parseInt((String)paramValues.get("boxId")),
+					Long.parseLong((String)paramValues.get("boxId")),
 					Integer.parseInt((String)paramValues.get("reportLossType")),
 					Integer.parseInt((String)paramValues.get("paymentType")),
-					Float.parseFloat((String)paramValues.get("feeTotal")));
+					Float.parseFloat((String)paramValues.get("feeTotal"))
+					);
 		} catch (Exception e) {
 			isSuccess = false;
 		}		
@@ -63,7 +71,7 @@ public class ReportLossServiceImpl implements ReportLossService {
 	}
 
 	@Override
-	public String setReportLossDetails(String rawData) {
+	public String setReportLossDetails(String rawData, ReportLossAction reportLossAction) {
 		boolean isSuccess = true;
 		try {
 			ReportLossPo reportLossPo = (ReportLossPo) JsonUtil.parseJson(rawData, ReportLossPo.class);
@@ -76,12 +84,18 @@ public class ReportLossServiceImpl implements ReportLossService {
 				isSuccess = cardDao.changeCard(reportLossPo);
 				break;
 			case KEYLOSS:
-				isSuccess = boxDao.setBoxNewKey(reportLossPo.getBoxId(), reportLossPo.getKeyId());
+				isSuccess = boxDao.setBoxNewKey(reportLossPo.getBoxId(), reportLossPo.getKeyNo());
 				break;
 			default:
 				break;
 			}
-			//isSuccess = logDao.setReportLossLog(reportLossPo, ReportLossAction.SETREPORTLOSS);
+			
+			// Log the Action of Handle the Report Loss.
+			isSuccess = logDao.setReportLossLog(reportLossAction, 
+					reportLossPo.getBoxId(),
+					reportLossPo.getReportLossType(),
+					reportLossPo.getPaymentType(),
+					reportLossPo.getFeeTotal());
 		} catch (Exception e) {
 			isSuccess = false;
 		}		
