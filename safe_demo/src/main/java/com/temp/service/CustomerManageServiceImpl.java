@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.temp.dao.CustomerDao;
 import com.temp.po.CustomerDataPo;
@@ -12,6 +13,7 @@ import com.temp.util.JsonUtil;
 import com.temp.util.PwdType;
 import com.temp.vo.CustomerDataVo;
 
+@Transactional(readOnly = true)
 @Service
 public class CustomerManageServiceImpl implements CustomerManageService {
 	
@@ -68,6 +70,7 @@ public class CustomerManageServiceImpl implements CustomerManageService {
 		return JsonUtil.constructJson(isSuccess, null, customerDataVos);
 	}
 
+	@Transactional
 	@Override
 	public String setCustomerData(String rawData) {
 		boolean isSuccess = true;

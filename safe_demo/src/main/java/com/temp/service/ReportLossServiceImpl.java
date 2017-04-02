@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.temp.dao.BankEmployeeDao;
 import com.temp.dao.BoxDao;
@@ -13,6 +14,7 @@ import com.temp.po.ReportLossPo;
 import com.temp.util.JsonUtil;
 import com.temp.util.ReportLossAction;
 
+@Transactional
 @Service
 public class ReportLossServiceImpl implements ReportLossService {
 	
@@ -28,6 +30,7 @@ public class ReportLossServiceImpl implements ReportLossService {
 	@Autowired
 	private LogDao logDao;
 
+	@Transactional(readOnly = true)
 	@Override
 	public String bankEmployeeLogin(String rawData) {
 		boolean isSuccess = true;

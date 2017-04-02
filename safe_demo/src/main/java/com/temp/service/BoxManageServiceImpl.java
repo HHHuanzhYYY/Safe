@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.temp.dao.BoxDao;
 import com.temp.dao.RentDao;
@@ -20,6 +21,7 @@ import com.temp.util.Utility;
 import com.temp.vo.BoxModelResumeVo;
 import com.temp.vo.BoxModelVo;
 
+@Transactional
 @Service
 public class BoxManageServiceImpl implements BoxManageService {
 	
@@ -29,6 +31,7 @@ public class BoxManageServiceImpl implements BoxManageService {
 	@Autowired
 	private RentDao rentDao;
 
+	@Transactional(readOnly = true)
 	@Override
 	public String getChangeBoxDetails(String rawData) {
 		boolean isSuccess = true;
@@ -106,6 +109,7 @@ public class BoxManageServiceImpl implements BoxManageService {
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public String listAllModelResumes() {
 		boolean isSuccess = true;
@@ -144,6 +148,7 @@ public class BoxManageServiceImpl implements BoxManageService {
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public String listAllBoxModels() {
 		boolean isSuccess = true;

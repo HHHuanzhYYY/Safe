@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.temp.dao.SystemConfigDao;
 import com.temp.po.BankBranchPo;
@@ -19,12 +20,14 @@ import com.temp.vo.FeeTypeVo;
 import com.temp.vo.MessageVo;
 import com.temp.vo.SubjectVo;
 
+@Transactional
 @Service
 public class SystemConfigServiceImpl implements SystemConfigService {
 	
 	@Autowired
 	private SystemConfigDao systemConfigDao;
 	
+	@Transactional(readOnly = true)
 	@Override
 	public String listAllMessages() {
 		boolean isSuccess = true;
@@ -37,6 +40,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 		return JsonUtil.constructJson(isSuccess, null, messageVos);
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public String listBankBranchEmployees(String rawData) {
 		boolean isSuccess = true;
@@ -81,6 +85,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public String listBankBranches() {
 		boolean isSuccess = true;
@@ -122,6 +127,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public String listAllSubjects() {
 		boolean isSuccess = true;
@@ -165,6 +171,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public String listAllFeeTypes() {
 		boolean isSuccess = true;

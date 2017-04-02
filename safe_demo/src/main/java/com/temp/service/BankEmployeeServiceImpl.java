@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.temp.dao.BankEmployeeDao;
 import com.temp.dao.LogDao;
@@ -15,6 +16,7 @@ import com.temp.po.BankEmployeePo;
 import com.temp.util.JsonUtil;
 import com.temp.vo.BankEmployeeVo;
 
+@Transactional
 @Service  
 public class BankEmployeeServiceImpl implements BankEmployeeService {
 
@@ -47,6 +49,7 @@ public class BankEmployeeServiceImpl implements BankEmployeeService {
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public String listAllBankEmployees(String rawData) {
 		boolean isSuccess = true;

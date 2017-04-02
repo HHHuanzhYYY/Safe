@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.temp.dao.RentDao;
 import com.temp.po.OffleasePo;
@@ -13,12 +14,14 @@ import com.temp.po.ReletPo;
 import com.temp.util.JsonUtil;
 import com.temp.util.Utility;
 
+@Transactional
 @Service
 public class RentServiceImpl implements RentService {
 	
 	@Autowired
 	private RentDao rentDao;
 
+	@Transactional(readOnly = true)
 	@Override
 	public String getBoxReletInfo(String rawData) {
 		boolean isSuccess = true;
@@ -70,6 +73,7 @@ public class RentServiceImpl implements RentService {
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public String getBoxUnrentInfo(String rawData) {
 		boolean isSuccess = true;

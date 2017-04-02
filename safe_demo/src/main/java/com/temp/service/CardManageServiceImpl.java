@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.temp.dao.AccountDao;
 import com.temp.dao.BoxDao;
@@ -17,6 +18,7 @@ import com.temp.vo.BoxFullInfoVo;
 import com.temp.vo.CustomerFullInfoVo;
 import com.temp.vo.Vo;
 
+@Transactional
 @Service
 public class CardManageServiceImpl implements CardManageService {
 
@@ -45,6 +47,7 @@ public class CardManageServiceImpl implements CardManageService {
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public String getAccountsCustomersBoxsByCardRfid(String rawData) {
 		boolean isSuccess = true;

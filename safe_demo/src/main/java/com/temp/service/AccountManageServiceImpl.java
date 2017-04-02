@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.temp.dao.AccountDao;
 import com.temp.dao.BoxDao;
@@ -27,6 +28,7 @@ import com.temp.vo.BoxVo;
 import com.temp.vo.CustomerVo;
 import com.temp.vo.Vo;
 
+@Transactional(readOnly = true)
 @Service
 public class AccountManageServiceImpl implements AccountManageService {
 
@@ -100,6 +102,7 @@ public class AccountManageServiceImpl implements AccountManageService {
 		return JsonUtil.constructJson(isSuccess, null, dataContents);
 	}
 	
+	@Transactional(readOnly = false)
 	@Override
 	public String setAccountInfo(String rawData) {
 		boolean isSuccess = true;
@@ -151,6 +154,7 @@ public class AccountManageServiceImpl implements AccountManageService {
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}
 
+	@Transactional(readOnly = false)
 	@Override
 	public String setAccountNewBox(String rawData) {
 		boolean isSuccess = true;
@@ -171,6 +175,7 @@ public class AccountManageServiceImpl implements AccountManageService {
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}
 
+	@Transactional(readOnly = false)
 	@Override
 	public String setAccountNewCustomer(String rawData) {
 		boolean isSuccess = true;
