@@ -4,6 +4,8 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.temp.util.JsonUtil;
@@ -11,6 +13,8 @@ import com.temp.util.JsonUtil;
 @Component
 @Aspect
 public class LogUtil {
+	
+	private static Logger log = LoggerFactory.getLogger(LogUtil.class);
 	
 //	/**
 //	 * Controller层只记录异常信息.
@@ -40,13 +44,13 @@ public class LogUtil {
 		  + "deleteService(rawData) || loginService(rawData) || "
 		  + "validateService(rawData)")  
     public String serviceAround(ProceedingJoinPoint joinPoint, String rawData) {  
-		System.out.println("Before:" + rawData);
+		log.info("Before:" + rawData);
 		
         String resJson = null;  
         try {  
         	resJson = (String) joinPoint.proceed();  
         } catch (Throwable e) {  
-            e.printStackTrace();
+        	log.error("", e);
             
             resJson = JsonUtil.constructJson(false, null, null);
         }
