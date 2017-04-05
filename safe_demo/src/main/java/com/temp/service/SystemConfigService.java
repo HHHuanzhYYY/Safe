@@ -10,12 +10,12 @@ public interface SystemConfigService {
 	String listAllMessages();
 	
 	/**
-	 * listBankBranchEmployees.
+	 * getBankBranchEmployees.
 	 * 
 	 * @param rawData
 	 * @return String
 	 */
-	String listBankBranchEmployees(final String rawData);
+	String getBankBranchEmployees(final String rawData);
 	
 	/**
 	 * setMessageDetails.
@@ -95,12 +95,12 @@ public interface SystemConfigService {
 	String setFeeTypeDetails(final String rawData);
 	
 	/**
-	 * operateFeeType.
+	 * setFeeType.
 	 * 
 	 * @param rawData
 	 * @return String
 	 */
-	String operateFeeType(final String rawData);
+	String setFeeType(final String rawData);
 	
 	/**
 	 * deleteFeeType.

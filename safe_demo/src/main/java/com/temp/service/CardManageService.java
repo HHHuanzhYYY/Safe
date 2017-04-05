@@ -3,12 +3,12 @@ package com.temp.service;
 public interface CardManageService {
 
 	/**
-	 * modifyCardPwd.
+	 * setCardPwd.
 	 * 
 	 * @param rawData
 	 * @return String
 	 */
-	String modifyCardPwd(final String rawData);
+	String setCardPwd(final String rawData);
 	
 	/**
 	 * getAccountsCustomersBoxsByCardRfid.

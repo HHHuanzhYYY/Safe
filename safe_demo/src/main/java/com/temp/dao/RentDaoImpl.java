@@ -28,7 +28,7 @@ public class RentDaoImpl implements RentDao {
 	@Override
 	public boolean setRent(RentPo rent) {
 		String insertRentSQL = "INSERT INTO rent(rentStatus, leaseNo, leaseRemark, voucherNo, voucherRemark, "
-				+ "keySum, rentType, rentTime, startDate, endDate, deposit, rent, rentDiscount, actualRent, "
+				+ "keySum, rentType, rentTime, startDate, endDate, deposit, rent, rentDiscountRate, actualRent, "
 				+ "paymentType, feeTotal, isRelet, boxId, accountId) "
 				+ "VALUES(0, ?, ?, ?, ?, 2, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?)";
 		
@@ -43,7 +43,7 @@ public class RentDaoImpl implements RentDao {
 							  rent.getEndDate(), 
 							  rent.getDeposit(), 
 							  rent.getRent(),
-							  rent.getRentDiscount(), 
+							  rent.getRentDiscountRate(), 
 							  rent.getActualRent(),
 							  rent.getPaymentType(), 
 							  rent.getFeeTotal(),

@@ -31,7 +31,7 @@ public class CustomerManageServiceImpl implements CustomerManageService {
 					PwdType.convert2PwdType(Integer.parseInt((String)paramValues.get("pwdType"))), 
 					(String)paramValues.get("pwd"));
 		} catch (Exception e) {
-			isValidateSucceed = false;
+			throw e;
 		}
 		return JsonUtil.constructJson(isValidateSucceed, null, null);
 	}
@@ -46,7 +46,7 @@ public class CustomerManageServiceImpl implements CustomerManageService {
 					(String)paramValues.get("name"), 
 					(String)paramValues.get("password"));
 		} catch (Exception e) {
-			isValidateSucceed = false;
+			throw e;
 		}
 		return JsonUtil.constructJson(isValidateSucceed, null, null);
 	}
@@ -70,7 +70,7 @@ public class CustomerManageServiceImpl implements CustomerManageService {
 		return JsonUtil.constructJson(isSuccess, null, customerDataVos);
 	}
 
-	@Transactional
+	@Transactional(readOnly = false)
 	@Override
 	public String setCustomerData(String rawData) {
 		boolean isSuccess = true;

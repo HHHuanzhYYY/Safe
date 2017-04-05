@@ -54,7 +54,7 @@ public class BoxManageServiceTest extends ServiceTestBase {
 				+ "\"success\":true,"
 				+ "\"message\":null,"
 				+ "\"data\":{"
-					+ "\"boxId\":11103, "
+					+ "\"boxId\":11105, "
 					+ "\"changeReason\":\"This is just a usecase.\""
 					+ "}"
 				+ "}";
@@ -103,14 +103,14 @@ public class BoxManageServiceTest extends ServiceTestBase {
 		System.out.println(jsonStr);
 	}*/
 	
-	/*@Test
+	@Test
 	public void listAllBoxModels() {
 		String jsonStr = boxManageService.listAllBoxModels();
 		
 		System.out.println(jsonStr);
-	}*/
+	}
 	
-	@Test
+	/*@Test
 	public void setBoxModelDetails() {
 		final String rawData = "{"
 				+ "\"success\":true,"
@@ -130,6 +130,6 @@ public class BoxManageServiceTest extends ServiceTestBase {
 		String jsonStr = boxManageService.setBoxModelDetails(rawData);
 		
 		System.out.println(jsonStr);
-	}
+	}*/
 	
 }

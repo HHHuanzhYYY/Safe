@@ -20,9 +20,9 @@ public class SystemConfigServiceTest extends ServiceTestBase {
 	}*/
 	
 	/*@Test
-	public void listBankBranchEmployees() {
+	public void getBankBranchEmployees() {
 		final String rawData = "{\"success\":true,\"message\":null,\"data\":{\"bankId\":101}}";
-		String retJSON = systemConfigService.listBankBranchEmployees(rawData);
+		String retJSON = systemConfigService.getBankBranchEmployees(rawData);
 		
 		System.out.println(retJSON);
 	}*/
@@ -165,7 +165,7 @@ public class SystemConfigServiceTest extends ServiceTestBase {
 	
 	
 	/*@Test
-	public void operateFeeType(){
+	public void setFeeType(){
 		final String rawData = "{"
 				+ "\"success\":true,"
 				+ "\"message\":null,"
@@ -173,7 +173,7 @@ public class SystemConfigServiceTest extends ServiceTestBase {
 				    + "\"feeTypeId\":602,"					
 					+ "\"status\":4}"
 				+ "}";
-		String retJSON = systemConfigService.operateFeeType(rawData);
+		String retJSON = systemConfigService.setFeeType(rawData);
 		
 		System.out.println(retJSON);
 	}*/

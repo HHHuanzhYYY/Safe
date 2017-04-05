@@ -35,7 +35,7 @@
 	</bean>
 	
 	<!-- enable the configuration of transactional behavior based on annotations -->
-    <tx:annotation-driven transaction-manager="txManager"/>
+    <tx:annotation-driven transaction-manager="txManager" proxy-target-class="true" />
     
 	<!-- Transaction Manager. -->
 	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -55,6 +55,9 @@
 		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
 		<property name="typeAliasesPackage" value="com.tiantian.ckeditor.model" />
 	</bean> -->
+	
+	<!-- 启用AspectJ自动代理 -->
+	<aop:aspectj-autoproxy />
 
 	<!-- 自动扫描注解的bean -->
 	<context:component-scan base-package="com.temp" />

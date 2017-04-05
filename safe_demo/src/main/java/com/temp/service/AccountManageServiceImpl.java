@@ -70,7 +70,7 @@ public class AccountManageServiceImpl implements AccountManageService {
 			
 			isSuccess = true;
 		} catch (Exception e) {
-			isSuccess = false;
+			throw e;
 		}
 		return JsonUtil.constructJson(isSuccess, null, accounts);
 	}
@@ -96,8 +96,7 @@ public class AccountManageServiceImpl implements AccountManageService {
 			dataContents.put("customerList", allCustomers);
 			dataContents.put("boxList", allBoxs);
 		} catch (Exception e) {
-			e.printStackTrace();
-			isSuccess = false;
+			throw e;
 		}
 		return JsonUtil.constructJson(isSuccess, null, dataContents);
 	}
@@ -148,8 +147,7 @@ public class AccountManageServiceImpl implements AccountManageService {
 				isSuccess = rentDao.setRent(newRent);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
-			isSuccess = false;
+			throw e;
 		}
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}
@@ -170,12 +168,12 @@ public class AccountManageServiceImpl implements AccountManageService {
 			// Write table: rent
 			isSuccess = rentDao.setRent(rentPo);
 		} catch (Exception e) {
-			isSuccess = false;
+			throw e;
 		}
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}
 
-	@Transactional(readOnly = false)
+	@Transactional(readOnly=false, rollbackFor=Exception.class)
 	@Override
 	public String setAccountNewCustomer(String rawData) {
 		boolean isSuccess = true;
@@ -196,8 +194,7 @@ public class AccountManageServiceImpl implements AccountManageService {
 			isSuccess = customerDao.setAccountCustomerRelationship(
 					accountAddCustomerPo.getAccountId(), customerId);
 		} catch (Exception e) {
-			e.printStackTrace();
-			isSuccess = false;
+			throw e;
 		}
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}

@@ -49,7 +49,7 @@ public class BankEmployeeDaoImpl implements BankEmployeeDao {
 	@Override
 	public List<BankEmployeeVo> getAllBankEmployees(long bankId) {
 		String queryBankEmployeeSQL = "SELECT employeeId, loginId, employeeName, priority, icCardNo, "
-				                           + "certificateType, certificateId, isAdministrator, "
+				                           + "certificateType, certificateNo, isAdministrator, "
 				                           + "bank_branch.bankId, bank_branch.bankTitle "
 				                    + "FROM bank_employee, bank_branch "
 				                    + "WHERE bank_employee.bankId = bank_branch.bankId "
@@ -68,7 +68,7 @@ public class BankEmployeeDaoImpl implements BankEmployeeDao {
 						bankEmployeeVo.setPriority(rs.getInt("priority"));
 						bankEmployeeVo.setIcCardNo(rs.getString("icCardNo"));
 						bankEmployeeVo.setCertificateType(rs.getInt("certificateType"));
-						bankEmployeeVo.setCertificateId(rs.getString("certificateId"));
+						bankEmployeeVo.setCertificateId(rs.getString("certificateNo"));
 						bankEmployeeVo.setIsAdministrator(rs.getInt("isAdministrator"));
 						bankEmployeeVo.setBankId(rs.getInt("bankId"));
 						bankEmployeeVo.setBankTitle(rs.getString("bankTitle"));

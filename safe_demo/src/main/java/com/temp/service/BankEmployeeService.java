@@ -8,15 +8,15 @@ public interface BankEmployeeService {
 	 * @param rawData String from HttpRequest
 	 * @return JSON String Contains Account Info.
 	 */
-	String validateBankEmployee(final String rawData);  
+	String validateBankEmployee(final String rawData) throws Exception;  
 	
 	/**
-	 * listAllBankEmployees.
+	 * getAllBankEmployees.
 	 * 
 	 * @param rawData
 	 * @return String
 	 */
-	String listAllBankEmployees(final String rawData);
+	String getAllBankEmployees(final String rawData);
 	
 	/**
 	 * setBankEmployeeDetails.

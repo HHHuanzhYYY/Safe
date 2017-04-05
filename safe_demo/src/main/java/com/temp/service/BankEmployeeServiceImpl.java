@@ -27,7 +27,7 @@ public class BankEmployeeServiceImpl implements BankEmployeeService {
 	private LogDao logDao;
 
 	@Override
-	public String validateBankEmployee(final String rawData) {
+	public String validateBankEmployee(final String rawData) throws Exception {
 		boolean isSuccess = true;
 		int employeeId = 0;
 		try {
@@ -38,7 +38,7 @@ public class BankEmployeeServiceImpl implements BankEmployeeService {
 			employeeId = bankEmployeeDao.validateBankEmployeeByNameAndPwd(
 					(String)requestInfo.get("name"), (String)requestInfo.get("password"));			
 		} catch (Exception e) {
-			isSuccess = false;
+			throw e;
 		}
 		
 		// Log BankEmployee`s Login Action.
@@ -51,7 +51,7 @@ public class BankEmployeeServiceImpl implements BankEmployeeService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public String listAllBankEmployees(String rawData) {
+	public String getAllBankEmployees(String rawData) {
 		boolean isSuccess = true;
 		List<BankEmployeeVo> bankEmployeeVos = null;
 		try {
@@ -59,7 +59,7 @@ public class BankEmployeeServiceImpl implements BankEmployeeService {
 			
 			bankEmployeeVos = bankEmployeeDao.getAllBankEmployees(Long.parseLong((String)paramValues.get("bankId")));
 		} catch (Exception e) {
-			isSuccess = false;
+			throw e;
 		}		
 		return JsonUtil.constructJson(isSuccess, null, bankEmployeeVos);
 	}
@@ -75,8 +75,7 @@ public class BankEmployeeServiceImpl implements BankEmployeeService {
 			
 			bankEmployeeId.put("employeeId", employeeId);
 		} catch (Exception e) {
-			e.printStackTrace();
-			isSuccess = false;
+			throw e;
 		}
 		return JsonUtil.constructJson(isSuccess, null, bankEmployeeId);
 	}
@@ -90,7 +89,7 @@ public class BankEmployeeServiceImpl implements BankEmployeeService {
 			
 			isSuccess = bankEmployeeDao.deleteBankEmployee(bankEmployeeIds);
 		} catch (Exception e) {
-			isSuccess = false;
+			throw e;
 		}
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}  

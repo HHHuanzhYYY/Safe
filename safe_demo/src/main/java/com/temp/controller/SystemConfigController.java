@@ -1,6 +1,5 @@
 package com.temp.controller;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,7 +33,7 @@ public class SystemConfigController {
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
     } 
@@ -43,11 +42,11 @@ public class SystemConfigController {
     public void listBankBranchEmployees(HttpServletRequest request, HttpServletResponse response) {    	
 		String rawData = request.getParameter("info");
 		try {
-			String resJSON = systemConfigService.listBankBranchEmployees(rawData);
+			String resJSON = systemConfigService.getBankBranchEmployees(rawData);
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
     } 
@@ -60,7 +59,7 @@ public class SystemConfigController {
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -73,7 +72,7 @@ public class SystemConfigController {
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -85,7 +84,7 @@ public class SystemConfigController {
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -98,7 +97,7 @@ public class SystemConfigController {
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -111,7 +110,7 @@ public class SystemConfigController {
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -123,7 +122,7 @@ public class SystemConfigController {
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -136,7 +135,7 @@ public class SystemConfigController {
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -149,7 +148,7 @@ public class SystemConfigController {
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -161,7 +160,7 @@ public class SystemConfigController {
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -174,7 +173,7 @@ public class SystemConfigController {
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -187,7 +186,7 @@ public class SystemConfigController {
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -199,7 +198,7 @@ public class SystemConfigController {
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -212,7 +211,7 @@ public class SystemConfigController {
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -221,11 +220,11 @@ public class SystemConfigController {
 	public void listAllBankEmployees(HttpServletRequest request, HttpServletResponse response) {
 		String rawData = request.getParameter("info");
 		try {
-			String resJSON = bankEmployeeService.listAllBankEmployees(rawData);
+			String resJSON = bankEmployeeService.getAllBankEmployees(rawData);
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -238,7 +237,7 @@ public class SystemConfigController {
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -251,7 +250,7 @@ public class SystemConfigController {
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -263,7 +262,7 @@ public class SystemConfigController {
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -276,7 +275,7 @@ public class SystemConfigController {
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -285,11 +284,11 @@ public class SystemConfigController {
 	public void operateFeeType(HttpServletRequest request, HttpServletResponse response) {
 		String rawData = request.getParameter("info");
 		try {
-			String resJSON = systemConfigService.operateFeeType(rawData);
+			String resJSON = systemConfigService.setFeeType(rawData);
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -302,7 +301,7 @@ public class SystemConfigController {
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

@@ -35,14 +35,14 @@ public class CardManageServiceImpl implements CardManageService {
 	private AccountDao accountDao;
 	
 	@Override
-	public String modifyCardPwd(final String rawData) {
+	public String setCardPwd(final String rawData) {
 		boolean isSuccess = true;
 		try {
 			Map<String, Object> paramValues = JsonUtil.parseJson(rawData, "cardRfid", "pwd");
 			
 			isSuccess = cardDao.changeCardPwd((String)paramValues.get("cardRfid"), (String)paramValues.get("pwd"));			
 		} catch (Exception e) {
-			isSuccess = false;
+			throw e;
 		}
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}
@@ -69,7 +69,7 @@ public class CardManageServiceImpl implements CardManageService {
 					(String)paramValues.get("cardRfid"));
 			customersAndBoxsAndAccounts.put("accounts", accounts);
 		} catch (Exception e) {
-			isSuccess = false;
+			throw e;
 		}
 		return JsonUtil.constructJson(isSuccess, null, customersAndBoxsAndAccounts);
 	}

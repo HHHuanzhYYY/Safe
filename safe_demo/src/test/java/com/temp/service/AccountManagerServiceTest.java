@@ -191,7 +191,7 @@ public class AccountManagerServiceTest extends ServiceTestBase {
 						+ "\"cardRfid\":\"PEK1234555\","
 						+ "\"password\":\"asdfghjkl\","
 						+ "\"fingerPwd\":\"asdfghjkllkjhgfdsa\","
-						+ "\"reserveFingerPwd\":\"asdfghjkllkjhgfdsa\","
+						+ "\"reserveFingerPwd\":\"asdfghjkllkjhgfdsa\""
 						+ "}"
 					+ "}"
 				+ "}";

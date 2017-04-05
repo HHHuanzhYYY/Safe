@@ -42,7 +42,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public String listBankBranchEmployees(String rawData) {
+	public String getBankBranchEmployees(String rawData) {
 		boolean isSuccess = true;
 		List<BankEmployeeResumeVo> employeeResumeVos = null;
 		try {
@@ -198,7 +198,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 	}
 
 	@Override
-	public String operateFeeType(String rawData) {
+	public String setFeeType(String rawData) {
 		boolean isSuccess = true;
 		try {
 			Map<String, Object> paramValues = JsonUtil.parseJson(rawData, "feeTypeId", "status");

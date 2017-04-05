@@ -1,6 +1,5 @@
 package com.temp.controller;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +26,7 @@ public class SpecialServiceController {
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -40,7 +39,7 @@ public class SpecialServiceController {
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

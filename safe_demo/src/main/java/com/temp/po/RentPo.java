@@ -26,7 +26,7 @@ public class RentPo extends Po {
 	
 	private float rent;
 	
-	private float rentDiscount;
+	private float rentDiscountRate;
 
 	private float actualRent;
 	
@@ -47,7 +47,7 @@ public class RentPo extends Po {
 		return "RentPo [rentId=" + rentId + ", leaseNo=" + leaseNo + ", leaseRemark=" + leaseRemark + ", voucherNo="
 				+ voucherNo + ", voucherRemark=" + voucherRemark + ", rentType=" + rentType + ", rentTime=" + rentTime
 				+ ", startDate=" + startDate + ", endDate=" + endDate + ", deposit=" + deposit + ", rent=" + rent
-				+ ", rentDiscount=" + rentDiscount + ", actualRent=" + actualRent + ", paymentType=" + paymentType
+				+ ", rentDiscountRate=" + rentDiscountRate + ", actualRent=" + actualRent + ", paymentType=" + paymentType
 				+ ", feeTotal=" + feeTotal + ", boxId=" + boxId + ", accountId=" + accountId + ", cardRfid=" + cardRfid
 				+ "]";
 	}
@@ -140,12 +140,12 @@ public class RentPo extends Po {
 		this.rent = rent;
 	}
 
-	public float getRentDiscount() {
-		return rentDiscount;
+	public float getRentDiscountRate() {
+		return rentDiscountRate;
 	}
 
-	public void setRentDiscount(float rentDiscount) {
-		this.rentDiscount = rentDiscount;
+	public void setRentDiscountRate(float rentDiscountRate) {
+		this.rentDiscountRate = rentDiscountRate;
 	}
 
 	public float getActualRent() {

@@ -27,7 +27,7 @@ public class BankEmployeeServiceTest extends ServiceTestBase {
 	}*/
 	
 	/*@Test
-	public void listAllBankEmployees() {
+	public void getAllBankEmployees() {
 		final String rawData = "{"
 				+ "\"success\":true,"
 				+ "\"message\":null,"
@@ -36,7 +36,7 @@ public class BankEmployeeServiceTest extends ServiceTestBase {
 					+ "}"
 				+ "}";
 		
-		String jsonStr = bankEmployeeService.listAllBankEmployees(rawData);
+		String jsonStr = bankEmployeeService.getAllBankEmployees(rawData);
 		
 		System.out.println(jsonStr);
 	}*/

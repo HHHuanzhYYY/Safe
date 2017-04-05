@@ -30,11 +30,11 @@ public class ModifyController {
 	public void modifyCardPwd(HttpServletRequest request, HttpServletResponse response) {
 		String rawData = request.getParameter("info");
 		try {
-			String resJSON = cardManageService.modifyCardPwd(rawData);
+			String resJSON = cardManageService.setCardPwd(rawData);
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -73,7 +73,7 @@ public class ModifyController {
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -86,7 +86,7 @@ public class ModifyController {
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

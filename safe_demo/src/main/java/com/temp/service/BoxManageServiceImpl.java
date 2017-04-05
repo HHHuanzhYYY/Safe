@@ -62,7 +62,7 @@ public class BoxManageServiceImpl implements BoxManageService {
 				retChangeBoxDetails.put("amountDifference", amountDifference);
 			}
 		} catch (Exception e) {
-			isSuccess = false;
+			throw e;
 		}		
 		return JsonUtil.constructJson(isSuccess, null, retChangeBoxDetails);
 	}
@@ -87,8 +87,7 @@ public class BoxManageServiceImpl implements BoxManageService {
 			isSuccess = rentDao.setChangeBoxInfo(changeBoxPo.getOldBoxId(), changeBoxPo.getNewBoxId(), 
 					changeBoxPo.getAmountDifference());
 		} catch (Exception e) {
-			e.printStackTrace();
-			isSuccess = false;
+			throw e;
 		}
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}
@@ -104,7 +103,7 @@ public class BoxManageServiceImpl implements BoxManageService {
 					boxStatus,
 					(String)paramValues.get("changeReason"));
 		} catch (Exception e) {
-			isSuccess = false;
+			throw e;
 		}		
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}
@@ -117,7 +116,7 @@ public class BoxManageServiceImpl implements BoxManageService {
 		try {
 			boxDetailsVos = boxDao.getAllBoxModelResumes();
 		} catch (Exception e) {
-			isSuccess = false;
+			throw e;
 		}		
 		return JsonUtil.constructJson(isSuccess, null, boxDetailsVos);
 	}
@@ -130,7 +129,7 @@ public class BoxManageServiceImpl implements BoxManageService {
 			
 			isSuccess = boxDao.setAllBoxModelResumes(paramValues);
 		} catch (Exception e) {
-			isSuccess = false;
+			throw e;
 		}
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}
@@ -143,7 +142,7 @@ public class BoxManageServiceImpl implements BoxManageService {
 			
 			isSuccess = boxDao.deleteBoxModel(boxModels);
 		} catch (Exception e) {
-			isSuccess = false;
+			throw e;
 		}
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}
@@ -156,7 +155,7 @@ public class BoxManageServiceImpl implements BoxManageService {
 		try {
 			boxModelVos = boxDao.getAllBoxModels();
 		} catch (Exception e) {
-			isSuccess = false;
+			throw e;
 		}		
 		return JsonUtil.constructJson(isSuccess, null, boxModelVos);
 	}
@@ -169,7 +168,7 @@ public class BoxManageServiceImpl implements BoxManageService {
 			
 			isSuccess = boxDao.setBoxModelDetails(paramValues);
 		} catch (Exception e) {
-			isSuccess = false;
+			throw e;
 		}
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}

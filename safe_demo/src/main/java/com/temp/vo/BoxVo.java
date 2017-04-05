@@ -6,7 +6,7 @@ public class BoxVo extends Vo {
 	
 	private long boxId;
 	
-	private int boxModel;
+	private String boxModel;
 	
 	private String keyNo;
 	
@@ -41,11 +41,11 @@ public class BoxVo extends Vo {
 		this.boxId = boxId;
 	}
 
-	public int getBoxModel() {
+	public String getBoxModel() {
 		return boxModel;
 	}
 
-	public void setBoxModel(int boxModel) {
+	public void setBoxModel(String boxModel) {
 		this.boxModel = boxModel;
 	}
 

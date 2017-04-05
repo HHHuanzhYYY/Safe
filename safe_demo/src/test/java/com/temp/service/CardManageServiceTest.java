@@ -11,7 +11,7 @@ public class CardManageServiceTest extends ServiceTestBase {
 	private CardManageService cardManageService;
 	
 	/*@Test
-	public void modifyCardPwd() {
+	public void setCardPwd() {
 		final String rawData = "{"
 				+ "\"success\":true,"
 				+ "\"message\":null,"
@@ -21,7 +21,7 @@ public class CardManageServiceTest extends ServiceTestBase {
 					+ "}"
 				+ "}";
 		
-		String jsonStr = cardManageService.modifyCardPwd(rawData);
+		String jsonStr = cardManageService.setCardPwd(rawData);
 		
 		System.out.println(jsonStr);
 	}*/

@@ -65,7 +65,7 @@ public class BoxDaoImpl implements BoxDao {
 							BoxVo boxVo = new BoxVo();
 							
 							boxVo.setBoxId(rs.getInt("boxId"));
-							boxVo.setBoxModel(rs.getInt("boxModel"));
+							boxVo.setBoxModel(rs.getString("boxModel"));
 							boxVo.setKeyNo(rs.getString("keyNo"));
 							boxVo.setCardNo(rs.getString("cardNo"));
 							boxVo.setCardRfid(rs.getString("cardRfid"));
@@ -99,7 +99,7 @@ public class BoxDaoImpl implements BoxDao {
 							BoxVo boxVo = new BoxVo();
 							
 							boxVo.setBoxId(rs.getInt("boxId"));
-							boxVo.setBoxModel(rs.getInt("boxModel"));
+							boxVo.setBoxModel(rs.getString("boxModel"));
 							boxVo.setKeyNo(rs.getString("keyNo"));
 							boxVo.setDeposit(rs.getFloat("deposit"));
 							boxVo.setActualRent(rs.getFloat("actualRent"));

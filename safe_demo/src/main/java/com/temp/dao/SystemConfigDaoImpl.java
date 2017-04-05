@@ -124,14 +124,14 @@ public class SystemConfigDaoImpl implements SystemConfigDao {
 					new Object[]{messageId}, new int[]{Types.BIGINT});
 		} else {
 			final String insertMessageReceiverSQL = 
-					"INSERT INTO message_receiver(messagereceiverType, messageId, bankEmployeeId) "
+					"INSERT INTO message_receiver(messagereceiverType, messageId, employeeId) "
 					+ "VALUES(0, ?, ?) ";
 			List<Object[]> batchArgs = new ArrayList<>();
 			for (Integer receiverId : messagePo.getMessageReceivers()) {
 				Object[] batchArg = new Object[] {messageId, receiverId};
 				batchArgs.add(batchArg);
 			}
-			jdbcTemplate.batchUpdate(insertMessageReceiverSQL, batchArgs, new int[]{Types.BIGINT, Types.INTEGER});
+			jdbcTemplate.batchUpdate(insertMessageReceiverSQL, batchArgs, new int[]{Types.BIGINT, Types.BIGINT});
 		}
 					
 		return messageId;
