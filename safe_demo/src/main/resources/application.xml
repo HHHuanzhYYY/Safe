@@ -36,7 +36,7 @@
 	</bean>
 	
 	<!-- enable the configuration of transactional behavior based on annotations -->
-    <tx:annotation-driven transaction-manager="txManager" proxy-target-class="true" />
+    <tx:annotation-driven transaction-manager="txManager" proxy-target-class="true" order="2" />
     
 	<!-- Transaction Manager. -->
 	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
