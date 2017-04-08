@@ -1,11 +1,14 @@
 package com.temp.util;
 
-import java.io.UnsupportedEncodingException;
+import java.io.BufferedReader;
+//import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -13,6 +16,26 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.temp.po.Po;
 
 public final class JsonUtil {
+	
+	public static String getRawData(HttpServletRequest request) {
+		String utf8Data = null;
+		try {
+	    	request.setCharacterEncoding("UTF-8");
+			StringBuffer sb = new StringBuffer();
+			String line = null;
+		
+			BufferedReader reader = request.getReader();
+			while ((line = reader.readLine()) != null) {
+				sb.append(line);
+			}	
+			String rawData = sb.substring(sb.indexOf("%7B")).toString(); 
+			
+			utf8Data = URLDecoder.decode(rawData, "UTF-8");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return utf8Data;
+	}
 
 	/**
 	 * constructJson.
@@ -116,15 +139,15 @@ public final class JsonUtil {
 	 */
 	private static JSONObject getDataFieldInRawData(String rawData) {
 		JSONObject data = null;
-		try {
-			String utf8Data = URLDecoder.decode(rawData, "UTF-8");
+		//try {
+			//String utf8Data = URLDecoder.decode(rawData, "UTF-8");
 			
-			JSONObject jo = JSONObject.parseObject(utf8Data);
+			JSONObject jo = JSONObject.parseObject(rawData);
 			data = (JSONObject) jo.get("data");
 			
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
+		//} catch (UnsupportedEncodingException e) {
+		//	e.printStackTrace();
+		//}
 		return data;
 	}
 	

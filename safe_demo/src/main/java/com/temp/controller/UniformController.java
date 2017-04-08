@@ -1,5 +1,6 @@
 package com.temp.controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.temp.service.BankEmployeeService;
 import com.temp.service.CardManageService;
+import com.temp.util.JsonUtil;
 
 @Controller
 @RequestMapping("/uniform")
@@ -26,11 +28,13 @@ public class UniformController {
       
     @RequestMapping(value="/login", method={RequestMethod.GET, RequestMethod.POST}) 
     public void login(HttpServletRequest request, HttpServletResponse response) {  
-    	final String rawData = request.getParameter("info");	
+    	
+    	//System.out.println("----------------login--------------");
+    	
+    	//final String rawData = request.getParameter("data");
+    	String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = bankEmployeeService.validateBankEmployee(rawData);
-			
-			response.reset();
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			
 		} catch (Exception e) {
@@ -40,7 +44,8 @@ public class UniformController {
     
     @RequestMapping(value="/getAccountsCustomersBoxs", method={RequestMethod.GET, RequestMethod.POST}) 
     public void getAccountsCustomersBoxs(HttpServletRequest request, HttpServletResponse response) {    	
-		final String rawData = request.getParameter("info");
+		//final String rawData = request.getParameter("info");
+    	String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = cardManageService.getAccountsCustomersBoxsByCardRfid(rawData);
 			
@@ -55,14 +60,31 @@ public class UniformController {
     public void test(HttpServletRequest request, HttpServletResponse response) {    	
     	System.out.println("-------------test-------------");
     	
-    	final String rawData = request.getParameter("info");
+    	//final String rawData = request.getParameter("info");
     	
-    	//String retData= "{\"success\":false,\"message\":null,\"data\":null}";
-    	//String retData= "Hello Ajax...";
+    	String rawData = null;
+    	try
+		{
+	    	//request.setCharacterEncoding("UTF-8");
+			StringBuffer jb = new StringBuffer();
+			String line = null;
+		
+			BufferedReader reader = request.getReader();
+			while ((line = reader.readLine()) != null) {
+				jb.append(line);
+			}
+			System.out.println(jb);  
+			
+			rawData = jb.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+    	
     	PrintWriter writer;
 		try {
+			String utf8Str = java.net.URLDecoder.decode(rawData, "UTF-8");
 			writer = response.getWriter();
-			writer.print(rawData);
+			writer.print(utf8Str);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

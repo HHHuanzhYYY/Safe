@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.temp.service.BoxManageService;
 import com.temp.service.CardManageService;
 import com.temp.service.CustomerManageService;
+import com.temp.util.JsonUtil;
 
 @Controller
 @RequestMapping("/modify")
@@ -29,7 +30,8 @@ public class ModifyController {
 	
 	@RequestMapping("/modifyCardPwd")
 	public void modifyCardPwd(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("info");
+		//String rawData = request.getParameter("info");
+		String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = cardManageService.setCardPwd(rawData);
 			
@@ -42,7 +44,8 @@ public class ModifyController {
 	
 	@RequestMapping("/getCustomerData")
 	public void getCustomerInfo(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("info");
+		//String rawData = request.getParameter("info");
+		String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = customerManageService.getCustomerData(rawData);
 			
@@ -55,7 +58,8 @@ public class ModifyController {
 	
 	@RequestMapping("/setCustomerData")
 	public void setCustomerInfo(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("info");
+		//String rawData = request.getParameter("info");
+		String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = customerManageService.setCustomerData(rawData);
 			
@@ -68,7 +72,8 @@ public class ModifyController {
 	
 	@RequestMapping("/getChangeBoxDetails")
 	public void getChangeBoxDetails(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("info");
+		//String rawData = request.getParameter("info");
+		String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = boxManageService.getChangeBoxDetails(rawData);
 			
@@ -81,7 +86,8 @@ public class ModifyController {
 
 	@RequestMapping("/setChangeBoxDetails")
 	public void setChangeBoxDetails(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("info");
+		//String rawData = request.getParameter("info");
+		String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = boxManageService.setChangeBoxDetails(rawData);
 			

@@ -31,9 +31,9 @@ public class BankEmployeeServiceImpl implements BankEmployeeService {
 		boolean isSuccess = true;
 		int employeeId = 0;
 		try {
-			final String utf8Data = URLDecoder.decode(rawData, "UTF-8");
+			//final String utf8Data = URLDecoder.decode(rawData, "UTF-8");
 			
-			Map<String, Object> requestInfo = JsonUtil.parseJson(utf8Data, "name", "password");
+			Map<String, Object> requestInfo = JsonUtil.parseJson(rawData, "name", "password");
 			
 			employeeId = bankEmployeeDao.validateBankEmployeeByNameAndPwd(
 					(String)requestInfo.get("name"), (String)requestInfo.get("password"));

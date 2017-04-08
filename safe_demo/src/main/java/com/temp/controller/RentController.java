@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.temp.service.RentService;
+import com.temp.util.JsonUtil;
 
 @Controller
 @RequestMapping("/rent")
@@ -21,7 +22,8 @@ public class RentController {
 
 	@RequestMapping("/getBoxDetails")
 	public void getBoxDetails(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("info");
+		//String rawData = request.getParameter("info");
+		String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = rentService.getBoxReletInfo(rawData);
 			
@@ -34,7 +36,8 @@ public class RentController {
 	
 	@RequestMapping("/setBoxReletInfo")
 	public void setBoxReletInfo(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("info");
+		//String rawData = request.getParameter("info");
+		String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = rentService.setBoxReletInfo(rawData);
 			
@@ -47,7 +50,8 @@ public class RentController {
 	
 	@RequestMapping("/getBoxUnrentInfo")
 	public void getBoxUnrentInfo(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("info");
+		//String rawData = request.getParameter("info");
+		String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = rentService.getBoxUnrentInfo(rawData);
 			
@@ -60,7 +64,8 @@ public class RentController {
 	
 	@RequestMapping("/setBoxUnrentInfo")
 	public void setBoxUnrentInfo(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("info");
+		//String rawData = request.getParameter("info");
+		String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = rentService.setBoxOffleaseInfo(rawData);
 			

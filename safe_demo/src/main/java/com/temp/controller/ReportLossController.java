@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.temp.service.ReportLossService;
+import com.temp.util.JsonUtil;
 import com.temp.util.ReportLossAction;
 
 @Controller
@@ -22,7 +23,8 @@ public class ReportLossController {
 	
 	@RequestMapping("/bankEmployeeLogin")
 	public void bankEmployeeLogin(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("info");
+		//String rawData = request.getParameter("info");
+		String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = reportLossService.bankEmployeeLogin(rawData);
 			
@@ -35,7 +37,8 @@ public class ReportLossController {
 	
 	@RequestMapping("/setReportLossApply")
 	public void setReportLossApply(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("info");
+		//String rawData = request.getParameter("info");
+		String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = reportLossService.setReportLossLog(rawData, ReportLossAction.APPLYREPORTLOSS);
 			
@@ -48,7 +51,8 @@ public class ReportLossController {
 	
 	@RequestMapping("/setReportLossDetails")
 	public void setReportLossDetails(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("info");
+		//String rawData = request.getParameter("info");
+		String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = reportLossService.setReportLossDetails(rawData, ReportLossAction.HANDLEEPORTLOSS);
 			
@@ -61,7 +65,8 @@ public class ReportLossController {
 	
 	@RequestMapping("/removeReportLossState")
 	public void removeReportLossState(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("info");
+		//String rawData = request.getParameter("info");
+		String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = reportLossService.setReportLossLog(rawData, ReportLossAction.REMOVEREPORTLOSS);
 			

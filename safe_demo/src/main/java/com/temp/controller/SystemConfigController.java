@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.temp.service.BankEmployeeService;
 import com.temp.service.BoxManageService;
 import com.temp.service.SystemConfigService;
+import com.temp.util.JsonUtil;
 
 @Controller
 @RequestMapping("/systemConfig")
@@ -41,7 +42,8 @@ public class SystemConfigController {
 	
 	@RequestMapping(value="/listBankBranchEmployees", method={RequestMethod.GET, RequestMethod.POST}) 
     public void listBankBranchEmployees(HttpServletRequest request, HttpServletResponse response) {    	
-		String rawData = request.getParameter("info");
+		//String rawData = request.getParameter("info");
+		String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = systemConfigService.getBankBranchEmployees(rawData);
 			
@@ -54,7 +56,8 @@ public class SystemConfigController {
 	
 	@RequestMapping(value="/setMessageDetails", method={RequestMethod.GET, RequestMethod.POST}) 
 	public void setMessageDetails(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("info");
+		//String rawData = request.getParameter("info");
+		String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = systemConfigService.setMessageDetails(rawData);
 			
@@ -67,7 +70,8 @@ public class SystemConfigController {
 	
 	@RequestMapping(value="/deleteMessage", method={RequestMethod.GET, RequestMethod.POST}) 
 	public void deleteMessage(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("info");
+		//String rawData = request.getParameter("info");
+		String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = systemConfigService.deleteMessage(rawData);
 			
@@ -92,7 +96,8 @@ public class SystemConfigController {
 	
 	@RequestMapping(value="/setBankDetails", method={RequestMethod.GET, RequestMethod.POST}) 
 	public void setBankDetails(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("info");
+		//String rawData = request.getParameter("info");
+		String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = systemConfigService.setBankDetails(rawData);
 			
@@ -105,7 +110,8 @@ public class SystemConfigController {
 	
 	@RequestMapping(value="/deleteBank", method={RequestMethod.GET, RequestMethod.POST}) 
 	public void deleteBank(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("info");
+		//String rawData = request.getParameter("info");
+		String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = systemConfigService.deleteBank(rawData);
 			
@@ -130,7 +136,8 @@ public class SystemConfigController {
 	
 	@RequestMapping(value="/setSubjectDetails", method={RequestMethod.GET, RequestMethod.POST}) 
 	public void setSubjectDetails(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("info");
+		//String rawData = request.getParameter("info");
+		String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = systemConfigService.setSubjectDetails(rawData);
 			
@@ -143,7 +150,8 @@ public class SystemConfigController {
 	
 	@RequestMapping(value="/deleteSubject", method={RequestMethod.GET, RequestMethod.POST}) 
 	public void deleteSubject(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("info");
+		//String rawData = request.getParameter("info");
+		String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = systemConfigService.deleteSubject(rawData);
 			
@@ -168,7 +176,8 @@ public class SystemConfigController {
 	
 	@RequestMapping(value="/setBoxModelResumes", method={RequestMethod.GET, RequestMethod.POST}) 
 	public void setBoxModelResumes(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("info");
+		//String rawData = request.getParameter("info");
+		String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = boxManageService.setBoxModelResumes(rawData);
 			
@@ -181,7 +190,8 @@ public class SystemConfigController {
 	
 	@RequestMapping(value="/deleteBoxModel", method={RequestMethod.GET, RequestMethod.POST}) 
 	public void deleteBoxModel(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("info");
+		//String rawData = request.getParameter("info");
+		String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = boxManageService.deleteBoxModel(rawData);
 			
@@ -206,7 +216,8 @@ public class SystemConfigController {
 	
 	@RequestMapping(value="/setBoxModelDetails", method={RequestMethod.GET, RequestMethod.POST}) 
 	public void setBoxModelDetails(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("info");
+		//String rawData = request.getParameter("info");
+		String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = boxManageService.setBoxModelDetails(rawData);
 			
@@ -219,7 +230,8 @@ public class SystemConfigController {
 	
 	@RequestMapping(value="/listAllBankEmployees", method={RequestMethod.GET, RequestMethod.POST}) 
 	public void listAllBankEmployees(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("info");
+		//String rawData = request.getParameter("info");
+		String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = bankEmployeeService.getAllBankEmployees(rawData);
 			
@@ -232,7 +244,8 @@ public class SystemConfigController {
 	
 	@RequestMapping(value="/setBankEmployeeDetails", method={RequestMethod.GET, RequestMethod.POST}) 
 	public void setBankEmployeeDetails(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("info");
+		//String rawData = request.getParameter("info");
+		String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = bankEmployeeService.setBankEmployeeDetails(rawData);
 			
@@ -245,7 +258,8 @@ public class SystemConfigController {
 	
 	@RequestMapping(value="/deleteBankEmployee", method={RequestMethod.GET, RequestMethod.POST}) 
 	public void deleteBankEmployee(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("info");
+		//String rawData = request.getParameter("info");
+		String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = bankEmployeeService.deleteBankEmployee(rawData);
 			
@@ -270,7 +284,8 @@ public class SystemConfigController {
 	
 	@RequestMapping(value="/setFeeTypeDetails", method={RequestMethod.GET, RequestMethod.POST}) 
 	public void setFeeTypeDetails(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("info");
+		//String rawData = request.getParameter("info");
+		String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = systemConfigService.setFeeTypeDetails(rawData);
 			
@@ -283,7 +298,8 @@ public class SystemConfigController {
 	
 	@RequestMapping(value="/operateFeeType", method={RequestMethod.GET, RequestMethod.POST}) 
 	public void operateFeeType(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("info");
+		//String rawData = request.getParameter("info");
+		String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = systemConfigService.setFeeType(rawData);
 			
@@ -296,7 +312,8 @@ public class SystemConfigController {
 	
 	@RequestMapping(value="/deleteFeeType", method={RequestMethod.GET, RequestMethod.POST}) 
 	public void deleteFeeType(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("info");
+		//String rawData = request.getParameter("info");
+		String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = systemConfigService.deleteFeeType(rawData);
 			
