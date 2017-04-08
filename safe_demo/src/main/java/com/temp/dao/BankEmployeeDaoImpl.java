@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
@@ -31,10 +32,15 @@ public class BankEmployeeDaoImpl implements BankEmployeeDao {
 		String validateBankEmployeeSQL = "SELECT employeeId "
 									   + "FROM bank_employee "
 									   + "WHERE employeeName = ? AND `password` = ? ";
-		int employeeId = jdbcTemplate.queryForObject(validateBankEmployeeSQL, 
-				new Object[] {employeeName, employeePwd}, 
-				new int[] {Types.VARCHAR, Types.VARCHAR}, 
-				Integer.class);
+		int employeeId = 0;
+		try {
+			employeeId = jdbcTemplate.queryForObject(validateBankEmployeeSQL, 
+					new Object[] {employeeName, employeePwd}, 
+					new int[] {Types.VARCHAR, Types.VARCHAR}, 
+					Integer.class);
+		} catch (IncorrectResultSizeDataAccessException e) {
+			employeeId = 0;
+		}	
 		return employeeId;
 	}
 

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.temp.service.RentService;
 
 @Controller
+@RequestMapping("/rent")
 public class RentController {
 	
 	@Autowired

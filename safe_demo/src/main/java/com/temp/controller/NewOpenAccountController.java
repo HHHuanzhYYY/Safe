@@ -13,6 +13,7 @@ import com.temp.service.AccountManageService;
 import com.temp.service.CustomerManageService;
 
 @Controller
+@RequestMapping("/openAccount")
 public class NewOpenAccountController {
 	
 	@Autowired

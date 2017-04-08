@@ -36,15 +36,19 @@ public class BankEmployeeServiceImpl implements BankEmployeeService {
 			Map<String, Object> requestInfo = JsonUtil.parseJson(utf8Data, "name", "password");
 			
 			employeeId = bankEmployeeDao.validateBankEmployeeByNameAndPwd(
-					(String)requestInfo.get("name"), (String)requestInfo.get("password"));			
+					(String)requestInfo.get("name"), (String)requestInfo.get("password"));
 		} catch (Exception e) {
 			throw e;
 		}
 		
-		// Log BankEmployee`s Login Action.
-		BankEmployeeLoginLogPo bankEmployeeLoginLogPo = new BankEmployeeLoginLogPo();
-		bankEmployeeLoginLogPo.setEmployeeId(employeeId);
-		isSuccess = logDao.setEmployeeLoginLog(bankEmployeeLoginLogPo);
+		if (employeeId == 0) {
+			isSuccess = false;
+		} else {
+			// Log BankEmployee`s Login Action.
+			BankEmployeeLoginLogPo bankEmployeeLoginLogPo = new BankEmployeeLoginLogPo();
+			bankEmployeeLoginLogPo.setEmployeeId(employeeId);
+			isSuccess = logDao.setEmployeeLoginLog(bankEmployeeLoginLogPo);
+		}
 		
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}

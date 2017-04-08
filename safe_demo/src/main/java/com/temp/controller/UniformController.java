@@ -1,5 +1,6 @@
 package com.temp.controller;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.temp.service.BankEmployeeService;
 import com.temp.service.CardManageService;
 
-@Controller  
+@Controller
+@RequestMapping("/uniform")
 public class UniformController {  
 	
     @Autowired
@@ -23,11 +25,12 @@ public class UniformController {
     private CardManageService cardManageService;
       
     @RequestMapping(value="/login", method={RequestMethod.GET, RequestMethod.POST}) 
-    public void login(HttpServletRequest request, HttpServletResponse response) {    	
-		final String rawData = request.getParameter("info");
+    public void login(HttpServletRequest request, HttpServletResponse response) {  
+    	final String rawData = request.getParameter("info");	
 		try {
 			String resJSON = bankEmployeeService.validateBankEmployee(rawData);
 			
+			response.reset();
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			
 		} catch (Exception e) {
@@ -47,4 +50,21 @@ public class UniformController {
 			e.printStackTrace();
 		}
     } 
+    
+    @RequestMapping(value="/test", method={RequestMethod.GET, RequestMethod.POST}) 
+    public void test(HttpServletRequest request, HttpServletResponse response) {    	
+    	System.out.println("-------------test-------------");
+    	
+    	final String rawData = request.getParameter("info");
+    	
+    	//String retData= "{\"success\":false,\"message\":null,\"data\":null}";
+    	//String retData= "Hello Ajax...";
+    	PrintWriter writer;
+		try {
+			writer = response.getWriter();
+			writer.print(rawData);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
 }  

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>登录</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="../css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <script src="../js/jquery.min.js?v=2.1.4"></script>
+    <script src="../js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="../js/bootstrap-table-custom.js"></script>
+    <script src="../js/bootstrap.min.js?v=3.3.6"></script>
+    <script type="text/javascript" src="http://mockjs.com/dist/mock.js"></script>
+    <link href="../css/animate.css" rel="stylesheet">
+    <link href="../css/style.css?v=4.1.0" rel="stylesheet">
+   <script src="../js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="../js/plugins/validate/additional-methods.min.js"></script>
+    <script src="../js/plugins/validate/messages_zh.min.js"></script>
+    <link href="../css/new-css.css" rel="stylesheet"> 
+    <!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+    <script>if(window.top !== window.self){ window.top.location = window.location;}</script>
+</head>
+
+<body class="gray-bg">
+
+    <div class="middle-box text-center loginscreen  animated fadeInDown">
+        <div>
+            <div>
+
+                <h1 class="logo-name">hello</h1>
+
+            </div>
+            <h3>欢迎使用 保管箱管理系统</h3>
+
+            <form class="m-t" role="form"  id="loginForm">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="用户名" required="" name="name">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="密码" required="" name="password">
+                </div>
+                <button type="submit" class="btn btn-primary block full-width m-b">登 录</button>
+                <p class="text-muted text-center"> <a href="login.html#"><small>忘记密码了？</small></a>
+                </p>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- 全局js -->
+   
+    <script>
+        $(function () {
+        
+        $("#loginForm").validate({
+            rules: {
+                name: {
+                    required: true,
+                },
+                password: {
+                    required: true,
+                },
+            },
+            messages: {
+                name: "请输入用户名",
+                password: "请输入密码",
+            },
+            submitHandler: function() {
+                var json = {}, array = $('#loginForm').serializeArray();
+                for( let i = 0 ; i < array.length ; i++){
+                    json[array[i].name] = array[i].value
+                }
+                $.post('uniform/login',json,function(data){
+                    console.log(1)
+                })
+            }
+        });
+        
+    });
+    </script>
+    
+    
+
+</body>
+
+</html>

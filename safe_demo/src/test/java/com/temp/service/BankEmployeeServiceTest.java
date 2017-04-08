@@ -10,8 +10,8 @@ public class BankEmployeeServiceTest extends ServiceTestBase {
 	@Autowired
 	private BankEmployeeService bankEmployeeService;
 	
-	/*@Test
-	public void validateBankEmployee() {
+	@Test
+	public void validateBankEmployee() throws Exception {
 		final String rawData = "{"
 				+ "\"success\":true,"
 				+ "\"message\":null,"
@@ -24,7 +24,7 @@ public class BankEmployeeServiceTest extends ServiceTestBase {
 		String jsonStr = bankEmployeeService.validateBankEmployee(rawData);
 		
 		System.out.println(jsonStr);
-	}*/
+	}
 	
 	/*@Test
 	public void getAllBankEmployees() {

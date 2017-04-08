@@ -14,6 +14,7 @@ import com.temp.service.ReportLossService;
 import com.temp.util.ReportLossAction;
 
 @Controller
+@RequestMapping("/reportLoss")
 public class ReportLossController {
 
 	@Autowired

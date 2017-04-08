@@ -13,6 +13,7 @@ import com.temp.service.BoxManageService;
 import com.temp.util.BoxStatus;
 
 @Controller
+@RequestMapping("/specialService")
 public class SpecialServiceController {
 	
 	@Autowired

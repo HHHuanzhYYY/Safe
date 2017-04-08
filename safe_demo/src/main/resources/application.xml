@@ -61,5 +61,7 @@
 	<aop:aspectj-autoproxy />
 
 	<!-- 自动扫描注解的bean -->
-	<context:component-scan base-package="com.temp" />
+	<context:component-scan base-package="com.temp.dao" />
+	<context:component-scan base-package="com.temp.service" />
+	<context:component-scan base-package="com.temp.util" />
 </beans>

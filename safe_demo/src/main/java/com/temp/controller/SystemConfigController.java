@@ -15,6 +15,7 @@ import com.temp.service.BoxManageService;
 import com.temp.service.SystemConfigService;
 
 @Controller
+@RequestMapping("/systemConfig")
 public class SystemConfigController {
 
 	@Autowired

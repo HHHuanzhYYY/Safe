@@ -15,6 +15,7 @@ import com.temp.service.CardManageService;
 import com.temp.service.CustomerManageService;
 
 @Controller
+@RequestMapping("/modify")
 public class ModifyController {
 	
 	@Autowired
