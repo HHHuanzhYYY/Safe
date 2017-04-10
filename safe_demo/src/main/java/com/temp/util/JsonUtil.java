@@ -1,9 +1,9 @@
 package com.temp.util;
 
 import java.io.BufferedReader;
-import java.io.UnsupportedEncodingException;
 //import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
+//import java.io.UnsupportedEncodingException;
+//import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -29,9 +29,11 @@ public final class JsonUtil {
 			while ((line = reader.readLine()) != null) {
 				sb.append(line);
 			}	
-			String rawData = sb.substring(sb.indexOf("%7B")).toString(); 
 			
-			utf8Data = URLDecoder.decode(rawData, "UTF-8");
+			//String rawData = sb.substring(sb.indexOf("%7B")).toString(); 			
+			//utf8Data = URLDecoder.decode(rawData, "UTF-8");
+			
+			utf8Data = sb.toString();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -139,17 +141,17 @@ public final class JsonUtil {
 	 * @return
 	 */
 	private static JSONObject getDataFieldInRawData(String rawData) {
-		JSONObject data = null;
-		try {
-			String utf8Data = URLDecoder.decode(rawData, "UTF-8");
+		//JSONObject data = null;
+		//try {
+			//String utf8Data = URLDecoder.decode(rawData, "UTF-8");
 			
-			JSONObject jo = JSONObject.parseObject(utf8Data);
-			data = (JSONObject) jo.get("data");
+			JSONObject jo = JSONObject.parseObject(rawData);
+			//data = (JSONObject) jo.get("data");
 			
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		return data;
+		//} catch (UnsupportedEncodingException e) {
+		//	e.printStackTrace();
+		//}
+		return jo;
 	}
 	
 	public static void main(String[] args) {

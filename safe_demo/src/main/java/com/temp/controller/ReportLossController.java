@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.temp.service.ReportLossService;
-//import com.temp.util.JsonUtil;
+import com.temp.util.JsonUtil;
 import com.temp.util.ReportLossAction;
 
 @Controller
@@ -24,8 +24,8 @@ public class ReportLossController {
 	
 	@RequestMapping(value="/bankEmployeeLogin", method={RequestMethod.GET, RequestMethod.POST})
 	public void bankEmployeeLogin(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("info");
-		//String rawData = JsonUtil.getRawData(request);
+		//String rawData = request.getParameter("info");
+		String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = reportLossService.bankEmployeeLogin(rawData);
 			
@@ -38,8 +38,8 @@ public class ReportLossController {
 	
 	@RequestMapping(value="/setReportLossApply", method={RequestMethod.GET, RequestMethod.POST})
 	public void setReportLossApply(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("info");
-		//String rawData = JsonUtil.getRawData(request);
+		//String rawData = request.getParameter("info");
+		String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = reportLossService.setReportLossLog(rawData, ReportLossAction.APPLYREPORTLOSS);
 			
@@ -52,8 +52,8 @@ public class ReportLossController {
 	
 	@RequestMapping(value="/setReportLossDetails", method={RequestMethod.GET, RequestMethod.POST})
 	public void setReportLossDetails(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("info");
-		//String rawData = JsonUtil.getRawData(request);
+		//String rawData = request.getParameter("info");
+		String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = reportLossService.setReportLossDetails(rawData, ReportLossAction.HANDLEEPORTLOSS);
 			
@@ -66,8 +66,8 @@ public class ReportLossController {
 	
 	@RequestMapping(value="/removeReportLossState", method={RequestMethod.GET, RequestMethod.POST})
 	public void removeReportLossState(HttpServletRequest request, HttpServletResponse response) {
-		String rawData = request.getParameter("info");
-		//String rawData = JsonUtil.getRawData(request);
+		//String rawData = request.getParameter("info");
+		String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = reportLossService.setReportLossLog(rawData, ReportLossAction.REMOVEREPORTLOSS);
 			
