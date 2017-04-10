@@ -3,6 +3,7 @@ package com.temp.dao;
 import java.sql.Types;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -31,7 +32,18 @@ public class LogDaoImpl implements LogDao {
 			long boxId, int reportLossType, int paymentType, float feeTotal) {
 		// Query "rentId" corresponding to the box.
 		String queryRentIdSQL = "SELECT rentId FROM rent WHERE boxId = ? ";
-		int rentId = jdbcTemplate.queryForObject(queryRentIdSQL, Integer.class, boxId);
+		int rentId = 0;
+		try {
+			rentId = jdbcTemplate.queryForObject(queryRentIdSQL, 
+					new Object[] {boxId},
+					new int[] {Types.BIGINT},
+					Integer.class);
+		} catch (IncorrectResultSizeDataAccessException e) {
+			rentId = 0;
+		}
+		if (rentId != 0) {
+			return false;
+		}
 		
 		// Log the Action in table reportloss_log.
 		String insertReportLossSQL = 

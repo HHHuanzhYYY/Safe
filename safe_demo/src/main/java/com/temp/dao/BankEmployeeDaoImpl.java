@@ -48,7 +48,15 @@ public class BankEmployeeDaoImpl implements BankEmployeeDao {
 	public boolean validateBankEmployeeByIdAndPwd(int employeeId, String employeePwd) {
 		String validateBankEmployeeSQL = "SELECT COUNT(employeeId) "
 				+ "FROM bank_employee WHERE employeeId = ? AND password = ? ";
-		int count = jdbcTemplate.queryForObject(validateBankEmployeeSQL, Integer.class, employeeId, employeePwd);
+		int count = 0;
+		try {
+			jdbcTemplate.queryForObject(validateBankEmployeeSQL, 
+					new Object[] {employeeId, employeePwd}, 
+					new int[] {Types.BIGINT, Types.VARCHAR}, 
+					Integer.class);
+		} catch (IncorrectResultSizeDataAccessException e) {
+			count = 0;
+		}
 		return count == 1 ? true : false;
 	}
 

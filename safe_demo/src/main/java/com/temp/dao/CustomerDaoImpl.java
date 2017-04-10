@@ -9,6 +9,7 @@ import java.sql.Types;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
@@ -49,10 +50,15 @@ public class CustomerDaoImpl implements CustomerDao {
 		}
 		String queryCustomerSQL = sb.toString();
 		
-		int count = jdbcTemplate.queryForObject(queryCustomerSQL, 
-				new Object[] {accountId, pwd}, 
-				new int[] {Types.VARCHAR, Types.VARCHAR}, 
-				Integer.class);
+		int count = 0;
+		try {
+			count = jdbcTemplate.queryForObject(queryCustomerSQL, 
+					new Object[] {accountId, pwd}, 
+					new int[] {Types.VARCHAR, Types.VARCHAR}, 
+					Integer.class);
+		} catch (IncorrectResultSizeDataAccessException e) {
+			count = 0;
+		}				
 		return count == 1 ? true : false;
 	}
 	
@@ -60,8 +66,15 @@ public class CustomerDaoImpl implements CustomerDao {
 	public boolean validateCustomerByNameAndPwd(String name, String pwd) {
 		final String queryCustomerSQL = "SELECT COUNT(customerId) SUM "
 				+ "FROM customer WHERE customerName = ? AND customerPwd = ? ";
-		int count = jdbcTemplate.queryForObject(queryCustomerSQL, 
-				new Object[] {name, pwd}, new int[] {Types.VARCHAR, Types.VARCHAR}, Integer.class);
+		int count = 0;
+		try {		
+			count = jdbcTemplate.queryForObject(queryCustomerSQL, 
+				new Object[] {name, pwd}, 
+				new int[] {Types.VARCHAR, Types.VARCHAR}, 
+				Integer.class);
+		} catch (IncorrectResultSizeDataAccessException e) {
+			count = 0;
+		}		
 		return count >= 1 ? true : false;
 	}
 

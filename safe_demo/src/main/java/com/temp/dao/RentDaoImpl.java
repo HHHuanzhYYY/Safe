@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Repository;
@@ -94,7 +95,15 @@ public class RentDaoImpl implements RentDao {
 					        + "FROM rent, relet "
 					        + "WHERE rent.id = relet.id AND rent.boxId = ? ";
 		}
-		Date endDate = jdbcTemplate.queryForObject(queryEndDateSQL, Date.class, boxId);
+		Date endDate = null;
+		try {
+			endDate = jdbcTemplate.queryForObject(queryEndDateSQL, 
+					new Object[] {boxId},
+					new int[] {Types.BIGINT},
+					Date.class);
+		} catch (IncorrectResultSizeDataAccessException e) {
+			endDate = null;
+		}				
 		// ��������Ϊʱ = rent.endDate
 		// ��������Ϊʱ = Max(relet.endDate)
 		retBoxInfo.put("endDateAfterRelet", endDate);
@@ -144,7 +153,18 @@ public class RentDaoImpl implements RentDao {
 		
 		String queryKeyFeeSQL = "SELECT keyFee FROM box, `key` "
 							  + "WHERE box.keyNo = `key`.keyNo AND box.boxId = ? ";
-		float keyFee = jdbcTemplate.queryForObject(queryKeyFeeSQL, new Object[] {boxId}, new int[] {Types.BIGINT}, BigDecimal.class).floatValue();
+		float keyFee = 0f;
+		try {
+			BigDecimal decimalValue = jdbcTemplate.queryForObject(queryKeyFeeSQL, 
+					new Object[] {boxId}, 
+					new int[] {Types.BIGINT}, 
+					BigDecimal.class);
+			if (decimalValue != null) {
+				keyFee = decimalValue.floatValue();
+			}
+		} catch (IncorrectResultSizeDataAccessException e) {
+			keyFee = 0f;
+		}				
 		unrentInfo.put("keyFee", keyFee);
 		
 		return unrentInfo;
