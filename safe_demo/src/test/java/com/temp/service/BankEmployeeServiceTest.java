@@ -16,8 +16,8 @@ public class BankEmployeeServiceTest extends ServiceTestBase {
 				+ "\"success\":true,"
 				+ "\"message\":null,"
 				+ "\"data\":{"
-					+ "\"name\":\"李白\","
-					+ "\"password\":\"123456\""
+					+ "\"name\":\"白居易\","
+					+ "\"password\":\"333333\""
 					+ "}"
 				+ "}";
 		

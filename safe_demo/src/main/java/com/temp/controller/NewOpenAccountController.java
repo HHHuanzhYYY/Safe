@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.temp.service.AccountManageService;
 import com.temp.service.CustomerManageService;
@@ -23,7 +24,7 @@ public class NewOpenAccountController {
 	@Autowired
 	private CustomerManageService customerManagerService;
 
-	@RequestMapping("/getAccoutsById")
+	@RequestMapping(value="/getAccoutsById", method={RequestMethod.GET, RequestMethod.POST})
 	public void getAccountsById(HttpServletRequest request, HttpServletResponse response) {
 		//String rawData = request.getParameter("info");
 		String rawData = JsonUtil.getRawData(request);
@@ -37,7 +38,7 @@ public class NewOpenAccountController {
 		}
 	}
 	
-	@RequestMapping("/validateCustomer")
+	@RequestMapping(value="/validateCustomer", method={RequestMethod.GET, RequestMethod.POST})
 	public void validateCustomer(HttpServletRequest request, HttpServletResponse response) {
 		//String rawData = request.getParameter("info");
 		String rawData = JsonUtil.getRawData(request);
@@ -51,7 +52,7 @@ public class NewOpenAccountController {
 		}
 	}
 	
-	@RequestMapping("/getAccountInfo")
+	@RequestMapping(value="/getAccountInfo", method={RequestMethod.GET, RequestMethod.POST})
 	public void getAccountInfo(HttpServletRequest request, HttpServletResponse response) {
 		//String rawData = request.getParameter("info");
 		String rawData = JsonUtil.getRawData(request);
@@ -65,7 +66,7 @@ public class NewOpenAccountController {
 		}
 	}
 	
-	@RequestMapping("/setAccountInfo")
+	@RequestMapping(value="/setAccountInfo", method={RequestMethod.GET, RequestMethod.POST})
 	public void setAccountInfo(HttpServletRequest request, HttpServletResponse response) {
 		//String rawData = request.getParameter("info");
 		String rawData = JsonUtil.getRawData(request);
@@ -79,7 +80,7 @@ public class NewOpenAccountController {
 		}
 	}
 	
-	@RequestMapping("/setAccountNewBox")
+	@RequestMapping(value="/setAccountNewBox", method={RequestMethod.GET, RequestMethod.POST})
 	public void setAccountNewBox(HttpServletRequest request, HttpServletResponse response) {
 		//String rawData = request.getParameter("info");
 		String rawData = JsonUtil.getRawData(request);
@@ -93,7 +94,7 @@ public class NewOpenAccountController {
 		}
 	}
 	
-	@RequestMapping("/setAccountNewCustomer")
+	@RequestMapping(value="/setAccountNewCustomer", method={RequestMethod.GET, RequestMethod.POST})
 	public void setAccountNewCustomer(HttpServletRequest request, HttpServletResponse response) {
 		//String rawData = request.getParameter("info");
 		String rawData = JsonUtil.getRawData(request);

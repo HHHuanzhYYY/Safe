@@ -31,8 +31,8 @@ public class UniformController {
     	
     	//System.out.println("----------------login--------------");
     	
-    	//final String rawData = request.getParameter("data");
-    	String rawData = JsonUtil.getRawData(request);
+    	final String rawData = request.getParameter("info");
+    	//String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = bankEmployeeService.validateBankEmployee(rawData);
 			PrintWriter writer = response.getWriter();
@@ -44,8 +44,8 @@ public class UniformController {
     
     @RequestMapping(value="/getAccountsCustomersBoxs", method={RequestMethod.GET, RequestMethod.POST}) 
     public void getAccountsCustomersBoxs(HttpServletRequest request, HttpServletResponse response) {    	
-		//final String rawData = request.getParameter("info");
-    	String rawData = JsonUtil.getRawData(request);
+		final String rawData = request.getParameter("info");
+		//String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = cardManageService.getAccountsCustomersBoxsByCardRfid(rawData);
 			
@@ -60,9 +60,9 @@ public class UniformController {
     public void test(HttpServletRequest request, HttpServletResponse response) {    	
     	System.out.println("-------------test-------------");
     	
-    	//final String rawData = request.getParameter("info");
+    	final String rawData = request.getParameter("info");
     	
-    	String rawData = null;
+    	/*String rawData = null;
     	try
 		{
 	    	//request.setCharacterEncoding("UTF-8");
@@ -78,7 +78,7 @@ public class UniformController {
 			rawData = jb.toString();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}	
+		}*/	
     	
     	PrintWriter writer;
 		try {

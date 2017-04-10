@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.temp.service.BoxManageService;
 import com.temp.util.BoxStatus;
@@ -20,7 +21,7 @@ public class SpecialServiceController {
 	@Autowired
 	private BoxManageService boxManageService;
 
-	@RequestMapping("/freezeBox")
+	@RequestMapping(value="/freezeBox", method={RequestMethod.GET, RequestMethod.POST})
 	public void freezeBox(HttpServletRequest request, HttpServletResponse response) {
 		//String rawData = request.getParameter("info");
 		String rawData = JsonUtil.getRawData(request);
@@ -34,7 +35,7 @@ public class SpecialServiceController {
 		}
 	}
 	
-	@RequestMapping("/unfreezeBox")
+	@RequestMapping(value="/unfreezeBox", method={RequestMethod.GET, RequestMethod.POST})
 	public void unfreezeBox(HttpServletRequest request, HttpServletResponse response) {
 		//String rawData = request.getParameter("info");
 		String rawData = JsonUtil.getRawData(request);

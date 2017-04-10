@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.temp.service.BoxManageService;
 import com.temp.service.CardManageService;
@@ -28,7 +29,7 @@ public class ModifyController {
 	@Autowired
 	private CustomerManageService customerManageService;
 	
-	@RequestMapping("/modifyCardPwd")
+	@RequestMapping(value="/modifyCardPwd", method={RequestMethod.GET, RequestMethod.POST})
 	public void modifyCardPwd(HttpServletRequest request, HttpServletResponse response) {
 		//String rawData = request.getParameter("info");
 		String rawData = JsonUtil.getRawData(request);
@@ -42,7 +43,7 @@ public class ModifyController {
 		}
 	}
 	
-	@RequestMapping("/getCustomerData")
+	@RequestMapping(value="/getCustomerData", method={RequestMethod.GET, RequestMethod.POST})
 	public void getCustomerInfo(HttpServletRequest request, HttpServletResponse response) {
 		//String rawData = request.getParameter("info");
 		String rawData = JsonUtil.getRawData(request);
@@ -56,7 +57,7 @@ public class ModifyController {
 		}
 	}
 	
-	@RequestMapping("/setCustomerData")
+	@RequestMapping(value="/setCustomerData", method={RequestMethod.GET, RequestMethod.POST})
 	public void setCustomerInfo(HttpServletRequest request, HttpServletResponse response) {
 		//String rawData = request.getParameter("info");
 		String rawData = JsonUtil.getRawData(request);
@@ -70,7 +71,7 @@ public class ModifyController {
 		}
 	}
 	
-	@RequestMapping("/getChangeBoxDetails")
+	@RequestMapping(value="/getChangeBoxDetails", method={RequestMethod.GET, RequestMethod.POST})
 	public void getChangeBoxDetails(HttpServletRequest request, HttpServletResponse response) {
 		//String rawData = request.getParameter("info");
 		String rawData = JsonUtil.getRawData(request);
@@ -84,7 +85,7 @@ public class ModifyController {
 		}
 	}
 
-	@RequestMapping("/setChangeBoxDetails")
+	@RequestMapping(value="/setChangeBoxDetails", method={RequestMethod.GET, RequestMethod.POST})
 	public void setChangeBoxDetails(HttpServletRequest request, HttpServletResponse response) {
 		//String rawData = request.getParameter("info");
 		String rawData = JsonUtil.getRawData(request);

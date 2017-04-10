@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.temp.service.ReportLossService;
 import com.temp.util.JsonUtil;
@@ -21,7 +22,7 @@ public class ReportLossController {
 	@Autowired
 	private ReportLossService reportLossService;
 	
-	@RequestMapping("/bankEmployeeLogin")
+	@RequestMapping(value="/bankEmployeeLogin", method={RequestMethod.GET, RequestMethod.POST})
 	public void bankEmployeeLogin(HttpServletRequest request, HttpServletResponse response) {
 		//String rawData = request.getParameter("info");
 		String rawData = JsonUtil.getRawData(request);
@@ -35,7 +36,7 @@ public class ReportLossController {
 		}
 	}
 	
-	@RequestMapping("/setReportLossApply")
+	@RequestMapping(value="/setReportLossApply", method={RequestMethod.GET, RequestMethod.POST})
 	public void setReportLossApply(HttpServletRequest request, HttpServletResponse response) {
 		//String rawData = request.getParameter("info");
 		String rawData = JsonUtil.getRawData(request);
@@ -49,7 +50,7 @@ public class ReportLossController {
 		}
 	}
 	
-	@RequestMapping("/setReportLossDetails")
+	@RequestMapping(value="/setReportLossDetails", method={RequestMethod.GET, RequestMethod.POST})
 	public void setReportLossDetails(HttpServletRequest request, HttpServletResponse response) {
 		//String rawData = request.getParameter("info");
 		String rawData = JsonUtil.getRawData(request);
@@ -63,7 +64,7 @@ public class ReportLossController {
 		}
 	}
 	
-	@RequestMapping("/removeReportLossState")
+	@RequestMapping(value="/removeReportLossState", method={RequestMethod.GET, RequestMethod.POST})
 	public void removeReportLossState(HttpServletRequest request, HttpServletResponse response) {
 		//String rawData = request.getParameter("info");
 		String rawData = JsonUtil.getRawData(request);
