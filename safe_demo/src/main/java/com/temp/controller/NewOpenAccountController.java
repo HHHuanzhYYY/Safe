@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.temp.service.AccountManageService;
 import com.temp.service.CustomerManageService;
-import com.temp.util.JsonUtil;
+//import com.temp.util.JsonUtil;
 
 @Controller
 @RequestMapping("/openAccount")
@@ -26,8 +26,8 @@ public class NewOpenAccountController {
 
 	@RequestMapping(value="/getAccoutsById", method={RequestMethod.GET, RequestMethod.POST})
 	public void getAccountsById(HttpServletRequest request, HttpServletResponse response) {
-		//String rawData = request.getParameter("info");
-		String rawData = JsonUtil.getRawData(request);
+		String rawData = request.getParameter("info");
+		//String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = accountManagerService.getAccoutListByIdOrRFID(rawData);
 			
@@ -40,8 +40,8 @@ public class NewOpenAccountController {
 	
 	@RequestMapping(value="/validateCustomer", method={RequestMethod.GET, RequestMethod.POST})
 	public void validateCustomer(HttpServletRequest request, HttpServletResponse response) {
-		//String rawData = request.getParameter("info");
-		String rawData = JsonUtil.getRawData(request);
+		String rawData = request.getParameter("info");
+		//String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = customerManagerService.validateCustomer(rawData);
 			
@@ -54,8 +54,8 @@ public class NewOpenAccountController {
 	
 	@RequestMapping(value="/getAccountInfo", method={RequestMethod.GET, RequestMethod.POST})
 	public void getAccountInfo(HttpServletRequest request, HttpServletResponse response) {
-		//String rawData = request.getParameter("info");
-		String rawData = JsonUtil.getRawData(request);
+		String rawData = request.getParameter("info");
+		//String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = accountManagerService.getAccountInfo(rawData);
 			
@@ -68,8 +68,8 @@ public class NewOpenAccountController {
 	
 	@RequestMapping(value="/setAccountInfo", method={RequestMethod.GET, RequestMethod.POST})
 	public void setAccountInfo(HttpServletRequest request, HttpServletResponse response) {
-		//String rawData = request.getParameter("info");
-		String rawData = JsonUtil.getRawData(request);
+		String rawData = request.getParameter("info");
+		//String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = accountManagerService.setAccountInfo(rawData);
 			
@@ -82,8 +82,8 @@ public class NewOpenAccountController {
 	
 	@RequestMapping(value="/setAccountNewBox", method={RequestMethod.GET, RequestMethod.POST})
 	public void setAccountNewBox(HttpServletRequest request, HttpServletResponse response) {
-		//String rawData = request.getParameter("info");
-		String rawData = JsonUtil.getRawData(request);
+		String rawData = request.getParameter("info");
+		//String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = accountManagerService.setAccountNewBox(rawData);
 			
@@ -96,8 +96,8 @@ public class NewOpenAccountController {
 	
 	@RequestMapping(value="/setAccountNewCustomer", method={RequestMethod.GET, RequestMethod.POST})
 	public void setAccountNewCustomer(HttpServletRequest request, HttpServletResponse response) {
-		//String rawData = request.getParameter("info");
-		String rawData = JsonUtil.getRawData(request);
+		String rawData = request.getParameter("info");
+		//String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = accountManagerService.setAccountNewCustomer(rawData);
 			

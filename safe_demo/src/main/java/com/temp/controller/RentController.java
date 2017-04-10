@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.temp.service.RentService;
-import com.temp.util.JsonUtil;
+//import com.temp.util.JsonUtil;
 
 @Controller
 @RequestMapping("/rent")
@@ -23,8 +23,8 @@ public class RentController {
 
 	@RequestMapping(value="/getBoxDetails", method={RequestMethod.GET, RequestMethod.POST})
 	public void getBoxDetails(HttpServletRequest request, HttpServletResponse response) {
-		//String rawData = request.getParameter("info");
-		String rawData = JsonUtil.getRawData(request);
+		String rawData = request.getParameter("info");
+		//String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = rentService.getBoxReletInfo(rawData);
 			
@@ -37,8 +37,8 @@ public class RentController {
 	
 	@RequestMapping(value="/setBoxReletInfo", method={RequestMethod.GET, RequestMethod.POST})
 	public void setBoxReletInfo(HttpServletRequest request, HttpServletResponse response) {
-		//String rawData = request.getParameter("info");
-		String rawData = JsonUtil.getRawData(request);
+		String rawData = request.getParameter("info");
+		//String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = rentService.setBoxReletInfo(rawData);
 			
@@ -51,8 +51,8 @@ public class RentController {
 	
 	@RequestMapping(value="/getBoxUnrentInfo", method={RequestMethod.GET, RequestMethod.POST})
 	public void getBoxUnrentInfo(HttpServletRequest request, HttpServletResponse response) {
-		//String rawData = request.getParameter("info");
-		String rawData = JsonUtil.getRawData(request);
+		String rawData = request.getParameter("info");
+		//String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = rentService.getBoxUnrentInfo(rawData);
 			
@@ -65,8 +65,8 @@ public class RentController {
 	
 	@RequestMapping(value="/setBoxUnrentInfo", method={RequestMethod.GET, RequestMethod.POST})
 	public void setBoxUnrentInfo(HttpServletRequest request, HttpServletResponse response) {
-		//String rawData = request.getParameter("info");
-		String rawData = JsonUtil.getRawData(request);
+		String rawData = request.getParameter("info");
+		//String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = rentService.setBoxOffleaseInfo(rawData);
 			

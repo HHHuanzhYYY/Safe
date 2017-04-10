@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.temp.service.BoxManageService;
 import com.temp.service.CardManageService;
 import com.temp.service.CustomerManageService;
-import com.temp.util.JsonUtil;
+//import com.temp.util.JsonUtil;
 
 @Controller
 @RequestMapping("/modify")
@@ -31,8 +31,8 @@ public class ModifyController {
 	
 	@RequestMapping(value="/modifyCardPwd", method={RequestMethod.GET, RequestMethod.POST})
 	public void modifyCardPwd(HttpServletRequest request, HttpServletResponse response) {
-		//String rawData = request.getParameter("info");
-		String rawData = JsonUtil.getRawData(request);
+		String rawData = request.getParameter("info");
+		//String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = cardManageService.setCardPwd(rawData);
 			
@@ -45,8 +45,8 @@ public class ModifyController {
 	
 	@RequestMapping(value="/getCustomerData", method={RequestMethod.GET, RequestMethod.POST})
 	public void getCustomerInfo(HttpServletRequest request, HttpServletResponse response) {
-		//String rawData = request.getParameter("info");
-		String rawData = JsonUtil.getRawData(request);
+		String rawData = request.getParameter("info");
+		//String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = customerManageService.getCustomerData(rawData);
 			
@@ -59,8 +59,8 @@ public class ModifyController {
 	
 	@RequestMapping(value="/setCustomerData", method={RequestMethod.GET, RequestMethod.POST})
 	public void setCustomerInfo(HttpServletRequest request, HttpServletResponse response) {
-		//String rawData = request.getParameter("info");
-		String rawData = JsonUtil.getRawData(request);
+		String rawData = request.getParameter("info");
+		//String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = customerManageService.setCustomerData(rawData);
 			
@@ -73,8 +73,8 @@ public class ModifyController {
 	
 	@RequestMapping(value="/getChangeBoxDetails", method={RequestMethod.GET, RequestMethod.POST})
 	public void getChangeBoxDetails(HttpServletRequest request, HttpServletResponse response) {
-		//String rawData = request.getParameter("info");
-		String rawData = JsonUtil.getRawData(request);
+		String rawData = request.getParameter("info");
+		//String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = boxManageService.getChangeBoxDetails(rawData);
 			
@@ -87,8 +87,8 @@ public class ModifyController {
 
 	@RequestMapping(value="/setChangeBoxDetails", method={RequestMethod.GET, RequestMethod.POST})
 	public void setChangeBoxDetails(HttpServletRequest request, HttpServletResponse response) {
-		//String rawData = request.getParameter("info");
-		String rawData = JsonUtil.getRawData(request);
+		String rawData = request.getParameter("info");
+		//String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = boxManageService.setChangeBoxDetails(rawData);
 			

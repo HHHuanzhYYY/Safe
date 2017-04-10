@@ -1,6 +1,7 @@
 package com.temp.util;
 
 import java.io.BufferedReader;
+import java.io.UnsupportedEncodingException;
 //import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.HashMap;
@@ -139,15 +140,15 @@ public final class JsonUtil {
 	 */
 	private static JSONObject getDataFieldInRawData(String rawData) {
 		JSONObject data = null;
-		//try {
-			//String utf8Data = URLDecoder.decode(rawData, "UTF-8");
+		try {
+			String utf8Data = URLDecoder.decode(rawData, "UTF-8");
 			
-			JSONObject jo = JSONObject.parseObject(rawData);
+			JSONObject jo = JSONObject.parseObject(utf8Data);
 			data = (JSONObject) jo.get("data");
 			
-		//} catch (UnsupportedEncodingException e) {
-		//	e.printStackTrace();
-		//}
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		return data;
 	}
 	
