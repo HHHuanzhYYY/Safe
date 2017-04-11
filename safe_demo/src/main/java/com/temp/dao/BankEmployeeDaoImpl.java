@@ -28,16 +28,16 @@ public class BankEmployeeDaoImpl implements BankEmployeeDao {
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
-	public int validateBankEmployeeByNameAndPwd(String employeeName, String employeePwd) {
+	public long validateBankEmployeeByNameAndPwd(String employeeName, String employeePwd) {
 		String validateBankEmployeeSQL = "SELECT employeeId "
 									   + "FROM bank_employee "
 									   + "WHERE employeeName = ? AND `password` = ? ";
-		int employeeId = 0;
+		long employeeId = 0;
 		try {
 			employeeId = jdbcTemplate.queryForObject(validateBankEmployeeSQL, 
 					new Object[] {employeeName, employeePwd}, 
 					new int[] {Types.VARCHAR, Types.VARCHAR}, 
-					Integer.class);
+					Long.class);
 		} catch (IncorrectResultSizeDataAccessException e) {
 			employeeId = 0;
 		}	
@@ -45,7 +45,7 @@ public class BankEmployeeDaoImpl implements BankEmployeeDao {
 	}
 
 	@Override
-	public boolean validateBankEmployeeByIdAndPwd(int employeeId, String employeePwd) {
+	public boolean validateBankEmployeeByIdAndPwd(long employeeId, String employeePwd) {
 		String validateBankEmployeeSQL = "SELECT COUNT(employeeId) "
 				+ "FROM bank_employee WHERE employeeId = ? AND password = ? ";
 		int count = 0;

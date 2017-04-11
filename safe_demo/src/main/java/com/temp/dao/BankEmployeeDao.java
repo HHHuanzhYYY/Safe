@@ -14,7 +14,7 @@ public interface BankEmployeeDao {
 	 * @param employeePwd
 	 * @return employeeId
 	 */
-	int validateBankEmployeeByNameAndPwd(String employeeName, String employeePwd); 
+	long validateBankEmployeeByNameAndPwd(String employeeName, String employeePwd); 
 	
 	/**
 	 * validateBankEmployeeByIdAndPwd.
@@ -23,7 +23,7 @@ public interface BankEmployeeDao {
 	 * @param employeePwd
 	 * @return boolean
 	 */
-	boolean validateBankEmployeeByIdAndPwd(int employeeId, String employeePwd);
+	boolean validateBankEmployeeByIdAndPwd(long employeeId, String employeePwd);
 	
 	/**
 	 * listAllBankEmployees.

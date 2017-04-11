@@ -10,7 +10,7 @@ public interface BankEmployeeService {
 	 * @param rawData String from HttpRequest
 	 * @return JSON String Contains Account Info.
 	 */
-	String validateBankEmployee(final String rawData, final Cookie cookie);  
+	String validateBankEmployee(final String rawData, Cookie... cookies);  
 	
 	/**
 	 * getAllBankEmployees.

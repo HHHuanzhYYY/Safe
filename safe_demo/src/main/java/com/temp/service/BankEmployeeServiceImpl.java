@@ -29,16 +29,16 @@ public class BankEmployeeServiceImpl implements BankEmployeeService {
 	private LogDao logDao;
 
 	@Override
-	public String validateBankEmployee(final String rawData, final Cookie cookie) {
+	public String validateBankEmployee(final String rawData, Cookie... cookies) {
 		boolean isSuccess = true;
-		int employeeId = 0;
+		long employeeId = 0;
 		try {
 			//final String utf8Data = URLDecoder.decode(rawData, "UTF-8");
 			
 			Map<String, Object> requestInfo = JsonUtil.parseJson(rawData, "name", "password");
 			
-			if (cookie != null) {
-				cookie.setValue((String)requestInfo.get("name"));
+			if (cookies != null && (cookies.length >= 1) && (cookies[0] != null)) {
+				cookies[0].setValue((String)requestInfo.get("name"));
 			}
 			
 			employeeId = bankEmployeeDao.validateBankEmployeeByNameAndPwd(
@@ -50,6 +50,10 @@ public class BankEmployeeServiceImpl implements BankEmployeeService {
 		if (employeeId == 0) {
 			isSuccess = false;
 		} else {
+			if (cookies != null && (cookies.length >= 2) && (cookies[1] != null)) {
+				cookies[1].setValue(Long.toString(employeeId));
+			}
+			
 			// Log BankEmployee`s Login Action.
 			BankEmployeeLoginLogPo bankEmployeeLoginLogPo = new BankEmployeeLoginLogPo();
 			bankEmployeeLoginLogPo.setEmployeeId(employeeId);

@@ -1,5 +1,7 @@
 package com.temp.service;
 
+import javax.servlet.http.Cookie;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -13,15 +15,20 @@ public class BankEmployeeServiceTest extends ServiceTestBase {
 	@Test
 	public void validateBankEmployee() throws Exception {
 		final String rawData = "{"
-				+ "\"success\":true,"
-				+ "\"message\":null,"
-				+ "\"data\":{"
-					+ "\"name\":\"白居易\","
-					+ "\"password\":\"333333\""
-					+ "}"
+				//+ "\"success\":true,"
+				//+ "\"message\":null,"
+				//+ "\"data\":{"
+					+ "\"name\":\"柳宗元\","
+					+ "\"password\":\"123456\""
+				//	+ "}"
 				+ "}";
 		
-		String jsonStr = bankEmployeeService.validateBankEmployee(rawData, null);
+		Cookie employeeName = new Cookie("employeeName", "admin");
+		Cookie employeeId = new Cookie("employeeId", "0"); 
+		
+		String jsonStr = bankEmployeeService.validateBankEmployee(rawData, 
+				employeeName, 
+				employeeId);
 		
 		System.out.println(jsonStr);
 	}

@@ -33,13 +33,16 @@ public class UniformController {
     	//final String rawData = request.getParameter("info");
     	String rawData = JsonUtil.getRawData(request);
 		try {
-			// Write Cookie.
-			Cookie cookie = new Cookie("employeeName", "admin");
-			cookie.setPath("/");
-			// Add Cookie. 
-			response.addCookie(cookie);
+			// Write "employeeName".
+			Cookie employeeName = new Cookie("employeeName", "admin");
+			employeeName.setPath("/");
+			response.addCookie(employeeName);
+			// Write "employeeId".
+			Cookie employeeId = new Cookie("employeeId", "0");
+			employeeId.setPath("/");
+			response.addCookie(employeeId);
 			
-			String resJSON = bankEmployeeService.validateBankEmployee(rawData, cookie);
+			String resJSON = bankEmployeeService.validateBankEmployee(rawData, employeeName, employeeId);
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);
 		} catch (Exception e) {
