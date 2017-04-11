@@ -1,5 +1,7 @@
 package com.temp.service;
 
+import javax.servlet.http.Cookie;
+
 public interface BankEmployeeService {
 	
 	/**
@@ -8,7 +10,7 @@ public interface BankEmployeeService {
 	 * @param rawData String from HttpRequest
 	 * @return JSON String Contains Account Info.
 	 */
-	String validateBankEmployee(final String rawData) throws Exception;  
+	String validateBankEmployee(final String rawData, final Cookie cookie);  
 	
 	/**
 	 * getAllBankEmployees.

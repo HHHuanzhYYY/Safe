@@ -212,13 +212,18 @@ public class BoxDaoImpl implements BoxDao {
 	
 	@Override
 	public boolean setAllBoxModelResumes(BoxModelResumePo boxModelResumePo) {
-		String insertBoxModelResumeSQL = "INSERT INTO box_model(boxModel, boxModelNo, remark) VALUES(?, ?, ?) ";
+		String insertBoxModelResumeSQL = "INSERT INTO box_model(boxModel, boxModelNo, remark) "
+				+ "VALUES(?, ?, ?) ON DUPLICATE KEY UPDATE boxModelNo = ?, remark= ? ";
+				//"INSERT INTO box_model(boxModel, boxModelNo, remark) VALUES(?, ?, ?) ";
 		int count = jdbcTemplate.update(insertBoxModelResumeSQL, 
 				new Object[] {boxModelResumePo.getBoxModel(), 
 							  boxModelResumePo.getBoxModelNo(), 
+							  boxModelResumePo.getRemark(),
+							  boxModelResumePo.getBoxModelNo(), 
 							  boxModelResumePo.getRemark()}, 
-				new int[] {Types.VARCHAR, Types.INTEGER, Types.VARCHAR});
-		return count == 1 ? true : false;
+				new int[] {Types.VARCHAR, Types.INTEGER, Types.VARCHAR, 
+						   Types.INTEGER, Types.VARCHAR});
+		return count >= 1 ? true : false;
 	}
 	
 	@Override

@@ -64,8 +64,7 @@ public class CustomerManageServiceImpl implements CustomerManageService {
 					(String)paramValues.get("certificateNo"), 
 					Long.parseLong((String)paramValues.get("accountId")));
 		} catch (Exception e) {
-			e.printStackTrace();
-			isSuccess = false;
+			throw e;
 		}		
 		return JsonUtil.constructJson(isSuccess, null, customerDataVos);
 	}
@@ -79,7 +78,7 @@ public class CustomerManageServiceImpl implements CustomerManageService {
 			
 			isSuccess = customerDao.setCustomerData(customerDataPo);
 		} catch (Exception e) {
-			isSuccess = false;
+			throw e;
 		}		
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}

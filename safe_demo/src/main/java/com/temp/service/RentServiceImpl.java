@@ -56,7 +56,7 @@ public class RentServiceImpl implements RentService {
 					calculateOverdueRent((Date)overdueFineInfo.get("endDate"),
 							             ((java.math.BigDecimal)overdueFineInfo.get("rentDay")).floatValue()));
 		} catch (Exception e) {
-			isSuccess = false;
+			throw e;
 		}
 		return JsonUtil.constructJson(isSuccess, null, overdueFineAndRent);
 	}
@@ -68,7 +68,7 @@ public class RentServiceImpl implements RentService {
 			ReletPo reletPo = (ReletPo) JsonUtil.parseJson(rawData, ReletPo.class);
 			isSuccess = rentDao.setReletInfo(reletPo);
 		} catch (Exception e) {
-			isSuccess = false;
+			throw e;
 		}
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}
@@ -109,8 +109,7 @@ public class RentServiceImpl implements RentService {
 								             ((java.math.BigDecimal)offleaseInfo.get("rentDay")).floatValue()));
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
-			isSuccess = false;
+			throw e;
 		}
 		return JsonUtil.constructJson(isSuccess, null, unrentInfo);
 	}
@@ -122,7 +121,7 @@ public class RentServiceImpl implements RentService {
 			OffleasePo requestParams = (OffleasePo) JsonUtil.parseJson(rawData, OffleasePo.class);
 			isSuccess = rentDao.setOffleaseInfo(requestParams);
 		} catch (Exception e) {
-			isSuccess = false;
+			throw e;
 		}
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}

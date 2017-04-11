@@ -1,9 +1,11 @@
 package com.temp.service;
 
-import java.net.URLDecoder;
+//import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.Cookie;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,13 +29,17 @@ public class BankEmployeeServiceImpl implements BankEmployeeService {
 	private LogDao logDao;
 
 	@Override
-	public String validateBankEmployee(final String rawData) throws Exception {
+	public String validateBankEmployee(final String rawData, final Cookie cookie) {
 		boolean isSuccess = true;
 		int employeeId = 0;
 		try {
 			//final String utf8Data = URLDecoder.decode(rawData, "UTF-8");
 			
 			Map<String, Object> requestInfo = JsonUtil.parseJson(rawData, "name", "password");
+			
+			if (cookie != null) {
+				cookie.setValue((String)requestInfo.get("name"));
+			}
 			
 			employeeId = bankEmployeeDao.validateBankEmployeeByNameAndPwd(
 					(String)requestInfo.get("name"), (String)requestInfo.get("password"));

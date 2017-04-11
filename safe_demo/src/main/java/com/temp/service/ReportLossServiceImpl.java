@@ -41,7 +41,7 @@ public class ReportLossServiceImpl implements ReportLossService {
 					Integer.parseInt((String)paramValues.get("bankEmployeeID")),
 					(String)paramValues.get("bankEmployeePwd"));
 		} catch (Exception e) {
-			isSuccess = false;
+			throw e;
 		}		
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}
@@ -68,7 +68,7 @@ public class ReportLossServiceImpl implements ReportLossService {
 					Float.parseFloat((String)paramValues.get("feeTotal"))
 					);
 		} catch (Exception e) {
-			isSuccess = false;
+			throw e;
 		}		
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}
@@ -100,7 +100,7 @@ public class ReportLossServiceImpl implements ReportLossService {
 					reportLossPo.getPaymentType(),
 					reportLossPo.getFeeTotal());
 		} catch (Exception e) {
-			isSuccess = false;
+			throw e;
 		}		
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}

@@ -21,7 +21,7 @@ public class BankEmployeeServiceTest extends ServiceTestBase {
 					+ "}"
 				+ "}";
 		
-		String jsonStr = bankEmployeeService.validateBankEmployee(rawData);
+		String jsonStr = bankEmployeeService.validateBankEmployee(rawData, null);
 		
 		System.out.println(jsonStr);
 	}

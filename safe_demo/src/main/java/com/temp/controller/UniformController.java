@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -32,9 +33,15 @@ public class UniformController {
     	//final String rawData = request.getParameter("info");
     	String rawData = JsonUtil.getRawData(request);
 		try {
-			String resJSON = bankEmployeeService.validateBankEmployee(rawData);
+			// Write Cookie.
+			Cookie cookie = new Cookie("employeeName", "admin");
+			cookie.setPath("/");
+			// Add Cookie. 
+			response.addCookie(cookie);
+			
+			String resJSON = bankEmployeeService.validateBankEmployee(rawData, cookie);
 			PrintWriter writer = response.getWriter();
-			writer.print(resJSON);			
+			writer.print(resJSON);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

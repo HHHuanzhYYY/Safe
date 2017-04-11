@@ -35,7 +35,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 		try {
 			messageVos = systemConfigDao.getAllMessages();
 		} catch (Exception e) {
-			isSuccess = false;
+			throw e;
 		}		
 		return JsonUtil.constructJson(isSuccess, null, messageVos);
 	}
@@ -51,7 +51,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 			employeeResumeVos = systemConfigDao.getBankBranchEmployees(
 					Integer.parseInt(((String)paramValues.get("bankId")).trim()));
 		} catch (Exception e) {
-			isSuccess = false;
+			throw e;
 		}
 		return JsonUtil.constructJson(isSuccess, null, employeeResumeVos);
 	}
@@ -66,7 +66,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 			long messageId = systemConfigDao.setMessageDetails(paramValues);
 			messageIdMap.put("messageId", messageId);
 		} catch (Exception e) {
-			isSuccess = false;
+			throw e;
 		}
 		return JsonUtil.constructJson(isSuccess, null, messageIdMap);
 	}
@@ -80,7 +80,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 			
 			isSuccess = systemConfigDao.deleteMessage(msgIds);
 		} catch (Exception e) {
-			isSuccess = false;
+			throw e;
 		}
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}
@@ -93,7 +93,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 		try {
 			bankBrancheVos = systemConfigDao.getAllBankBranches();
 		} catch (Exception e) {
-			isSuccess = false;
+			throw e;
 		}		
 		return JsonUtil.constructJson(isSuccess, null, bankBrancheVos);
 	}
@@ -105,10 +105,10 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 		try {
 			BankBranchPo paramValues = (BankBranchPo) JsonUtil.parseJson(rawData, BankBranchPo.class);
 			
-			long bankId = systemConfigDao.setBankDetails(paramValues);
+			long bankId = systemConfigDao.setBankDetails(paramValues); 
 			retId.put("bankId", bankId);
 		} catch (Exception e) {
-			isSuccess = false;
+			throw e;
 		}
 		return JsonUtil.constructJson(isSuccess, null, retId);
 	}
@@ -122,7 +122,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 			
 			isSuccess = systemConfigDao.deleteBank(bankIds);
 		} catch (Exception e) {
-			isSuccess = false;
+			throw e;
 		}
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}
@@ -135,7 +135,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 		try {
 			subjectVos = systemConfigDao.getAllSubjects();
 		} catch (Exception e) {
-			isSuccess = false;
+			throw e;
 		}		
 		return JsonUtil.constructJson(isSuccess, null, subjectVos);
 	}
@@ -151,7 +151,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 			
 			retId.put("subjectId", subjectId);
 		} catch (Exception e) {
-			isSuccess = false;
+			throw e;
 		}
 		return JsonUtil.constructJson(isSuccess, null, retId);
 	}
@@ -166,7 +166,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 			
 			isSuccess = systemConfigDao.deleteSubject(subjectIds);
 		} catch (Exception e) {
-			isSuccess = false;
+			throw e;
 		}
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}
@@ -179,7 +179,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 		try {
 			feeTypeVos = systemConfigDao.getAllFeeTypes();
 		} catch (Exception e) {
-			isSuccess = false;
+			throw e;
 		}		
 		return JsonUtil.constructJson(isSuccess, null, feeTypeVos);
 	}
@@ -192,7 +192,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 			
 			isSuccess = systemConfigDao.setFeeTypeDetails(paramValues);
 		} catch (Exception e) {
-			isSuccess = false;
+			throw e;
 		}
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}
@@ -207,7 +207,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 					Long.parseLong((String)paramValues.get("feeTypeId")), 
 					Integer.parseInt((String)paramValues.get("status")));
 		} catch (Exception e) {
-			isSuccess = false;
+			throw e;
 		}
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}
@@ -221,7 +221,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 					Long.class, "feeTypeIds");
 			isSuccess = systemConfigDao.deleteFeeType(feeTypeIds);
 		} catch (Exception e) {
-			isSuccess = false;
+			throw e;
 		}
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}
