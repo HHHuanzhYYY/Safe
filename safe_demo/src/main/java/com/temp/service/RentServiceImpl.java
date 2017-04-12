@@ -81,7 +81,7 @@ public class RentServiceImpl implements RentService {
 		try {
 			Map<String, Object> requestParams = JsonUtil.parseJson(rawData, "boxId");
 			Map<String, Object> offleaseInfo = rentDao.getUnrentInfo(
-					Integer.parseInt((String)requestParams.get("boxId")));
+					Long.parseLong((String)requestParams.get("boxId")));
 			
 			unrentInfo.put("id", offleaseInfo.get("rentId"));
 			unrentInfo.put("keySum", offleaseInfo.get("keySum"));

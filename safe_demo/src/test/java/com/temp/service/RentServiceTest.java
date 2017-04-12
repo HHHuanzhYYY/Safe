@@ -50,11 +50,8 @@ public class RentServiceTest extends ServiceTestBase {
 	@Test
 	public void getBoxUnrentInfo() {
 		
-		final String rawData = "{"
-				+ "\"success\":true,"
-				+ "\"message\":null,"
-				+ "\"data\":{"					
-					+ "\"boxId\":111102}"
+		final String rawData = "{"			
+					+ "\"boxId\":111102"
 				+ "}";
 		String retJSON = rentService.getBoxUnrentInfo(rawData);
 		

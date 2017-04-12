@@ -6,11 +6,13 @@ public class BankBranchVo {
 	
 	private String bankTitle;
 	
+	private String remark;
+	
 	public BankBranchVo() {}
 
 	@Override
 	public String toString() {
-		return "BankBranchVo [bankId=" + bankId + ", bankTitle=" + bankTitle + "]";
+		return "BankBranchVo [bankId=" + bankId + ", bankTitle=" + bankTitle + ", remark=" + remark + "]";
 	}
 
 	public long getBankId() {
@@ -28,5 +30,13 @@ public class BankBranchVo {
 	public void setBankTitle(String bankTitle) {
 		this.bankTitle = bankTitle;
 	}
-	
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
 }

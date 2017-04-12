@@ -135,14 +135,14 @@ public class SystemConfigServiceTest extends ServiceTestBase {
 		System.out.println(retJSON);
 	}*/
 	
-	/*@Test
+	@Test
 	public void listAllFeeTypes(){
 		String retJSON = systemConfigService.listAllFeeTypes();
 
 		//assertEquals(retJSON, "");
 		
 		System.out.println(retJSON);
-	}*/
+	}
 	
 	
 	/*@Test
@@ -178,7 +178,7 @@ public class SystemConfigServiceTest extends ServiceTestBase {
 		System.out.println(retJSON);
 	}*/
 	
-	@Test
+	/*@Test
 	public void deleteFeeType(){
 		final String rawData = "{"
 				+ "\"success\":true,"
@@ -191,5 +191,5 @@ public class SystemConfigServiceTest extends ServiceTestBase {
 		String retJSON = systemConfigService.deleteFeeType(rawData);
 		
 		System.out.println(retJSON);
-	}
+	}*/
 }

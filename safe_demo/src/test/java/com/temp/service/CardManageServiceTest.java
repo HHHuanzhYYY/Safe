@@ -29,11 +29,7 @@ public class CardManageServiceTest extends ServiceTestBase {
 	@Test
 	public void getAccountsCustomersBoxsByCardRfid() {
 		final String rawData = "{"
-				+ "\"success\":true,"
-				+ "\"message\":null,"
-				+ "\"data\":{"
 					+ "\"cardRfid\":\"PEK1234555\""
-					+ "}"
 				+ "}";
 		
 		String jsonStr = cardManageService.getAccountsCustomersBoxsByCardRfid(rawData);

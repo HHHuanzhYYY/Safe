@@ -41,30 +41,23 @@ public class CustomerManageServiceTest extends ServiceTestBase {
 		System.out.println(jsonStr);
 	}*/
 
-	/*@Test
+	@Test
 	public void getCustomerData() {
 		final String rawData = "{"
-				+ "\"success\":true,"
-				+ "\"message\":null,"
-				+ "\"data\":{"
 					//+ "\"certificateType\":1,"
 					//+ "\"certificateNo\":\"110123456789\","
 					+ "\"certificateType\":2,"
 					+ "\"certificateNo\":\"PEK1234555\","
 					+ "\"accountId\":\"2545504967213581981\""
-					+ "}"
 				+ "}";
 		
 		String jsonStr = customerManageService.getCustomerData(rawData);
 		System.out.println(jsonStr);
-	}*/
+	}
 	
-	@Test
+	/*@Test
 	public void setCustomerData() {
 		final String rawData = "{"
-				+ "\"success\":true,"
-				+ "\"message\":null,"
-				+ "\"data\":{"
 					+ "\"customerId\":813,"
 					+ "\"unitAddress\":\"北京市朝阳区\","
 					+ "\"homeAddress\":\"北京市海淀区橡树湾小区\","
@@ -72,11 +65,10 @@ public class CustomerManageServiceTest extends ServiceTestBase {
 					+ "\"mobile\":\"18600003443\","
 					+ "\"post\":\"010\","
 					+ "\"remark\":\"今天我就要修改你丫的\""
-					+ "}"
 				+ "}";
 		
 		String jsonStr = customerManageService.setCustomerData(rawData);
 		System.out.println(jsonStr);
-	}
+	}*/
 	
 }

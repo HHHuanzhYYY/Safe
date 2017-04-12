@@ -52,12 +52,9 @@ public class AccountManagerServiceTest extends ServiceTestBase {
 		System.out.println(jsonStr);
 	}*/
 	
-	/*@Test
+	@Test
 	public void setAccountInfo() {
 		final String rawData = "{"
-				+ "\"success\":true,"
-				+ "\"message\":null,"
-				+ "\"data\":{"
 					+ "\"accountType\":0,"
 					+ "\"bankId\":101,"
 					+ "\"isAccountFree\":0,"
@@ -65,10 +62,12 @@ public class AccountManagerServiceTest extends ServiceTestBase {
 					+ "\"paymentType\":0,"
 					+ "\"amountSum\":550.5,"
 					+ "\"customerSum\":1,"
+					+ "\"certificateType\":1,"
+					+ "\"certificateNo\":\"2222\","
 					+ "\"customerList\":"
 						+ "[{"
 						+ "\"customerType\":0,"
-						+ "\"customerName\":\"张大麻子\","
+						+ "\"customerName\":\"迟大宁\","
 						+ "\"customerSex\":1,"
 						+ "\"certificateType\":1,"
 						+ "\"certificateNo\":\"110123456789\","
@@ -80,8 +79,8 @@ public class AccountManagerServiceTest extends ServiceTestBase {
 						+ "\"remark\":\"这只是一个测试用例\","
 						+ "\"photo\":null,"
 						+ "\"cardType\":1,"
-						+ "\"cardNo\":\"PEK1234555\","
-						+ "\"cardRfid\":\"PEK1234555\","
+						+ "\"cardNo\":\"PEK0000001\","
+						+ "\"cardRfid\":\"PEK0000001\","
 						+ "\"password\":\"asdfghjkl\","
 						+ "\"fingerPwd\":\"asdfghjkllkjhgfdsa\","
 						+ "\"reserveFingerPwd\":\"asdfghjkllkjhgfdsa\","
@@ -89,7 +88,7 @@ public class AccountManagerServiceTest extends ServiceTestBase {
 					+ "\"rentList\":"
 						+ "[{"
 						+ "\"boxId\":110,"
-						+ "\"cardRfid\":\"PEK1234555\","
+						+ "\"cardRfid\":\"PEK0000001\","
 						+ "\"leaseNo\":\"L11111\","
 						+ "\"leaseRemark\":\"无\","
 						+ "\"voucherNo\":\"V11111\","
@@ -107,7 +106,7 @@ public class AccountManagerServiceTest extends ServiceTestBase {
 						+ "},"
 						+ "{"
 						+ "\"boxId\":111,"
-						+ "\"cardRfid\":\"PEK5554321\","
+						+ "\"cardRfid\":\"PEK0000001\","
 						+ "\"leaseNo\":\"L22222\","
 						+ "\"leaseRemark\":\"无\","
 						+ "\"voucherNo\":\"V22222\","
@@ -123,13 +122,12 @@ public class AccountManagerServiceTest extends ServiceTestBase {
 						+ "\"paymentType\":0,"
 						+ "\"feeTotal\":2400.0,"
 						+ "}]"
-					+ "}"
 				+ "}";
 		
 		String jsonStr = accountManageService.setAccountInfo(rawData);
 		
 		System.out.println(jsonStr);
-	}*/
+	}
 	
 	/*@Test
 	public void setAccountNewBox() {
@@ -165,7 +163,7 @@ public class AccountManagerServiceTest extends ServiceTestBase {
 		System.out.println(jsonStr);
 	}*/
 	
-	@Test
+	/*@Test
 	public void setAccountNewCustomer() {
 		final String rawData = "{"
 				+ "\"success\":true,"
@@ -199,5 +197,5 @@ public class AccountManagerServiceTest extends ServiceTestBase {
 		String jsonStr = accountManageService.setAccountNewCustomer(rawData);
 		
 		System.out.println(jsonStr);
-	}
+	}*/
 }

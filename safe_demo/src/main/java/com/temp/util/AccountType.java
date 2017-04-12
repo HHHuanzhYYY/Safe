@@ -2,7 +2,10 @@ package com.temp.util;
 
 public enum AccountType {
 
-	SINGLE(0), UION(1);
+	SINGLE(0), 
+	ONECARDMULTIBOX(1),
+	MULTICARDMULTIBOX(2),
+	UION(3); 
 	
 	private int value;
 	

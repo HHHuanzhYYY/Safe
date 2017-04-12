@@ -12,7 +12,7 @@ public class BankEmployeeServiceTest extends ServiceTestBase {
 	@Autowired
 	private BankEmployeeService bankEmployeeService;
 	
-	@Test
+	/*@Test
 	public void validateBankEmployee() throws Exception {
 		final String rawData = "{"
 				//+ "\"success\":true,"
@@ -31,22 +31,18 @@ public class BankEmployeeServiceTest extends ServiceTestBase {
 				employeeId);
 		
 		System.out.println(jsonStr);
-	}
+	}*/
 	
-	/*@Test
+	@Test
 	public void getAllBankEmployees() {
 		final String rawData = "{"
-				+ "\"success\":true,"
-				+ "\"message\":null,"
-				+ "\"data\":{"
 					+ "\"bankId\":101"
-					+ "}"
 				+ "}";
 		
 		String jsonStr = bankEmployeeService.getAllBankEmployees(rawData);
 		
 		System.out.println(jsonStr);
-	}*/
+	}
 	
 	/*@Test
 	public void setBankEmployeeDetails() {
@@ -73,7 +69,7 @@ public class BankEmployeeServiceTest extends ServiceTestBase {
 		System.out.println(jsonStr);
 	}*/
 	
-	@Test
+	/*@Test
 	public void deleteBankEmployee() {
 		final String rawData = "{"
 				+ "\"success\":true,"
@@ -86,6 +82,6 @@ public class BankEmployeeServiceTest extends ServiceTestBase {
 		String jsonStr = bankEmployeeService.deleteBankEmployee(rawData);
 		
 		System.out.println(jsonStr);
-	}
+	}*/
 	
 }

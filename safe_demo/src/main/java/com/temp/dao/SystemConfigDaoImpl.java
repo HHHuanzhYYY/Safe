@@ -35,7 +35,8 @@ public class SystemConfigDaoImpl implements SystemConfigDao {
 
 	@Override
 	public List<MessageVo> getAllMessages() {
-		String queryMessagesSQL = "SELECT messageId, messageType, messageTitle FROM system_message ";
+		String queryMessagesSQL = "SELECT messageId, messageType, messageTitle, messageContent, remark "
+				+ "FROM system_message ";
 		List<MessageVo> messageVos = jdbcTemplate.query(queryMessagesSQL, new RowMapper<MessageVo>() {
 
 			@Override
@@ -45,10 +46,11 @@ public class SystemConfigDaoImpl implements SystemConfigDao {
 				messageVo.setMessageId(rs.getInt("messageId"));
 				messageVo.setMessageType(rs.getInt("messageType"));
 				messageVo.setMessageTitle(rs.getString("messageTitle"));
+				messageVo.setMessageContent(rs.getString("messageContent"));
+				messageVo.setRemark(rs.getString("remark"));
 				
 				return messageVo;
-			}
-			
+			}			
 		});
 		return messageVos;
 	}	
@@ -152,7 +154,7 @@ public class SystemConfigDaoImpl implements SystemConfigDao {
 
 	@Override
 	public List<BankBranchVo> getAllBankBranches() {
-		String queryBankBranchSQL = "SELECT bankId, bankTitle FROM bank_branch ";
+		String queryBankBranchSQL = "SELECT bankId, bankTitle, remark FROM bank_branch ";
 		List<BankBranchVo> bankBranchVos = jdbcTemplate.query(queryBankBranchSQL, 
 				new RowMapper<BankBranchVo>() {
 
@@ -162,6 +164,7 @@ public class SystemConfigDaoImpl implements SystemConfigDao {
 				
 				bankBranchVo.setBankId(rs.getInt("bankId"));
 				bankBranchVo.setBankTitle(rs.getString("bankTitle"));
+				bankBranchVo.setRemark(rs.getString("remark"));
 				
 				return bankBranchVo;
 			}

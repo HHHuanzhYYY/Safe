@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
@@ -192,8 +193,14 @@ public class RentDaoImpl implements RentDao {
 				"SELECT box.boxId, box_model.rentDay, box_model.overdueFineStrategy "
 			  + "FROM box, box_model "
 			  + "WHERE box.boxModel = box_model.boxModel AND boxId = ?";
-		Map<String, Object> ofsAndRd = jdbcTemplate.queryForMap(queryOverdueFineStrategyAndRentDaySQL, 
-				new Object[] {boxId}, new int[] {Types.INTEGER});
+		Map<String, Object> ofsAndRd = null;
+		try {
+			ofsAndRd = jdbcTemplate.queryForMap(queryOverdueFineStrategyAndRentDaySQL, 
+					new Object[] {boxId}, new int[] {Types.INTEGER});
+		} catch (EmptyResultDataAccessException e) {
+			ofsAndRd = null;
+		}
+				
 		return ofsAndRd;
 	}
 

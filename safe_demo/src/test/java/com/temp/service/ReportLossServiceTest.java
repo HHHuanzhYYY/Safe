@@ -47,9 +47,6 @@ public class ReportLossServiceTest extends ServiceTestBase {
 	public void setReportLossDetails() {
 		
 		final String rawData = "{"
-				+ "\"success\":true,"
-				+ "\"message\":null,"
-				+ "\"data\":{"
 					+ "\"certificateType\":1,"
 					+ "\"certificateNo\":\"110123456789\","
 					+ "\"reportLossType\":3,"
@@ -59,7 +56,7 @@ public class ReportLossServiceTest extends ServiceTestBase {
                     + "\"password\":\"qaz123\","
                     + "\"keyId\":11102,"
                     + "\"paymentType\":1,"
-					+ "\"feeTotal\":300}"
+					+ "\"feeTotal\":300"
 				+ "}";
 		String retJSON = reportLossService.setReportLossDetails(rawData, ReportLossAction.HANDLEEPORTLOSS);
 		

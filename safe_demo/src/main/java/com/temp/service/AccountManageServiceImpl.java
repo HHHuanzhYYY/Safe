@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.temp.dao.AccountDao;
@@ -101,7 +102,7 @@ public class AccountManageServiceImpl implements AccountManageService {
 		return JsonUtil.constructJson(isSuccess, null, dataContents);
 	}
 	
-	@Transactional(readOnly = false)
+	@Transactional(readOnly = false, propagation=Propagation.SUPPORTS)
 	@Override
 	public String setAccountInfo(String rawData) {
 		boolean isSuccess = true;
@@ -109,12 +110,10 @@ public class AccountManageServiceImpl implements AccountManageService {
 			// AccountPo.
 			AccountPo newAccount = (AccountPo) JsonUtil.parseJson(rawData, AccountPo.class);
 			
-			// Generate 'accountId'
+			// Generate 'accountId'.
 			newAccount.setAccountId(generateAccountId());
 			
-			System.out.println(newAccount.getAccountId());
-			
-			// �����˻���Ϣ.
+			// Set Table: account
 			isSuccess = accountDao.setAccount(newAccount);
 			
 			// Customer List.
