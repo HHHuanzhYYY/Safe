@@ -18,12 +18,23 @@ public class LogDaoImpl implements LogDao {
 
 	@Override
 	public boolean setEmployeeLoginLog(BankEmployeeLoginLogPo bankEmployeeLoginLogPo) {
-		String insertEmployeeLoginLogSQL = "INSERT INTO employee_login_log(loginDateTime, remark, employeeId) "
-										 + "VALUES(sysdate(), ?, ?) ";
+		String insertEmployeeLoginLogSQL = "INSERT INTO log_employee_loginout(inOutDateTime, inOutFlag, remark, employeeId) "
+										 + "VALUES(sysdate(), 0, ?, ?) ";
 		int count = jdbcTemplate.update(insertEmployeeLoginLogSQL, 
 				new Object[] {bankEmployeeLoginLogPo.getRemark(), 
 							  bankEmployeeLoginLogPo.getEmployeeId()}, 
-				new int[] {Types.BIGINT, Types.VARCHAR});
+				new int[] {Types.VARCHAR, Types.BIGINT});
+		return count == 1 ? true : false;
+	}
+	
+	@Override
+	public boolean setEmployeeLogoutLog(long bankEmployeeId) {
+		String insertEmployeeLogoutLogSQL = 
+				"INSERT INTO log_employee_loginout(inOutDateTime, inOutFlag, remark, employeeId) "
+			  + "VALUES(sysdate(), 0, null, ?) ";
+		int count = jdbcTemplate.update(insertEmployeeLogoutLogSQL, 
+				new Object[] {bankEmployeeId}, 
+				new int[] {Types.BIGINT});
 		return count == 1 ? true : false;
 	}
 	
@@ -31,17 +42,17 @@ public class LogDaoImpl implements LogDao {
 	public boolean setReportLossLog(ReportLossAction reportLossAction, 
 			long boxId, int reportLossType, int paymentType, float feeTotal) {
 		// Query "rentId" corresponding to the box.
-		String queryRentIdSQL = "SELECT rentId FROM rent WHERE boxId = ? ";
-		int rentId = 0;
+		String queryRentIdSQL = "SELECT rentId FROM rent WHERE boxId = ? AND rent.rentStatus = 0 ";
+		long rentId = 0;
 		try {
 			rentId = jdbcTemplate.queryForObject(queryRentIdSQL, 
 					new Object[] {boxId},
 					new int[] {Types.BIGINT},
-					Integer.class);
+					Long.class);
 		} catch (IncorrectResultSizeDataAccessException e) {
 			rentId = 0;
 		}
-		if (rentId != 0) {
+		if (rentId == 0) {
 			return false;
 		}
 		
@@ -56,5 +67,6 @@ public class LogDaoImpl implements LogDao {
 		
 		return count == 1  ? true : false;
 	}
+
 
 }

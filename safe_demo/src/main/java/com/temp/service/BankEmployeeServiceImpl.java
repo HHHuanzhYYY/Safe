@@ -1,11 +1,8 @@
 package com.temp.service;
 
-//import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.Cookie;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,37 +26,46 @@ public class BankEmployeeServiceImpl implements BankEmployeeService {
 	private LogDao logDao;
 
 	@Override
-	public String validateBankEmployee(final String rawData, Cookie... cookies) {
-		boolean isSuccess = true;
+	public String[] validateBankEmployee(final Map<String, Object> requestInfo) {
+		boolean isSuccess = false;
 		long employeeId = 0;
 		try {
 			//final String utf8Data = URLDecoder.decode(rawData, "UTF-8");
 			
-			Map<String, Object> requestInfo = JsonUtil.parseJson(rawData, "name", "password");
-			
-			if (cookies != null && (cookies.length >= 1) && (cookies[0] != null)) {
-				cookies[0].setValue((String)requestInfo.get("name"));
-			}
-			
+			//Map<String, Object> requestInfo = JsonUtil.parseJson(rawData, "name", "password");
+	
 			employeeId = bankEmployeeDao.validateBankEmployeeByNameAndPwd(
 					(String)requestInfo.get("name"), (String)requestInfo.get("password"));
 		} catch (Exception e) {
 			throw e;
 		}
 		
-		if (employeeId == 0) {
-			isSuccess = false;
-		} else {
-			if (cookies != null && (cookies.length >= 2) && (cookies[1] != null)) {
-				cookies[1].setValue(Long.toString(employeeId));
-			}
-			
+		if (employeeId != 0) {
+			isSuccess = true;
+		
 			// Log BankEmployee`s Login Action.
 			BankEmployeeLoginLogPo bankEmployeeLoginLogPo = new BankEmployeeLoginLogPo();
 			bankEmployeeLoginLogPo.setEmployeeId(employeeId);
 			isSuccess = logDao.setEmployeeLoginLog(bankEmployeeLoginLogPo);
 		}
 		
+		String[] retStrs = new String[2];
+		retStrs[0] = JsonUtil.constructJson(isSuccess, null, null);
+		retStrs[1] = Long.toString(employeeId);
+		
+		return retStrs;
+	}
+	
+	@Override
+	public String getBankEmployeeLogout(String rawData) {
+		boolean isSuccess = false;
+		try {
+			Map<String, Object> requestInfo = JsonUtil.parseJson(rawData, "employeeId");
+			
+			isSuccess = logDao.setEmployeeLogoutLog(Long.parseLong((String)requestInfo.get("employeeId")));
+		} catch (Exception e) {
+			throw e;
+		}		
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}
 
@@ -106,5 +112,6 @@ public class BankEmployeeServiceImpl implements BankEmployeeService {
 			throw e;
 		}
 		return JsonUtil.constructJson(isSuccess, null, null);
-	}  
+	}
+  
 }

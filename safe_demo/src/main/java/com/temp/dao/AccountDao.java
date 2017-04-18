@@ -31,6 +31,7 @@ public interface AccountDao {
 	 * setAccount.
 	 * 
 	 * @param accountVo
+	 * @param newAccountFlag
 	 * @return boolean
 	 */
 	public boolean setAccount(final AccountPo accountPo);

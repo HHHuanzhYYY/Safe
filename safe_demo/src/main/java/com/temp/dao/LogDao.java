@@ -12,6 +12,14 @@ public interface LogDao {
 	 * @return boolean
 	 */
 	boolean setEmployeeLoginLog(BankEmployeeLoginLogPo bankEmployeeLoginLogPo);
+	
+	/**
+	 * setEmployeeLogoutLog.
+	 * 
+	 * @param bankEmployeeId
+	 * @return
+	 */
+	boolean setEmployeeLogoutLog(long bankEmployeeId);
 
 	/**
 	 * setReportLossLog.

@@ -1,39 +1,34 @@
 package com.temp.service;
 
-import javax.servlet.http.Cookie;
+import java.util.Map;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.temp.baseTest.ServiceTestBase;
+import com.temp.util.JsonUtil;
 
 public class BankEmployeeServiceTest extends ServiceTestBase {
 
 	@Autowired
 	private BankEmployeeService bankEmployeeService;
 	
-	/*@Test
+	@Test
 	public void validateBankEmployee() throws Exception {
 		final String rawData = "{"
-				//+ "\"success\":true,"
-				//+ "\"message\":null,"
-				//+ "\"data\":{"
-					+ "\"name\":\"柳宗元\","
-					+ "\"password\":\"123456\""
-				//	+ "}"
+					+ "\"name\":\"李商隐\","
+					+ "\"password\":\"222222\""
 				+ "}";
 		
-		Cookie employeeName = new Cookie("employeeName", "admin");
-		Cookie employeeId = new Cookie("employeeId", "0"); 
+		Map<String, Object> requestParams = JsonUtil.parseJson(rawData, "name", "password");
 		
-		String jsonStr = bankEmployeeService.validateBankEmployee(rawData, 
-				employeeName, 
-				employeeId);
+		String[] jsonStrs = bankEmployeeService.validateBankEmployee(requestParams);
 		
-		System.out.println(jsonStr);
-	}*/
+		System.out.println(jsonStrs[0]);
+		System.out.println(jsonStrs[1]);
+	}
 	
-	@Test
+	/*@Test
 	public void getAllBankEmployees() {
 		final String rawData = "{"
 					+ "\"bankId\":101"
@@ -42,7 +37,7 @@ public class BankEmployeeServiceTest extends ServiceTestBase {
 		String jsonStr = bankEmployeeService.getAllBankEmployees(rawData);
 		
 		System.out.println(jsonStr);
-	}
+	}*/
 	
 	/*@Test
 	public void setBankEmployeeDetails() {

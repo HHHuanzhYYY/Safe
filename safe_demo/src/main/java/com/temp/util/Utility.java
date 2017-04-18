@@ -14,6 +14,12 @@ public final class Utility {
 			accountType = AccountType.SINGLE;
 			break;
 		case 1:
+			accountType = AccountType.ONECARDMULTIBOX;
+			break;
+		case 2:
+			accountType = AccountType.MULTICARDMULTIBOX;
+			break;
+		case 3:
 			accountType = AccountType.UION;
 			break;
 		default:
@@ -56,14 +62,14 @@ public final class Utility {
 		// Calculate Rent.
 		float retRent = 0;
 		if (nowDate.before(endDate)) {
-			// 当前日期还在原有租期之内，且无续租
+			// 锟斤拷前锟斤拷锟节伙拷锟斤拷原锟斤拷锟斤拷锟斤拷之锟节ｏ拷锟斤拷锟斤拷锟斤拷锟斤拷
 			retRent = rentUnit * (end - now);		
 			if (endDate.before(endDateAfterRelet)) {
-				// 当前日期还在原有租期之内，且至少续租一次
+				// 锟斤拷前锟斤拷锟节伙拷锟斤拷原锟斤拷锟斤拷锟斤拷之锟节ｏ拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷一锟斤拷
 				retRent += rentDay * (endAfterRelet - end);
 			}
 		} else {
-			// 当前日期已经超出原有租期，但在续租期间之内
+			// 锟斤拷前锟斤拷锟斤拷锟窖撅拷锟斤拷锟斤拷原锟斤拷锟斤拷锟节ｏ拷锟斤拷锟斤拷锟斤拷锟斤拷锟节硷拷之锟斤拷
 			retRent = rentDay * (endAfterRelet - now);
 		}
 		

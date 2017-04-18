@@ -29,7 +29,7 @@ public class RentServiceImpl implements RentService {
 		try {
 			Map<String, Object> requestParams = JsonUtil.parseJson(rawData, "boxId");
 			
-			final int boxId = Integer.parseInt((String)requestParams.get("boxId"));
+			final long boxId = Long.parseLong((String)requestParams.get("boxId"));
 			
 			Map<String, Object> overdueFineInfo = rentDao.getBoxInfo4CountOverdueFineInfo(boxId);
 			

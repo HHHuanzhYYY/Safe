@@ -1,16 +1,17 @@
 package com.temp.service;
 
-import javax.servlet.http.Cookie;
+import java.util.Map;
 
 public interface BankEmployeeService {
 	
 	/**
 	 * validateBankEmployee.
 	 * 
-	 * @param rawData String from HttpRequest
-	 * @return JSON String Contains Account Info.
+	 * @param requestInfo
+	 * @return String[0]: JSON String Contains Account Info.
+	 * 		   String[1]: BankEmployeeId
 	 */
-	String validateBankEmployee(final String rawData, Cookie... cookies);  
+	String[] validateBankEmployee(final Map<String, Object> requestInfo);  
 	
 	/**
 	 * getAllBankEmployees.
@@ -35,4 +36,12 @@ public interface BankEmployeeService {
 	 * @return String
 	 */
 	String deleteBankEmployee(final String rawData);
+	
+	/**
+	 * getBankEmployeeLogout.
+	 * 
+	 * @param rawData
+	 * @return
+	 */
+	String getBankEmployeeLogout(final String rawData);
 }

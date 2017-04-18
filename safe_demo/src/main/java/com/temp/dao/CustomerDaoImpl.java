@@ -81,8 +81,12 @@ public class CustomerDaoImpl implements CustomerDao {
 	@Override
 	public List<CustomerVo> getAllCustomersByAccountId(String accountId, AccountType accountType) {
 		List<CustomerVo> customerVos = null;
-		if (AccountType.SINGLE.equals(accountType)) {
-			// Card ��Ϣ�󶨵� Box ����
+		switch (accountType) {
+		case SINGLE:			
+		case ONECARDMULTIBOX:
+		case MULTICARDMULTIBOX:	
+		{
+			// Card binding to Box.
 			String queryCustomersSQL = "SELECT customer.customerName, "
 									 		+ "customer.customerSex, "
 									 		+ "customer.certificateType, "
@@ -110,8 +114,11 @@ public class CustomerDaoImpl implements CustomerDao {
 						}
 					}
 			);
-		} else if (AccountType.UION.equals(accountType)) {
-			// Card ��Ϣ�󶨵� Customer ����
+			break;
+		} 
+		case UION:	
+		{
+			// Card binding to Customer.
 			String queryCustomersSQL = "SELECT customer.customerName, "
 											+ "customer.customerSex, "
 											+ "customer.certificateType, "
@@ -146,6 +153,10 @@ public class CustomerDaoImpl implements CustomerDao {
 						}
 					}
 			);
+			break;
+		}
+		default:
+			break;
 		}
 		return customerVos;
 	}
@@ -212,7 +223,7 @@ public class CustomerDaoImpl implements CustomerDao {
 			queryCustomerDataSQL = 
 					"SELECT customer.customerId, customer.customerName, "
 					     + "customer.customerSex, customer.certificateType, "
-					     + "customer.certificateNo, customer.unitAddress, customer.homeAddress, "
+					     + "customer.certificateNo, customer.unitName, customer.homeAddress, "
 					     + "customer.phone, customer.mobile, customer.post, customer.remark, "
 					     + "account.openAccountDate "
 				  + "FROM customer, account, account_customer_relationship "
@@ -225,7 +236,7 @@ public class CustomerDaoImpl implements CustomerDao {
 			// RFID
 			queryCustomerDataSQL = 
 					"SELECT customer.customerId, customerName, customerSex, certificateType, "
-					     + "certificateNo, unitAddress, homeAddress, phone, mobile, "
+					     + "certificateNo, unitName, homeAddress, phone, mobile, "
 					     + "post, remark, openAccountDate "
 			      + "FROM card, customer, account "
 			      + "WHERE card.customerId = customer.customerId "
@@ -247,7 +258,7 @@ public class CustomerDaoImpl implements CustomerDao {
 						customerDataVo.setCustomerSex(rs.getInt("customerSex"));
 						customerDataVo.setCertificateType(rs.getInt("certificateType"));
 						customerDataVo.setCertificateNo(rs.getString("certificateNo"));
-						customerDataVo.setUnitAddress(rs.getString("unitAddress"));
+						customerDataVo.setUnitName(rs.getString("unitName"));
 						customerDataVo.setHomeAddress(rs.getString("homeAddress"));
 						customerDataVo.setPhone(rs.getString("phone"));
 						customerDataVo.setMobile(rs.getString("mobile"));

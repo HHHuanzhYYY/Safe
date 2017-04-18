@@ -74,7 +74,7 @@ public class NewOpenAccountController {
 			String resJSON = accountManagerService.setAccountInfo(rawData);
 			
 			PrintWriter writer = response.getWriter();
-			writer.print(resJSON);			
+			writer.print(resJSON);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

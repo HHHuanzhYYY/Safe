@@ -50,7 +50,7 @@ public class BankEmployeeDaoImpl implements BankEmployeeDao {
 				+ "FROM bank_employee WHERE employeeId = ? AND password = ? ";
 		int count = 0;
 		try {
-			jdbcTemplate.queryForObject(validateBankEmployeeSQL, 
+			count = jdbcTemplate.queryForObject(validateBankEmployeeSQL, 
 					new Object[] {employeeId, employeePwd}, 
 					new int[] {Types.BIGINT, Types.VARCHAR}, 
 					Integer.class);

@@ -2,7 +2,7 @@ package com.temp.po;
 
 public class OffleasePo extends Po {
 	
-	private long id;
+	private long rentId;
 
 	private float returnDeposit;
 	
@@ -12,7 +12,9 @@ public class OffleasePo extends Po {
 	
 	private float overdueFine;
 	
-	private int unrecycleKeySum; // Կ����Ŀ
+	private int unrecycleKeySum; 
+	
+	private int isCardDestroy;  //Card 是否被销毁(0-是，1-否)
 	
 	private float keyFee;
 	
@@ -24,18 +26,18 @@ public class OffleasePo extends Po {
 
 	@Override
 	public String toString() {
-		return "OffleasePo [id=" + id + ", returnDeposit=" + returnDeposit + ", returnRent=" + returnRent
+		return "OffleasePo [rentId=" + rentId + ", returnDeposit=" + returnDeposit + ", returnRent=" + returnRent
 				+ ", overdueRent=" + overdueRent + ", overdueFine=" + overdueFine + ", unrecycleKeySum="
-				+ unrecycleKeySum + ", keyFee=" + keyFee + ", paymentType=" + paymentType + ", feeTotal=" + feeTotal
-				+ "]";
+				+ unrecycleKeySum + ", isCardDestroy=" + isCardDestroy + ", keyFee=" + keyFee + ", paymentType="
+				+ paymentType + ", feeTotal=" + feeTotal + "]";
 	}
 
-	public long getId() {
-		return id;
+	public long getRentId() {
+		return rentId;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setRentId(long rentId) {
+		this.rentId = rentId;
 	}
 
 	public float getReturnDeposit() {
@@ -76,6 +78,14 @@ public class OffleasePo extends Po {
 
 	public void setUnrecycleKeySum(int unrecycleKeySum) {
 		this.unrecycleKeySum = unrecycleKeySum;
+	}
+
+	public int getIsCardDestroy() {
+		return isCardDestroy;
+	}
+
+	public void setIsCardDestroy(int isCardDestroy) {
+		this.isCardDestroy = isCardDestroy;
 	}
 
 	public float getKeyFee() {

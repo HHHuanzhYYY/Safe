@@ -31,8 +31,8 @@ public class RentDaoImpl implements RentDao {
 	public boolean setRent(RentPo rent) {
 		String insertRentSQL = "INSERT INTO rent(rentStatus, leaseNo, leaseRemark, voucherNo, voucherRemark, "
 				+ "keySum, rentType, rentTime, startDate, endDate, deposit, rent, rentDiscountRate, actualRent, "
-				+ "paymentType, feeTotal, isRelet, boxId, accountId) "
-				+ "VALUES(0, ?, ?, ?, ?, 2, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?)";
+				+ "paymentType, feeTotal, isRelet, isChangeBox, operator, boxId, accountId) "
+				+ "VALUES(0, ?, ?, ?, ?, 2, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0, ?, ?, ?)";
 		
 		int count = jdbcTemplate.update(insertRentSQL, 
 				new Object[] {rent.getLeaseNo(), 
@@ -49,12 +49,14 @@ public class RentDaoImpl implements RentDao {
 							  rent.getActualRent(),
 							  rent.getPaymentType(), 
 							  rent.getFeeTotal(),
+							  rent.getOperator(),
 							  rent.getBoxId(),
 							  rent.getAccountId()}, 
 				new int[] {Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, 
 						   Types.INTEGER, Types.INTEGER, Types.DATE,    Types.DATE, 
 						   Types.DECIMAL, Types.DECIMAL, Types.DECIMAL, Types.DECIMAL, 
-						   Types.INTEGER, Types.DECIMAL, Types.BIGINT,  Types.VARCHAR});
+						   Types.INTEGER, Types.DECIMAL, Types.VARCHAR, Types.BIGINT,  
+						   Types.VARCHAR});
 		
 		return count == 1 ? true : false;
 	}
@@ -173,16 +175,16 @@ public class RentDaoImpl implements RentDao {
 
 	@Override
 	public boolean setOffleaseInfo(OffleasePo offleasePo) {
-		String insertOffleaseSQL = "INSERT INTO offlease VALUES (?, NOW(), ?, ?, ?, ?, ?, ?, ?, ?) ";
+		String insertOffleaseSQL = "INSERT INTO offlease VALUES (?, NOW(), ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
 		
 		int count = jdbcTemplate.update(insertOffleaseSQL, 
-				new Object[] {offleasePo.getId(), offleasePo.getReturnDeposit(), 
+				new Object[] {offleasePo.getRentId(), offleasePo.getReturnDeposit(), 
 						offleasePo.getReturnRent(), offleasePo.getOverdueRent(), 
 						offleasePo.getOverdueFine(), offleasePo.getUnrecycleKeySum(), 
-						offleasePo.getKeyFee(), offleasePo.getPaymentType(), 
-						offleasePo.getFeeTotal()}, 
-				new int[] {Types.INTEGER, Types.FLOAT,   Types.FLOAT, 
-						   Types.FLOAT,   Types.FLOAT,   Types.INTEGER, 
+						offleasePo.getIsCardDestroy(), offleasePo.getKeyFee(), 
+						offleasePo.getPaymentType(), offleasePo.getFeeTotal()}, 
+				new int[] {Types.BIGINT, Types.FLOAT,   Types.FLOAT, 
+						   Types.FLOAT,   Types.FLOAT,   Types.INTEGER, Types.INTEGER, 
 						   Types.FLOAT,   Types.INTEGER, Types.FLOAT});
 		
 		return count == 1 ? true : false;

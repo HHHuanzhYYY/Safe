@@ -4,11 +4,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -21,6 +23,7 @@ import com.temp.vo.BoxFullInfoVo;
 import com.temp.vo.BoxModelResumeVo;
 import com.temp.vo.BoxModelVo;
 import com.temp.vo.BoxVo;
+import com.temp.vo.ReletVo;
 
 @Repository
 public class BoxDaoImpl implements BoxDao {
@@ -32,8 +35,13 @@ public class BoxDaoImpl implements BoxDao {
 	public List<BoxVo> getAllBoxsByAccountId(String accountId, AccountType accountType) {
 		List<BoxVo> boxVos = null;
 		String queryBoxesSQL = "";
-		if (AccountType.SINGLE.equals(accountType)) {
-			// Card ��Ϣ�󶨵� Box ����
+		
+		switch (accountType) {
+		case SINGLE:			
+		case ONECARDMULTIBOX:
+		case MULTICARDMULTIBOX:	
+		{
+			// Card Info binding to Box.
 			queryBoxesSQL = "SELECT box.boxId, "
 								 + "box.boxModel, "
 								 + "box.keyNo, "
@@ -43,7 +51,10 @@ public class BoxDaoImpl implements BoxDao {
 					             + "cardtemp.cardStatus, "
 					             + "rent.deposit, "
 					             + "rent.actualRent, "
-					             + "rent.endDate " 
+					             + "rent.isRelet, "
+					             + "rent.endDate, " 
+					             + "rent.operator, " 
+					             + "rent.rentId " 
 					      + "FROM rent, box, (SELECT card.cardNo, "
 					      						  + "card.cardRfid, "
 					      						  + "card.cardType, "
@@ -53,6 +64,7 @@ public class BoxDaoImpl implements BoxDao {
 					      				   + "WHERE card.accountId = ?) AS cardtemp "
 					      + "WHERE rent.boxId = box.boxId "
 					        + "AND rent.accountId = cardtemp.accountId "
+					        + "AND rent.rentStatus = 0 "
 					        + "AND rent.accountId = ?";
 			
 			boxVos = jdbcTemplate.query(queryBoxesSQL, 
@@ -71,21 +83,32 @@ public class BoxDaoImpl implements BoxDao {
 							boxVo.setCardRfid(rs.getString("cardRfid"));
 							boxVo.setCardType(rs.getInt("cardType"));
 							boxVo.setCardStatus(rs.getInt("cardStatus"));
-							boxVo.setDeposit(rs.getFloat("deposit"));
-							boxVo.setActualRent(rs.getFloat("actualRent"));
+							boxVo.setDeposit(
+									((java.math.BigDecimal)rs.getBigDecimal("deposit")).floatValue());
+							boxVo.setActualRent(
+									((java.math.BigDecimal)rs.getBigDecimal("actualRent")).floatValue());
+							boxVo.setIsRelet(rs.getInt("isRelet") == 1 ? true : false);
 							boxVo.setEndDate(new java.util.Date(rs.getDate("endDate").getTime()));
+							boxVo.setOperator(rs.getString("operator"));
+							boxVo.setRentId(rs.getLong("rentId"));
 							
 							return boxVo;
 						}
 					});
-		} else if (AccountType.UION.equals(accountType)) {
-			// Card ��Ϣ�󶨵� Customer ����
+			break;
+		}
+		case UION:	
+		{
+			// Card Info binding to Customer.
 			queryBoxesSQL = "SELECT box.boxId, "
 								 + "box.boxModel, "
 								 + "box.keyNo, "
 					             + "rent.deposit, "
 					             + "rent.actualRent, "
-					             + "rent.endDate "
+					             + "rent.isRelet, "
+					             + "rent.endDate, "
+					             + "rent.operator, " 
+					             + "rent.rentId " 
 					      + "FROM rent, box " 
 					      + "WHERE rent.boxId = box.boxId "
 					        + "AND rent.accountId = ? ";
@@ -101,13 +124,86 @@ public class BoxDaoImpl implements BoxDao {
 							boxVo.setBoxId(rs.getInt("boxId"));
 							boxVo.setBoxModel(rs.getString("boxModel"));
 							boxVo.setKeyNo(rs.getString("keyNo"));
-							boxVo.setDeposit(rs.getFloat("deposit"));
-							boxVo.setActualRent(rs.getFloat("actualRent"));
+							boxVo.setDeposit(
+									((java.math.BigDecimal)rs.getBigDecimal("deposit")).floatValue());
+							boxVo.setActualRent(
+									((java.math.BigDecimal)rs.getBigDecimal("actualRent")).floatValue());
+							boxVo.setIsRelet(rs.getInt("isRelet") == 1 ? true : false);
 							boxVo.setEndDate(new java.util.Date(rs.getDate("endDate").getTime()));
+							boxVo.setOperator(rs.getString("operator"));
+							boxVo.setRentId(rs.getLong("rentId"));
 							
 							return boxVo;
 						}
 					});
+			break;
+		}
+		default:
+			break;
+		}
+		
+		// Re-Process the Rent which has Relet action.
+		if (boxVos != null) {
+			for (BoxVo boxVo : boxVos) {
+				if (boxVo.isRelet()) {
+					// Query the Max 'endDate'.
+					String queryMaxEndDateSQL = "SELECT MAX(endDate) AS maxEndDate FROM relet WHERE rentId = ? ";
+					java.sql.Date maxEndDate_sql = null;
+					try {
+						maxEndDate_sql = jdbcTemplate.queryForObject(queryMaxEndDateSQL, 
+								new Object[] {boxVo.getRentId()}, 
+								new int[] {Types.BIGINT}, 
+								java.sql.Date.class);
+					} catch (IncorrectResultSizeDataAccessException e) {
+						maxEndDate_sql = null;
+					}
+							
+					Date maxEndDate = null;
+					if (maxEndDate_sql != null) {
+						maxEndDate = new Date(maxEndDate_sql.getTime());
+					}
+					boxVo.setEndDate(maxEndDate);
+					
+					// Query all Relet Info.
+					String queryReletSQL = "SELECT reletId, rentId, endDate, overdueFine, overdueRent, rent "
+										 + "FROM relet "
+										 + "WHERE relet.rentId = ? ";
+					List<ReletVo> reletVos = jdbcTemplate.query(queryReletSQL, 
+							new Object[] {boxVo.getRentId()}, 
+							new int[] {Types.BIGINT}, 
+							new RowMapper<ReletVo>() {
+
+								@Override
+								public ReletVo mapRow(ResultSet rs, int arg1) throws SQLException {
+									ReletVo reletVo = new ReletVo();
+									
+									reletVo.setReletId(rs.getLong("reletId"));
+									reletVo.setRentId(rs.getLong("rentId"));
+									reletVo.setEndDate(new Date(rs.getDate("endDate").getTime()));
+									reletVo.setOverdueFine(
+											((java.math.BigDecimal)rs.getBigDecimal("overdueFine")).floatValue());
+									reletVo.setOverdueRent(
+											((java.math.BigDecimal)rs.getBigDecimal("overdueRent")).floatValue());
+									reletVo.setRent(
+											((java.math.BigDecimal)rs.getBigDecimal("rent")).floatValue());
+									
+									return reletVo;
+								}
+							}
+					);
+					if (reletVos != null) {
+						float rent = boxVo.getActualRent();
+						for (ReletVo reletVo : reletVos) {
+							// Rent.
+							// 租金包括原始租金加上续租的租金，不包含滞纳租金.
+							rent += reletVo.getRent();
+							// OverdueRent.
+							//rent += reletVo.getOverdueRent();
+						}
+						boxVo.setActualRent(rent);
+					}
+				}
+			}
 		}		
 		return boxVos;
 	}

@@ -40,16 +40,18 @@ public class RentPo extends Po {
 	
 	private String cardRfid;
 	
+	private String operator;
+	
 	public RentPo() {}
-
+	
 	@Override
 	public String toString() {
 		return "RentPo [rentId=" + rentId + ", leaseNo=" + leaseNo + ", leaseRemark=" + leaseRemark + ", voucherNo="
 				+ voucherNo + ", voucherRemark=" + voucherRemark + ", rentType=" + rentType + ", rentTime=" + rentTime
 				+ ", startDate=" + startDate + ", endDate=" + endDate + ", deposit=" + deposit + ", rent=" + rent
-				+ ", rentDiscountRate=" + rentDiscountRate + ", actualRent=" + actualRent + ", paymentType=" + paymentType
-				+ ", feeTotal=" + feeTotal + ", boxId=" + boxId + ", accountId=" + accountId + ", cardRfid=" + cardRfid
-				+ "]";
+				+ ", rentDiscountRate=" + rentDiscountRate + ", actualRent=" + actualRent + ", paymentType="
+				+ paymentType + ", feeTotal=" + feeTotal + ", boxId=" + boxId + ", accountId=" + accountId
+				+ ", cardRfid=" + cardRfid + ", operator=" + operator + "]";
 	}
 
 	public long getRentId() {
@@ -194,6 +196,14 @@ public class RentPo extends Po {
 
 	public void setCardRfid(String cardRfid) {
 		this.cardRfid = cardRfid;
+	}
+
+	public String getOperator() {
+		return operator;
+	}
+
+	public void setOperator(String operator) {
+		this.operator = operator;
 	}
 
 }

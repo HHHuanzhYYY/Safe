@@ -14,7 +14,15 @@ public class BoxVo extends Vo {
 	
 	private float actualRent;
 	
+	// 
+	private boolean isRelet;
+	
 	private Date endDate;
+	
+	private long rentId;
+	
+	// Operator.
+	private String operator;
 	
 	private String cardRfid;
 	
@@ -25,12 +33,13 @@ public class BoxVo extends Vo {
 	private int cardStatus;
 	
 	public BoxVo() {}
-
+		
 	@Override
 	public String toString() {
-		return "BoxVo [boxId=" + boxId + ", boxModel=" + boxModel + ", keyNo=" + keyNo 
-				+ ", deposit=" + deposit + ", actualRent=" + actualRent + ", endDate=" + endDate + ", cardRfid="
-				+ cardRfid + ", cardNo=" + cardNo + ", cardType=" + cardType + ", cardStatus=" + cardStatus + "]";
+		return "BoxVo [boxId=" + boxId + ", boxModel=" + boxModel + ", keyNo=" + keyNo + ", deposit=" + deposit
+				+ ", actualRent=" + actualRent + ", isRelet=" + isRelet + ", endDate=" + endDate + ", rentId=" + rentId
+				+ ", operator=" + operator + ", cardRfid=" + cardRfid + ", cardNo=" + cardNo + ", cardType=" + cardType
+				+ ", cardStatus=" + cardStatus + "]";
 	}
 
 	public long getBoxId() {
@@ -73,6 +82,14 @@ public class BoxVo extends Vo {
 		this.actualRent = actualRent;
 	}
 
+	public boolean isRelet() {
+		return isRelet;
+	}
+
+	public void setIsRelet(boolean isRelet) {
+		this.isRelet = isRelet;
+	}
+
 	public Date getEndDate() {
 		return endDate;
 	}
@@ -111,6 +128,22 @@ public class BoxVo extends Vo {
 
 	public void setCardStatus(int cardStatus) {
 		this.cardStatus = cardStatus;
+	}
+
+	public long getRentId() {
+		return rentId;
+	}
+
+	public void setRentId(long rentId) {
+		this.rentId = rentId;
+	}
+
+	public String getOperator() {
+		return operator;
+	}
+
+	public void setOperator(String operator) {
+		this.operator = operator;
 	}
 
 }

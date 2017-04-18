@@ -14,21 +14,13 @@ public class AccountManagerServiceTest extends ServiceTestBase {
 	public void getAccoutListByIdOrRFID() {
 		// Identification Card.
 		final String rawData = "{"
-				+ "\"success\":true,"
-				+ "\"message\":null,"
-				+ "\"data\":{"
 					+ "\"certificateType\":1,"
-					+ "\"certificateNo\":\"111111111111111111\""
-					+ "}"
+					+ "\"certificateNo\":\"110123456789\""
 				+ "}";
 //		// RFID.
 //		final String rawData = "{"
-//				+ "\"success\":true,"
-//				+ "\"message\":null,"
-//				+ "\"data\":{"
 //					+ "\"certificateType\":2,"
 //					+ "\"certificateNo\":\"34567\""
-//					+ "}"
 //				+ "}";
 		
 		String jsonStr = accountManageService.getAccoutListByIdOrRFID(rawData);
@@ -36,38 +28,33 @@ public class AccountManagerServiceTest extends ServiceTestBase {
 		System.out.println(jsonStr);
 	}*/
 	
-	/*@Test
+	@Test
 	public void getAccountInfo() {
 		final String rawData = "{"
-				+ "\"success\":true,"
-				+ "\"message\":null,"
-				+ "\"data\":{"
-					+ "\"accountType\":0,"
+					+ "\"accountType\":3,"
 					+ "\"accountId\":\"905\""
-					+ "}"
 				+ "}";
 		
 		String jsonStr = accountManageService.getAccountInfo(rawData);
 		
 		System.out.println(jsonStr);
-	}*/
+	}
 	
-	@Test
+	/*@Test
 	public void setAccountInfo() {
 		final String rawData = "{"
 					+ "\"accountType\":0,"
-					+ "\"bankId\":101,"
+					+ "\"accountId\":\"905\","
+					+ "\"bankId\":105,"
 					+ "\"isAccountFree\":0,"
 					+ "\"openAccountFee\":0.0,"
 					+ "\"paymentType\":0,"
-					+ "\"amountSum\":550.5,"
+					+ "\"amountSum\":100,"
 					+ "\"customerSum\":1,"
-					+ "\"certificateType\":1,"
-					+ "\"certificateNo\":\"2222\","
 					+ "\"customerList\":"
 						+ "[{"
 						+ "\"customerType\":0,"
-						+ "\"customerName\":\"迟大宁\","
+						+ "\"customerName\":\"迟小宁\","
 						+ "\"customerSex\":1,"
 						+ "\"certificateType\":1,"
 						+ "\"certificateNo\":\"110123456789\","
@@ -79,12 +66,13 @@ public class AccountManagerServiceTest extends ServiceTestBase {
 						+ "\"remark\":\"这只是一个测试用例\","
 						+ "\"photo\":null,"
 						+ "\"cardType\":1,"
-						+ "\"cardNo\":\"PEK0000001\","
-						+ "\"cardRfid\":\"PEK0000001\","
+						+ "\"cardNo\":\"PEK00000022\","
+						+ "\"cardRfid\":\"PEK00000022\","
 						+ "\"password\":\"asdfghjkl\","
 						+ "\"fingerPwd\":\"asdfghjkllkjhgfdsa\","
 						+ "\"reserveFingerPwd\":\"asdfghjkllkjhgfdsa\","
-						+ "}],"
+						+ "}]"
+					+ ","
 					+ "\"rentList\":"
 						+ "[{"
 						+ "\"boxId\":110,"
@@ -95,8 +83,10 @@ public class AccountManagerServiceTest extends ServiceTestBase {
 						+ "\"voucherRemark\":\"无\","
 						+ "\"rentType\":2,"
 						+ "\"rentTime\":2,"
-						+ "\"startDate\":1491321600000,"
-						+ "\"endDate\":1554307200000,"
+						//+ "\"startDate\":1491321600000,"
+						//+ "\"endDate\":1554307200000,"
+						+ "\"startDate\":null,"
+						+ "\"endDate\":null,"
 						+ "\"deposit\":1000.0,"
 						+ "\"rent\":5000.0,"
 						+ "\"rentDiscount \":0.8,"
@@ -127,15 +117,12 @@ public class AccountManagerServiceTest extends ServiceTestBase {
 		String jsonStr = accountManageService.setAccountInfo(rawData);
 		
 		System.out.println(jsonStr);
-	}
+	}*/
 	
 	/*@Test
 	public void setAccountNewBox() {
 		final String rawData = "{"
-				+ "\"success\":true,"
-				+ "\"message\":null,"
-				+ "\"data\":{"
-					+ "\"accountId\":8074786040259612645,"
+					+ "\"accountId\":905,"
 					+ "\"boxRent\":"
 						+ "{"
 						+ "\"boxId\":110,"
@@ -154,8 +141,8 @@ public class AccountManagerServiceTest extends ServiceTestBase {
 						+ "\"actualRent\":4000.0,"
 						+ "\"paymentType\":0,"
 						+ "\"feeTotal\":4000.0,"
+						+ "\"operator\":\"李大大大大大萝卜\""
 						+ "}"
-					+ "}"
 				+ "}";
 		
 		String jsonStr = accountManageService.setAccountNewBox(rawData);

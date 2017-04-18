@@ -3,6 +3,7 @@ package com.temp.controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -29,29 +30,53 @@ public class UniformController {
     private CardManageService cardManageService;
       
     @RequestMapping(value="/login", method={RequestMethod.GET, RequestMethod.POST}) 
-    public void login(HttpServletRequest request, HttpServletResponse response) {  
+    public void login(HttpServletRequest request, HttpServletResponse response)
+    		throws Exception {  
     	//final String rawData = request.getParameter("info");
     	String rawData = JsonUtil.getRawData(request);
 		try {
+			// Parse Request Params.
+			Map<String, Object> requestParams = JsonUtil.parseJson(rawData, "name", "password");
+			
 			// Write "employeeName".
-			Cookie employeeName = new Cookie("employeeName", "admin");
+			Cookie employeeName = new Cookie("employeeName", (String)requestParams.get("name"));
 			employeeName.setPath("/");
 			response.addCookie(employeeName);
+			
+			/*
+			 * resStrs[0]: JSON result.
+			 * resStrs[1]: employeeId
+			 */
+			String[] resStrs = bankEmployeeService.validateBankEmployee(requestParams);
+			
 			// Write "employeeId".
-			Cookie employeeId = new Cookie("employeeId", "0");
+			Cookie employeeId = new Cookie("employeeId", resStrs[1]);
 			employeeId.setPath("/");
 			response.addCookie(employeeId);
 			
-			String resJSON = bankEmployeeService.validateBankEmployee(rawData, employeeName, employeeId);
 			PrintWriter writer = response.getWriter();
-			writer.print(resJSON);
+			writer.print(resStrs[0]);
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw e;
 		}
     } 
     
+    @RequestMapping(value="/logout", method={RequestMethod.GET, RequestMethod.POST}) 
+    public void logout(HttpServletRequest request, HttpServletResponse response) throws Exception {  
+    	//final String rawData = request.getParameter("info");
+    	String rawData = JsonUtil.getRawData(request);
+		try {
+			String resJSON = bankEmployeeService.getBankEmployeeLogout(rawData);
+			PrintWriter writer = response.getWriter();
+			writer.print(resJSON);
+		} catch (Exception e) {
+			throw e;
+		}
+    }
+    
     @RequestMapping(value="/getAccountsCustomersBoxs", method={RequestMethod.GET, RequestMethod.POST}) 
-    public void getAccountsCustomersBoxs(HttpServletRequest request, HttpServletResponse response) {    	
+    public void getAccountsCustomersBoxs(HttpServletRequest request, HttpServletResponse response) 
+    		throws Exception {    	
 		//final String rawData = request.getParameter("info");
 		String rawData = JsonUtil.getRawData(request);
 		try {
@@ -60,12 +85,12 @@ public class UniformController {
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw e;
 		}
     } 
     
     @RequestMapping(value="/test", method={RequestMethod.GET, RequestMethod.POST}) 
-    public void test(HttpServletRequest request, HttpServletResponse response) {    	
+    public void test(HttpServletRequest request, HttpServletResponse response) throws Exception {    	
     	System.out.println("-------------test-------------");
     	
     	//final String rawData = request.getParameter("info");
@@ -85,7 +110,7 @@ public class UniformController {
 			
 			rawData = jb.toString();
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw e;
 		}
     	
     	PrintWriter writer;

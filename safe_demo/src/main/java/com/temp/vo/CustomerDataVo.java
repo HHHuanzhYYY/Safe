@@ -8,18 +8,18 @@ import java.util.Date;
  */
 public class CustomerDataVo extends Vo {
 
-	private long customerId; // �ͻ�ID	
-	private String customerName;  // ����	
-	private int customerSex; // �Ա�	
-	private int certificateType; // ֤������	
-	private String certificateNo; // ֤����	
-	private Date openAccountDate; // ��������	
-	private String unitAddress; // ��λ��ַ	
-	private String homeAddress; // ��ͥ��ַ	
-	private String phone; // ��ϵ��ʽ	
-	private String mobile; // �ֻ���	
-	private String post; // �ʱ�	
-	private String remark; // ��ע	
+	private long customerId; 
+	private String customerName; 
+	private int customerSex; 
+	private int certificateType;	
+	private String certificateNo;
+	private Date openAccountDate; 
+	private String unitName;	
+	private String homeAddress; 
+	private String phone; 
+	private String mobile;
+	private String post;
+	private String remark; 	
 	
 	public CustomerDataVo() {}
 
@@ -27,7 +27,7 @@ public class CustomerDataVo extends Vo {
 	public String toString() {
 		return "CustomerDataVo [customerId=" + customerId + ", customerName=" + customerName + ", customerSex="
 				+ customerSex + ", certificateType=" + certificateType + ", certificateNo=" + certificateNo
-				+ ", openAccountDate=" + openAccountDate + ", unitAddress=" + unitAddress + ", homeAddress="
+				+ ", openAccountDate=" + openAccountDate + ", unitName=" + unitName + ", homeAddress="
 				+ homeAddress + ", phone=" + phone + ", mobile=" + mobile + ", post=" + post + ", remark=" + remark
 				+ "]";
 	}
@@ -80,12 +80,12 @@ public class CustomerDataVo extends Vo {
 		this.openAccountDate = openAccountDate;
 	}
 
-	public String getUnitAddress() {
-		return unitAddress;
+	public String getUnitName() {
+		return unitName;
 	}
 
-	public void setUnitAddress(String unitAddress) {
-		this.unitAddress = unitAddress;
+	public void setUnitName(String unitName) {
+		this.unitName = unitName;
 	}
 
 	public String getHomeAddress() {

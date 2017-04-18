@@ -84,9 +84,15 @@ public class AccountDaoImpl implements AccountDao {
 
 	@Override
 	public boolean setAccount(AccountPo accountPo) {
-		final String insertAccountSQL = "INSERT INTO account VALUES(?, ?, NOW(), NULL, ?, ?, ?, ?, ?, ?)";
+		String setAccountSQL = "INSERT INTO account(accountId, accountType, openAccountDate, "
+												 + "cancelAccountDate, isAccountFree, openAccountFee, "
+												 + "paymentType, amountSum, customerSum, bankId) "
+							 + "VALUES(?, ?, NOW(), NULL, ?, ?, ?, ?, ?, ?) "
+							 + "ON DUPLICATE KEY UPDATE accountType = ?, "
+							 						 + "amountSum = amountSum + ?, "
+							 						 + "customerSum = customerSum + ? ";
 		
-		int count = jdbcTemplate.update(insertAccountSQL, new PreparedStatementSetter() {
+		int count = jdbcTemplate.update(setAccountSQL, new PreparedStatementSetter() {
 
 			@Override
 			public void setValues(PreparedStatement pst) throws SQLException {
@@ -99,9 +105,13 @@ public class AccountDaoImpl implements AccountDao {
 				pst.setFloat(i++, accountPo.getAmountSum());
 				pst.setInt(i++, accountPo.getCustomerSum());
 				pst.setLong(i++, accountPo.getBankId());
+				
+				pst.setInt(i++, accountPo.getAccountType());
+				pst.setFloat(i++, accountPo.getAmountSum());
+				pst.setInt(i++, accountPo.getCustomerSum());
 			}			
 		});	
-		return count == 1 ? true : false;
+		return count >= 1 ? true : false;
 	}
 
 	@Override
