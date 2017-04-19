@@ -44,51 +44,52 @@ public class CardDaoImpl implements CardDao {
 
 	@Override
 	public boolean changeCard(ReportLossPo reportLossPo) {
-		// ���Ҿɵ� Card.
-		String queryOldCardInfoSQL = "SELECT card.cardRfid, "
+		// Query Old Card Info.
+		String queryOldCardInfoSQL = "SELECT card.customerId, "
 										  + "card.accountId, "
-										  + "card.cardType, "
-										  + "box_card_relationship.relationshipId, "
-										  + "customer.customerId " 
-								   + "FROM customer, card, box_card_relationship "
-								   + "WHERE customer.customerId = card.customerId "
-								     + "AND certificateType = ? "
-								     + "AND certificateNo = ? "
-								     + "AND card.cardRfid = box_card_relationship.cardRfid "
-								     + "AND boxId = ? ";
+										  + "card.cardType "
+								   + "FROM card "
+								   + "WHERE card.cardRfid = ? ";
 		final Map<String, Object> oldCardInfo = jdbcTemplate.queryForMap(queryOldCardInfoSQL, 
-				new Object[] {reportLossPo.getCertificateType(), 
-							  reportLossPo.getCertificateNo(), 
-							  reportLossPo.getBoxId()}, 
-				new int[] {Types.INTEGER, Types.VARCHAR, Types.INTEGER});
+				new Object[] {reportLossPo.getCardRfid()}, 
+				new int[] {Types.VARCHAR});
 		
-		// ���� Box �� Card ����ϵ
+		// Insert into the relationship between New-Card and Box in Table "box_card_relationship".
 		String insertBoxCardRelationshipSQL = "INSERT INTO box_card_relationship(boxId, cardRfid) VALUES(?, ?) ";
 		int count = jdbcTemplate.update(insertBoxCardRelationshipSQL, 
-				new Object[] {reportLossPo.getBoxId(), reportLossPo.getCardRfid()}, 
-				new int[] {Types.INTEGER, Types.VARCHAR});
+				new Object[] {reportLossPo.getBoxId(), reportLossPo.getNewCardRfid()}, 
+				new int[] {Types.BIGINT, Types.VARCHAR});
 		
-		// ������ Card ��Ϣ
+		// Insert New Card into Table "card".
 		String insertCardInfoSQL = "INSERT INTO card VALUES(?, ?, ?, 0, ?, NULL, NULL, 1, ?, ?) ";
 		int count1 = jdbcTemplate.update(insertCardInfoSQL, 
-				new Object[] {reportLossPo.getCardRfid(), 
-							  reportLossPo.getCardNo(), 
+				new Object[] {reportLossPo.getNewCardRfid(), 
+							  reportLossPo.getNewCardNo(), 
 							  oldCardInfo.get("cardType"),
-							  reportLossPo.getPassword(),
+							  reportLossPo.getNewCardPassword(),
 							  oldCardInfo.get("accountId"), 
 							  oldCardInfo.get("customerId")}, 
 				new int[] {Types.VARCHAR, Types.VARCHAR, Types.INTEGER, 
-						   Types.VARCHAR, Types.INTEGER, Types.INTEGER});
+						   Types.VARCHAR, Types.BIGINT, Types.BIGINT});
 		
-		// ɾ�� ��Card �� Box ����ϵ.
-		String deleteBoxCardRelationshipSQL = "DELETE FROM box_card_relationship WHERE relationshipId = ? ";
-		int count2 = jdbcTemplate.update(deleteBoxCardRelationshipSQL, oldCardInfo.get("relationshipId"));
+		// Delete the relationship between Old-Card and Box in Table "box_card_relationship".
+		String deleteBoxCardRelationshipSQL = "DELETE FROM box_card_relationship "
+											+ "WHERE cardRfid = ? AND boxId = ? ";
+		int count2 = jdbcTemplate.update(deleteBoxCardRelationshipSQL, 
+				new Object[] {reportLossPo.getCardRfid(), reportLossPo.getBoxId()}, 
+				new int[] {Types.BIGINT, Types.BIGINT});
 		
-		// ɾ�� ��Card ��Ϣ.
-		String deleteCardInfoSQL = "DELETE FROM card WHERE cardRfid = ? ";
-		int count3 = jdbcTemplate.update(deleteCardInfoSQL, reportLossPo.getCardRfid());
+		// Delete Old Card in Table "card" when there is no other box corresponding to the Card.
+		String deleteCardInfoSQL = "DELETE FROM card "
+		+ "USING card, (SELECT ? as cardRfid, COUNT(relationshipId) AS sum "
+					 + "FROM box_card_relationship "
+					 + "WHERE cardRfid = ?) AS temp "
+		+ "WHERE card.cardRfid = temp.cardRfid AND temp.sum = 0 ";
+		jdbcTemplate.update(deleteCardInfoSQL, 
+				new Object[] {reportLossPo.getCardRfid(), reportLossPo.getCardRfid()}, 
+				new int[] {Types.VARCHAR, Types.VARCHAR});
 		
-		return ((count == 1) && (count1 == 1) && (count2 == 1) && (count3 == 1)) ? true : false;
+		return ((count >= 1) && (count1 >= 1) && (count2 >= 1)) ? true : false;
 	}
 
 }

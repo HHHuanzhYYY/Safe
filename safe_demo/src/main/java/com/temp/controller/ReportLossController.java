@@ -50,6 +50,20 @@ public class ReportLossController {
 		}
 	}
 	
+	@RequestMapping(value="/getReportLossType", method={RequestMethod.GET, RequestMethod.POST})
+	public void getReportLossType(HttpServletRequest request, HttpServletResponse response) {
+		//String rawData = request.getParameter("info");
+		String rawData = JsonUtil.getRawData(request);
+		try {
+			String resJSON = reportLossService.getReportLossType(rawData);
+			
+			PrintWriter writer = response.getWriter();
+			writer.print(resJSON);			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	@RequestMapping(value="/setReportLossDetails", method={RequestMethod.GET, RequestMethod.POST})
 	public void setReportLossDetails(HttpServletRequest request, HttpServletResponse response) {
 		//String rawData = request.getParameter("info");

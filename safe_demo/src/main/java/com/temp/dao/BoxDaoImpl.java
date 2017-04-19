@@ -43,6 +43,7 @@ public class BoxDaoImpl implements BoxDao {
 		{
 			// Card Info binding to Box.
 			queryBoxesSQL = "SELECT box.boxId, "
+								 + "box.status, "
 								 + "box.boxModel, "
 								 + "box.keyNo, "
 					             + "cardtemp.cardNo, "
@@ -77,6 +78,7 @@ public class BoxDaoImpl implements BoxDao {
 							BoxVo boxVo = new BoxVo();
 							
 							boxVo.setBoxId(rs.getInt("boxId"));
+							boxVo.setBoxStatus(rs.getInt("status"));
 							boxVo.setBoxModel(rs.getString("boxModel"));
 							boxVo.setKeyNo(rs.getString("keyNo"));
 							boxVo.setCardNo(rs.getString("cardNo"));
@@ -101,6 +103,7 @@ public class BoxDaoImpl implements BoxDao {
 		{
 			// Card Info binding to Customer.
 			queryBoxesSQL = "SELECT box.boxId, "
+								 + "box.status, "
 								 + "box.boxModel, "
 								 + "box.keyNo, "
 					             + "rent.deposit, "
@@ -122,6 +125,7 @@ public class BoxDaoImpl implements BoxDao {
 							BoxVo boxVo = new BoxVo();
 							
 							boxVo.setBoxId(rs.getInt("boxId"));
+							boxVo.setBoxStatus(rs.getInt("status"));
 							boxVo.setBoxModel(rs.getString("boxModel"));
 							boxVo.setKeyNo(rs.getString("keyNo"));
 							boxVo.setDeposit(

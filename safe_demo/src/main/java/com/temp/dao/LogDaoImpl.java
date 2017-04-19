@@ -62,8 +62,10 @@ public class LogDaoImpl implements LogDao {
 										 + "reportLossType, paymentType, feeTotal, boxId, rentId) "
 			  + "VALUES(NOW(), ?, ?, ?, ?, ?, ?) ";
 		int count = jdbcTemplate.update(insertReportLossSQL, 
-				new Object[] {reportLossAction.getValue(), reportLossType, paymentType, feeTotal, boxId, rentId}, 
-				new int[] {Types.INTEGER, Types.INTEGER, Types.INTEGER, Types.FLOAT, Types.INTEGER, Types.INTEGER});
+				new Object[] {reportLossAction.getValue(), reportLossType, paymentType, 
+						      feeTotal, boxId, rentId}, 
+				new int[] {Types.INTEGER, Types.INTEGER, Types.INTEGER, 
+						   Types.FLOAT,   Types.INTEGER, Types.INTEGER});
 		
 		return count == 1  ? true : false;
 	}

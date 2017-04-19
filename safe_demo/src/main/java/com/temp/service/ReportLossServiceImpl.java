@@ -51,9 +51,9 @@ public class ReportLossServiceImpl implements ReportLossService {
 		boolean isSuccess = true;
 		try {
 			Map<String, Object> paramValues = JsonUtil.parseJson(rawData, 
-					"boxId", "reportLossType", "paymentType", "feeTotal");
+					"cardRfid", "boxId", "reportLossType", "paymentType", "feeTotal");
 			
-			// Set the Status of corresponding Box.
+			// Set the Status of corresponding Box to "BoxStatus.REPORTLOSS".
 			// reportLossAction.getValue() = 1 : BoxStatus.INRENT
 			// reportLossAction.getValue() = 3 : BoxStatus.REPORTLOSS
 			boxDao.setBoxStatus(Long.parseLong((String)paramValues.get("boxId")), 
@@ -72,25 +72,38 @@ public class ReportLossServiceImpl implements ReportLossService {
 		}		
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}
+	
+	@Override
+	public String getReportLossType(String rawData) {
+		boolean isSuccess = true;
+		try {
+			Map<String, Object> paramValues = JsonUtil.parseJson(rawData, "boxId");
+			
+			
+		} catch (Exception e) {
+			throw e;
+		}		
+		return JsonUtil.constructJson(isSuccess, null, null);
+	}
 
 	@Override
 	public String setReportLossDetails(String rawData, ReportLossAction reportLossAction) {
-		boolean isSuccess = true;
+		boolean isSuccess = false;
 		try {
 			ReportLossPo reportLossPo = (ReportLossPo) JsonUtil.parseJson(rawData, ReportLossPo.class);
 			
-			switch (reportLossPo.getVisualReportLossType()) {
-			case PWDLOSS:
+			int reportLossType = reportLossPo.getReportLossType();			
+			if ((reportLossType & 0x01) == 1) {
+				// Modify Password of the Card.
 				isSuccess = cardDao.changeCardPwd(reportLossPo.getCardRfid(), reportLossPo.getPassword());
-				break;
-			case CARDLOSS:
+			}
+			if (((reportLossType >> 1) & 0x01) == 1) {
+				// Change a new Card.
 				isSuccess = cardDao.changeCard(reportLossPo);
-				break;
-			case KEYLOSS:
+			}
+			if (((reportLossType >> 2) & 0x01) == 1) {
+				// Change a new Key.
 				isSuccess = boxDao.setBoxNewKey(reportLossPo.getBoxId(), reportLossPo.getKeyNo());
-				break;
-			default:
-				break;
 			}
 			
 			// Log the Action of Handle the Report Loss.
@@ -104,5 +117,6 @@ public class ReportLossServiceImpl implements ReportLossService {
 		}		
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}
+
 
 }

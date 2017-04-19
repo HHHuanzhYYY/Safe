@@ -6,6 +6,8 @@ public class BoxVo extends Vo {
 	
 	private long boxId;
 	
+	private int boxStatus;
+	
 	private String boxModel;
 	
 	private String keyNo;
@@ -33,13 +35,13 @@ public class BoxVo extends Vo {
 	private int cardStatus;
 	
 	public BoxVo() {}
-		
+			
 	@Override
 	public String toString() {
-		return "BoxVo [boxId=" + boxId + ", boxModel=" + boxModel + ", keyNo=" + keyNo + ", deposit=" + deposit
-				+ ", actualRent=" + actualRent + ", isRelet=" + isRelet + ", endDate=" + endDate + ", rentId=" + rentId
-				+ ", operator=" + operator + ", cardRfid=" + cardRfid + ", cardNo=" + cardNo + ", cardType=" + cardType
-				+ ", cardStatus=" + cardStatus + "]";
+		return "BoxVo [boxId=" + boxId + ", boxStatus=" + boxStatus + ", boxModel=" + boxModel + ", keyNo=" + keyNo
+				+ ", deposit=" + deposit + ", actualRent=" + actualRent + ", isRelet=" + isRelet + ", endDate="
+				+ endDate + ", rentId=" + rentId + ", operator=" + operator + ", cardRfid=" + cardRfid + ", cardNo="
+				+ cardNo + ", cardType=" + cardType + ", cardStatus=" + cardStatus + "]";
 	}
 
 	public long getBoxId() {
@@ -144,6 +146,14 @@ public class BoxVo extends Vo {
 
 	public void setOperator(String operator) {
 		this.operator = operator;
+	}
+
+	public int getBoxStatus() {
+		return boxStatus;
+	}
+
+	public void setBoxStatus(int boxStatus) {
+		this.boxStatus = boxStatus;
 	}
 
 }

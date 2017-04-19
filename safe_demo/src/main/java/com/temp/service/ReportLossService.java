@@ -21,6 +21,14 @@ public interface ReportLossService {
 	String setReportLossLog(final String rawData, final ReportLossAction reportLossAction);
 	
 	/**
+	 * getReportLossType.
+	 * 
+	 * @param rawData
+	 * @return
+	 */
+	String getReportLossType(final String rawData);
+	
+	/**
 	 * setReportLossDetails.
 	 * 
 	 * @param rawData String from HttpRequest
