@@ -30,6 +30,23 @@ public class BoxManageServiceImpl implements BoxManageService {
 	
 	@Autowired
 	private RentDao rentDao;
+	
+	@Transactional(readOnly = true)
+	@Override
+	public String getChangeBoxInfo(String rawData) {
+		boolean isSuccess = false;
+		Map<String, Object> rentAndDeposit = null;		
+		try {
+			Map<String, Object> paramValues = JsonUtil.parseJson(rawData, "boxId");
+			
+			rentAndDeposit = rentDao.getRentAndDeposit(Long.parseLong((String)paramValues.get("boxId")));
+			
+			isSuccess = true;
+		} catch (Exception e) {
+			throw e;
+		}	
+		return JsonUtil.constructJson(isSuccess, null, rentAndDeposit);
+	}
 
 	@Transactional(readOnly = true)
 	@Override
@@ -171,6 +188,34 @@ public class BoxManageServiceImpl implements BoxManageService {
 			throw e;
 		}
 		return JsonUtil.constructJson(isSuccess, null, null);
+	}
+
+	@Override
+	public String listAllFreeBox() {
+		boolean isSuccess = true;
+		List<Long> boxIds = null;
+		try {
+			boxIds = boxDao.getAllFreeBox();
+		} catch (Exception e) {
+			throw e;
+		}		
+		return JsonUtil.constructJson(isSuccess, null, boxIds);
+	}
+
+	@Override
+	public String getBoxInfo(String rawData) {
+		boolean isSuccess = false;
+		Map<String, Object> boxInfo = null;
+		try {
+			Map<String, Object> boxIdMap = JsonUtil.parseJson(rawData, "boxId");
+			
+			boxInfo = boxDao.getBoxInfoByBoxId(Long.parseLong((String)boxIdMap.get("boxId")));
+			
+			isSuccess = true;
+		} catch (Exception e) {
+			throw e;
+		}
+		return JsonUtil.constructJson(isSuccess, null, boxInfo);
 	}
 
 }

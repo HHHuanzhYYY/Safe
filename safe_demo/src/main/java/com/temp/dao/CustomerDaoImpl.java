@@ -166,7 +166,7 @@ public class CustomerDaoImpl implements CustomerDao {
 		final String insertCustomerSQL = 
 				"INSERT INTO customer" + 
 						"(customerType, customerName, customerSex, " + 
-						 "certificateType, certificateNo, homeAddress, unitAddress, " + 
+						 "certificateType, certificateNo, homeAddress, unitName, " + 
 						 "phone, mobile, post, photo, remark) " + 
 				"VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
@@ -183,7 +183,7 @@ public class CustomerDaoImpl implements CustomerDao {
 				pst.setInt(i++, newCustomer.getCertificateType());
 				pst.setString(i++, newCustomer.getCertificateNo());
 				pst.setString(i++, newCustomer.getHomeAddress());
-				pst.setString(i++, newCustomer.getUnitAddress());
+				pst.setString(i++, newCustomer.getUnitName());
 				pst.setString(i++, newCustomer.getPhone());
 				pst.setString(i++, newCustomer.getMobile());
 				pst.setString(i++, newCustomer.getPost());

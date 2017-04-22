@@ -17,7 +17,7 @@ public class BoxVo extends Vo {
 	private float actualRent;
 	
 	// 
-	private boolean isRelet;
+	//private boolean isRelet;
 	
 	private Date endDate;
 	
@@ -39,7 +39,7 @@ public class BoxVo extends Vo {
 	@Override
 	public String toString() {
 		return "BoxVo [boxId=" + boxId + ", boxStatus=" + boxStatus + ", boxModel=" + boxModel + ", keyNo=" + keyNo
-				+ ", deposit=" + deposit + ", actualRent=" + actualRent + ", isRelet=" + isRelet + ", endDate="
+				+ ", deposit=" + deposit + ", actualRent=" + actualRent +/* ", isRelet=" + isRelet + */", endDate="
 				+ endDate + ", rentId=" + rentId + ", operator=" + operator + ", cardRfid=" + cardRfid + ", cardNo="
 				+ cardNo + ", cardType=" + cardType + ", cardStatus=" + cardStatus + "]";
 	}
@@ -84,13 +84,13 @@ public class BoxVo extends Vo {
 		this.actualRent = actualRent;
 	}
 
-	public boolean isRelet() {
+	/*public boolean isRelet() {
 		return isRelet;
 	}
 
 	public void setIsRelet(boolean isRelet) {
 		this.isRelet = isRelet;
-	}
+	}*/
 
 	public Date getEndDate() {
 		return endDate;

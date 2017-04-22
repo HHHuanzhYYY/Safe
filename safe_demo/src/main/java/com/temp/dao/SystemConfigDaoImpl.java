@@ -23,6 +23,7 @@ import com.temp.po.MessagePo;
 import com.temp.po.SubjectPo;
 import com.temp.vo.BankBranchVo;
 import com.temp.vo.BankEmployeeResumeVo;
+import com.temp.vo.FeeTypeResumeVo;
 import com.temp.vo.FeeTypeVo;
 import com.temp.vo.MessageVo;
 import com.temp.vo.SubjectVo;
@@ -236,8 +237,30 @@ public class SystemConfigDaoImpl implements SystemConfigDao {
 				subjectVo.setRemark(rs.getString("remark"));
 				
 				return subjectVo;
-			}			
+			}
 		});
+		
+		// Query Fee_type corresponding to Subject.
+		for(SubjectVo vo : retSubjectVos) {
+			String queryFeeTypeSQL = "SELECT feeTypeId, feeTypeTitle FROM fee_type WHERE subjectId = ? ";
+			
+			List<FeeTypeResumeVo> feeTypeResumeVos = jdbcTemplate.query(queryFeeTypeSQL, 
+					new Object[] {vo.getSubjectId()}, 
+					new int[] {Types.BIGINT}, 
+					new RowMapper<FeeTypeResumeVo>() {
+
+				@Override
+				public FeeTypeResumeVo mapRow(ResultSet rs, int arg1) throws SQLException {
+					FeeTypeResumeVo feeTypeResumeVo = new FeeTypeResumeVo();
+					
+					feeTypeResumeVo.setFeeTypeId(rs.getLong("feeTypeId"));
+					feeTypeResumeVo.setFeeTypeTitle(rs.getString("feeTypeTitle"));
+					
+					return feeTypeResumeVo;
+				}
+			});
+			vo.setFeeTypeList(feeTypeResumeVos);
+		}	
 		return retSubjectVos;
 	}
 
@@ -328,17 +351,26 @@ public class SystemConfigDaoImpl implements SystemConfigDao {
 	public boolean setFeeTypeDetails(FeeTypePo feeTypePo) {
 		String insertFeeTypeSQL = 
 				"INSERT INTO fee_type(feeTypeId, feeTypeTitle, subjectId, feeValue, status, remark) "
-			  + "VALUES(?, ?, ?, ?, ?, ?) ";
+			  + "VALUES(?, ?, ?, ?, ?, ?) "
+			  + "ON DUPLICATE KEY UPDATE feeTypeTitle = ?, remark = ?, `status` = ?, feeValue = ?, subjectId = ? ";
 		int count = jdbcTemplate.update(insertFeeTypeSQL, 
 				new Object[] {feeTypePo.getFeeTypeId(), 
 						      feeTypePo.getFeeTypeTitle(), 
 						      feeTypePo.getSubjectId(), 
 						      feeTypePo.getFeeValue(), 
 						      feeTypePo.getStatus(), 
-						      feeTypePo.getRemark()}, 
-				new int[] {Types.INTEGER, Types.VARCHAR, Types.INTEGER, 
-						   Types.FLOAT, Types.INTEGER, Types.VARCHAR});
-		return count == 1 ? true : false;
+						      feeTypePo.getRemark(),
+						      feeTypePo.getFeeTypeTitle(), 
+						      feeTypePo.getRemark(),
+						      feeTypePo.getStatus(), 
+						      feeTypePo.getFeeValue(),
+						      feeTypePo.getSubjectId()
+						      }, 
+				new int[] {Types.BIGINT, Types.VARCHAR, Types.BIGINT, 
+						   Types.FLOAT,  Types.INTEGER, Types.VARCHAR,
+						   Types.VARCHAR,Types.VARCHAR, Types.INTEGER, 
+						   Types.FLOAT,  Types.BIGINT});
+		return count >= 1 ? true : false;
 	}
 
 	@Override
@@ -361,6 +393,28 @@ public class SystemConfigDaoImpl implements SystemConfigDao {
 		int[] ret = jdbcTemplate.batchUpdate(deleteFeeTypeSQL, batchArgs, new int[] {Types.BIGINT});
 		
 		return ret.length == 0 ? false : true;
+	}
+
+	@Override
+	public List<FeeTypeResumeVo> getFreeFeeType() {
+		String queryFreeFeeTypeSQL = "SELECT feeTypeId, feeTypeTitle FROM fee_type WHERE subjectId = 0 ";
+		
+		List<FeeTypeResumeVo> freeFeeTypes = jdbcTemplate.query(queryFreeFeeTypeSQL, 
+				new RowMapper<FeeTypeResumeVo>() {
+
+			@Override
+			public FeeTypeResumeVo mapRow(ResultSet rs, int arg1) throws SQLException {
+				FeeTypeResumeVo feeTypeResumeVo = new FeeTypeResumeVo();
+				
+				feeTypeResumeVo.setFeeTypeId(rs.getLong("feeTypeId"));
+				feeTypeResumeVo.setFeeTypeTitle(rs.getString("feeTypeTitle"));
+				
+				return feeTypeResumeVo;
+			}
+			
+		});
+		
+		return freeFeeTypes;
 	}
 
 }

@@ -10,6 +10,7 @@ import com.temp.dao.BankEmployeeDao;
 import com.temp.dao.BoxDao;
 import com.temp.dao.CardDao;
 import com.temp.dao.LogDao;
+import com.temp.dao.RentDao;
 import com.temp.po.ReportLossPo;
 import com.temp.util.JsonUtil;
 import com.temp.util.ReportLossAction;
@@ -29,6 +30,9 @@ public class ReportLossServiceImpl implements ReportLossService {
 	
 	@Autowired
 	private LogDao logDao;
+	
+	@Autowired
+	private RentDao rentDao;
 
 	@Transactional(readOnly = true)
 	@Override
@@ -48,10 +52,10 @@ public class ReportLossServiceImpl implements ReportLossService {
 
 	@Override
 	public String setReportLossLog(String rawData, ReportLossAction reportLossAction) {
-		boolean isSuccess = true;
+		boolean isSuccess = false;
 		try {
 			Map<String, Object> paramValues = JsonUtil.parseJson(rawData, 
-					"cardRfid", "boxId", "reportLossType", "paymentType", "feeTotal");
+					"boxId", "reportlossType", "paymentType", "feeTotal");
 			
 			// Set the Status of corresponding Box to "BoxStatus.REPORTLOSS".
 			// reportLossAction.getValue() = 1 : BoxStatus.INRENT
@@ -59,31 +63,34 @@ public class ReportLossServiceImpl implements ReportLossService {
 			boxDao.setBoxStatus(Long.parseLong((String)paramValues.get("boxId")), 
 					reportLossAction.getValue());
 			
-			// Log the Action of Apply/Remove the Report Loss.
+			// Log the Action of Apply the Report Loss.
 			isSuccess = logDao.setReportLossLog(
-					reportLossAction,
 					Long.parseLong((String)paramValues.get("boxId")),
-					Integer.parseInt((String)paramValues.get("reportLossType")),
+					Integer.parseInt((String)paramValues.get("reportlossType"), 2),
 					Integer.parseInt((String)paramValues.get("paymentType")),
 					Float.parseFloat((String)paramValues.get("feeTotal"))
 					);
+			isSuccess = true;
 		} catch (Exception e) {
 			throw e;
-		}		
+		}
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}
 	
 	@Override
 	public String getReportLossType(String rawData) {
-		boolean isSuccess = true;
+		boolean isSuccess = false;
+		Map<String, Object> typeAndId = null;
 		try {
 			Map<String, Object> paramValues = JsonUtil.parseJson(rawData, "boxId");
 			
-			
+			typeAndId = rentDao.getReportLossType(
+					Long.parseLong((String)paramValues.get("boxId")));
+			isSuccess = true;
 		} catch (Exception e) {
 			throw e;
 		}		
-		return JsonUtil.constructJson(isSuccess, null, null);
+		return JsonUtil.constructJson(isSuccess, null, typeAndId);
 	}
 
 	@Override
@@ -107,9 +114,9 @@ public class ReportLossServiceImpl implements ReportLossService {
 			}
 			
 			// Log the Action of Handle the Report Loss.
-			isSuccess = logDao.setReportLossLog(reportLossAction, 
-					reportLossPo.getBoxId(),
-					reportLossPo.getReportLossType(),
+			isSuccess = logDao.setReportLossLogUpdate(
+					reportLossAction, 
+					reportLossPo.getReportlossId(),
 					reportLossPo.getPaymentType(),
 					reportLossPo.getFeeTotal());
 		} catch (Exception e) {
@@ -118,5 +125,31 @@ public class ReportLossServiceImpl implements ReportLossService {
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}
 
+	@Override
+	public String setReportLossRemove(String rawData, ReportLossAction reportLossAction) {
+		boolean isSuccess = false;
+		try {
+			Map<String, Object> paramValues = JsonUtil.parseJson(rawData, 
+					"reportlossId", "boxId", "paymentType", "feeTotal");
+			
+			// Set the Status of corresponding Box to "BoxStatus.REPORTLOSS".
+			// reportLossAction.getValue() = 1 : BoxStatus.INRENT
+			// reportLossAction.getValue() = 3 : BoxStatus.REPORTLOSS
+			boxDao.setBoxStatus(Long.parseLong((String)paramValues.get("boxId")), 
+					reportLossAction.getValue());
+			
+			// Log the Action of Apply the Report Loss.
+			isSuccess = logDao.setReportLossLogUpdate(
+					reportLossAction,
+					Long.parseLong((String)paramValues.get("reportlossId")),
+					Integer.parseInt((String)paramValues.get("paymentType")),
+					Float.parseFloat((String)paramValues.get("feeTotal"))
+					);
+			isSuccess = true;
+		} catch (Exception e) {
+			throw e;
+		}
+		return JsonUtil.constructJson(isSuccess, null, null);
+	}
 
 }

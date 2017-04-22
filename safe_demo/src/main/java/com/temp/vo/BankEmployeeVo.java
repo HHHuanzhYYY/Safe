@@ -2,34 +2,36 @@ package com.temp.vo;
 
 public class BankEmployeeVo extends Vo {
 
-	private long employeeId; // ����ְԱID
+	private long employeeId; 
 	
-	private String loginId; // ��¼ID
+	private String loginId;
 	
-	private String employeeName; // ����ְԱ��
+	private String employeeName;
 	
-	private int priority; // �û�Ȩ��
+	private int employeeStatus; 
 	
-	private String icCardNo; // IC����
+	private int priority; 
 	
-	private int certificateType; // ֤������
+	private String icCardNo; 
 	
-	private String certificateId; // ֤������
+	private int certificateType; 
 	
-	private int isAdministrator; // ����Ա��
+	private String certificateId; 
 	
-	private long bankId; // ����ID
+	private int isAdministrator; 
 	
-	private String bankTitle; // ����
+	private long bankId; 
+	
+	private String bankTitle; 
 
 	public BankEmployeeVo() {}
 
 	@Override
 	public String toString() {
-		return "BankEmployeeVo [employeeId=" + employeeId + ", loginId=" + loginId + ", employeeName="
-				+ employeeName + ", priority=" + priority + ", icCardNo=" + icCardNo + ", certificateType="
-				+ certificateType + ", certificateId=" + certificateId + ", isAdministrator=" + isAdministrator
-				+ ", bankId=" + bankId + ", bankTitle=" + bankTitle + "]";
+		return "BankEmployeeVo [employeeId=" + employeeId + ", loginId=" + loginId + ", employeeName=" + employeeName
+				+ ", employeeStatus=" + employeeStatus + ", priority=" + priority + ", icCardNo=" + icCardNo
+				+ ", certificateType=" + certificateType + ", certificateId=" + certificateId + ", isAdministrator="
+				+ isAdministrator + ", bankId=" + bankId + ", bankTitle=" + bankTitle + "]";
 	}
 
 	public long getEmployeeId() {
@@ -54,6 +56,14 @@ public class BankEmployeeVo extends Vo {
 
 	public void setEmployeeName(String employeeName) {
 		this.employeeName = employeeName;
+	}
+
+	public int getEmployeeStatus() {
+		return employeeStatus;
+	}
+
+	public void setEmployeeStatus(int employeeStatus) {
+		this.employeeStatus = employeeStatus;
 	}
 
 	public int getPriority() {

@@ -1,23 +1,19 @@
 package com.temp.po;
 
-import com.temp.util.ReportLossType;
-
 public class ReportLossPo extends Po {
 	
-	private int certificateType;
+	private long reportlossId;
 	
-	private String certificateNo;
+	private long boxId; //涉及的箱子号
 
 	private int reportLossType; //挂失类型 (密码丢失-1,卡挂失-2,钥匙丢失-4,卡和密码丢失-3，钥匙和密码丢失-5，钥匙和卡丢失-6，钥匙、卡和密码丢失-7)
 	
-	private long boxId; //涉及的箱子号
-	
 	private String cardRfid; // 旧卡RFID	
-	private String cardNo; // 旧卡号	
+	private String cardNo;   // 旧卡号
 	private String password; // 旧卡密码
 	
-	private String newCardRfid; // 新卡RFID
-	private String newCardNo; // 新卡卡号
+	private String newCardRfid;     // 新卡RFID
+	private String newCardNo;       // 新卡卡号
 	private String newCardPassword; // 新卡密码
 	
 	private long keyNo; // 箱子对应的钥匙号
@@ -30,31 +26,12 @@ public class ReportLossPo extends Po {
 
 	@Override
 	public String toString() {
-		return "ReportLossPo [certificateType=" + certificateType + ", certificateNo=" + certificateNo
-				+ ", reportLossType=" + reportLossType + ", boxId=" + boxId + ", cardRfid=" + cardRfid + ", cardNo="
-				+ cardNo + ", password=" + password + ", newCardRfid=" + newCardRfid + ", newCardNo=" + newCardNo
-				+ ", newCardPassword=" + newCardPassword + ", keyNo=" + keyNo + ", paymentType=" + paymentType
-				+ ", feeTotal=" + feeTotal + "]";
+		return "ReportLossPo [reportlossId=" + reportlossId + ", boxId=" + boxId + ", reportLossType=" + reportLossType
+				+ ", cardRfid=" + cardRfid + ", cardNo=" + cardNo + ", password=" + password + ", newCardRfid="
+				+ newCardRfid + ", newCardNo=" + newCardNo + ", newCardPassword=" + newCardPassword + ", keyNo=" + keyNo
+				+ ", paymentType=" + paymentType + ", feeTotal=" + feeTotal + "]";
 	}
 
-	public ReportLossType getVisualReportLossType() {
-		ReportLossType ret = null;
-		switch (getReportLossType()) {
-		case 1:
-			ret = ReportLossType.PWDLOSS;
-			break;
-		case 2:
-			ret = ReportLossType.CARDLOSS;
-			break;
-		case 3:
-			ret = ReportLossType.KEYLOSS;
-			break;
-		default:
-			break;
-		}	
-		return ret;
-	}
-	
 	public CardPo getCardPo() {
 		CardPo retCardPo = new CardPo();
 		retCardPo.setCardNo(getCardNo());
@@ -63,28 +40,12 @@ public class ReportLossPo extends Po {
 		return retCardPo;
 	}
 
-	public int getCertificateType() {
-		return certificateType;
+	public long getReportlossId() {
+		return reportlossId;
 	}
 
-	public void setCertificateType(int certificateType) {
-		this.certificateType = certificateType;
-	}
-
-	public String getCertificateNo() {
-		return certificateNo;
-	}
-
-	public void setCertificateNo(String certificateNo) {
-		this.certificateNo = certificateNo;
-	}
-
-	public int getReportLossType() {
-		return reportLossType;
-	}
-
-	public void setReportLossType(int reportLossType) {
-		this.reportLossType = reportLossType;
+	public void setReportlossId(long reportlossId) {
+		this.reportlossId = reportlossId;
 	}
 
 	public long getBoxId() {
@@ -93,6 +54,14 @@ public class ReportLossPo extends Po {
 
 	public void setBoxId(long boxId) {
 		this.boxId = boxId;
+	}
+
+	public int getReportLossType() {
+		return reportLossType;
+	}
+
+	public void setReportLossType(int reportLossType) {
+		this.reportLossType = reportLossType;
 	}
 
 	public String getCardRfid() {

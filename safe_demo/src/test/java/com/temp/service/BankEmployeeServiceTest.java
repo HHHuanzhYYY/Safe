@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.temp.baseTest.ServiceTestBase;
+import com.temp.util.BankEmployeeStatus;
 import com.temp.util.JsonUtil;
 
 public class BankEmployeeServiceTest extends ServiceTestBase {
@@ -79,4 +80,15 @@ public class BankEmployeeServiceTest extends ServiceTestBase {
 		System.out.println(jsonStr);
 	}*/
 	
+	/*@Test
+	public void setBankEmployeeStatus() {
+		final String rawData = "{"
+					+ "\"employeeId\":1104"
+				+ "}";
+		
+		String retJSON = bankEmployeeService.setBankEmployeeStatus(rawData, BankEmployeeStatus.DISABLE);
+		//String retJSON = bankEmployeeService.setBankEmployeeStatus(rawData, BankEmployeeStatus.ENABLE);
+		
+		System.out.println(retJSON);
+	}*/
 }

@@ -240,4 +240,40 @@ public class RentDaoImpl implements RentDao {
 		return count == 1 ? true : false;
 	}
 
+	@Override
+	public Map<String, Object> getReportLossType(long boxId) {
+		String queryReportLossTypeSQL = "SELECT reportlossType, reportlossId "
+									  + "FROM reportloss_log "
+									  + "WHERE boxId = ? AND reportLossStatus = 0 ";
+		Map<String, Object> typeAndId = null;
+		try {
+			typeAndId = jdbcTemplate.queryForMap(queryReportLossTypeSQL, 
+					new Object[] {boxId}, new int[] {Types.BIGINT});
+		} catch (EmptyResultDataAccessException e) {
+			typeAndId = null;
+		}
+		
+		// Transfer "reportLossType" to Binary Number String.
+		if (typeAndId != null) {
+			String binaryReportLossType = Integer.toBinaryString(((Integer)typeAndId.get("reportLossType")));
+			typeAndId.put("reportlossType", binaryReportLossType);
+		}
+		
+		return typeAndId;
+	}
+
+	@Override
+	public Map<String, Object> getRentAndDeposit(long boxId) {
+		String queryDepositAndRentSQL = "SELECT deposit, actualRent "
+				  + "FROM rent WHERE boxId = ? AND rentStatus = 0 ";
+		Map<String, Object> depositAndRent = null;
+		try {
+			depositAndRent = jdbcTemplate.queryForMap(queryDepositAndRentSQL, 
+					new Object[] {boxId}, new int[] {Types.BIGINT});
+		} catch (EmptyResultDataAccessException e) {
+			depositAndRent = null;
+		}
+		return depositAndRent;
+	}
+
 }

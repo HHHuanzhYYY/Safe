@@ -8,6 +8,7 @@ import com.temp.po.MessagePo;
 import com.temp.po.SubjectPo;
 import com.temp.vo.BankBranchVo;
 import com.temp.vo.BankEmployeeResumeVo;
+import com.temp.vo.FeeTypeResumeVo;
 import com.temp.vo.FeeTypeVo;
 import com.temp.vo.MessageVo;
 import com.temp.vo.SubjectVo;
@@ -122,4 +123,11 @@ public interface SystemConfigDao {
 	 * @return boolean
 	 */
 	boolean deleteFeeType(List<Long> feeTypeIds);
+	
+	/**
+	 * getFreeFeeType.
+	 * 
+	 * @return
+	 */
+	List<FeeTypeResumeVo> getFreeFeeType();
 }

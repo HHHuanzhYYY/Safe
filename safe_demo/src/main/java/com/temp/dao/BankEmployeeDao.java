@@ -3,6 +3,7 @@ package com.temp.dao;
 import java.util.List;
 
 import com.temp.po.BankEmployeePo;
+import com.temp.util.BankEmployeeStatus;
 import com.temp.vo.BankEmployeeVo;
 
 public interface BankEmployeeDao {
@@ -40,6 +41,15 @@ public interface BankEmployeeDao {
 	 * @return employeeId
 	 */
 	long setBankEmployeeDetails(BankEmployeePo bankEmployeePo);
+	
+	/**
+	 * setBankEmployeeStatus.
+	 * 
+	 * @param employeeId
+	 * @param employeeStatus
+	 * @return
+	 */
+	boolean setBankEmployeeStatus(long employeeId, BankEmployeeStatus employeeStatus);
 	
 	/**
 	 * deleteMessage.

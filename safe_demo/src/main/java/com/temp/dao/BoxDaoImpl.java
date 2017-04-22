@@ -51,8 +51,7 @@ public class BoxDaoImpl implements BoxDao {
 					             + "cardtemp.cardType, "
 					             + "cardtemp.cardStatus, "
 					             + "rent.deposit, "
-					             + "rent.actualRent, "
-					             + "rent.isRelet, "
+					             + "rent.rentTotal, "
 					             + "rent.endDate, " 
 					             + "rent.operator, " 
 					             + "rent.rentId " 
@@ -88,8 +87,7 @@ public class BoxDaoImpl implements BoxDao {
 							boxVo.setDeposit(
 									((java.math.BigDecimal)rs.getBigDecimal("deposit")).floatValue());
 							boxVo.setActualRent(
-									((java.math.BigDecimal)rs.getBigDecimal("actualRent")).floatValue());
-							boxVo.setIsRelet(rs.getInt("isRelet") == 1 ? true : false);
+									((java.math.BigDecimal)rs.getBigDecimal("rentTotal")).floatValue());
 							boxVo.setEndDate(new java.util.Date(rs.getDate("endDate").getTime()));
 							boxVo.setOperator(rs.getString("operator"));
 							boxVo.setRentId(rs.getLong("rentId"));
@@ -107,8 +105,7 @@ public class BoxDaoImpl implements BoxDao {
 								 + "box.boxModel, "
 								 + "box.keyNo, "
 					             + "rent.deposit, "
-					             + "rent.actualRent, "
-					             + "rent.isRelet, "
+					             + "rent.rentTotal, "
 					             + "rent.endDate, "
 					             + "rent.operator, " 
 					             + "rent.rentId " 
@@ -131,8 +128,7 @@ public class BoxDaoImpl implements BoxDao {
 							boxVo.setDeposit(
 									((java.math.BigDecimal)rs.getBigDecimal("deposit")).floatValue());
 							boxVo.setActualRent(
-									((java.math.BigDecimal)rs.getBigDecimal("actualRent")).floatValue());
-							boxVo.setIsRelet(rs.getInt("isRelet") == 1 ? true : false);
+									((java.math.BigDecimal)rs.getBigDecimal("rentTotal")).floatValue());
 							boxVo.setEndDate(new java.util.Date(rs.getDate("endDate").getTime()));
 							boxVo.setOperator(rs.getString("operator"));
 							boxVo.setRentId(rs.getLong("rentId"));
@@ -147,7 +143,7 @@ public class BoxDaoImpl implements BoxDao {
 		}
 		
 		// Re-Process the Rent which has Relet action.
-		if (boxVos != null) {
+		/*if (boxVos != null) {
 			for (BoxVo boxVo : boxVos) {
 				if (boxVo.isRelet()) {
 					// Query the Max 'endDate'.
@@ -208,7 +204,7 @@ public class BoxDaoImpl implements BoxDao {
 					}
 				}
 			}
-		}		
+		}*/		
 		return boxVos;
 	}
 
@@ -438,6 +434,32 @@ public class BoxDaoImpl implements BoxDao {
 				new Object[] {futureBoxStatus, boxId}, 
 				new int[] {Types.INTEGER, Types.BIGINT});
 		return count == 1 ? true : false;
+	}
+
+	@Override
+	public List<Long> getAllFreeBox() {
+		String queryFreeBoxSQL = "SELECT boxId FROM box WHERE `status` = 0 ";
+		List<Long> retBoxIds = null;
+		try {
+			retBoxIds = jdbcTemplate.queryForList(queryFreeBoxSQL, Long.class);
+		} catch (EmptyResultDataAccessException e) {
+			retBoxIds = null;
+		}	
+		return retBoxIds;
+	}
+
+	@Override
+	public Map<String, Object> getBoxInfoByBoxId(long boxId) {
+		String queryBoxInfoSQL = "SELECT boxModel, keyNo FROM box WHERE boxId = ? ";
+		
+		Map<String, Object> boxInfo = null;	
+		try {
+			boxInfo = jdbcTemplate.queryForMap(queryBoxInfoSQL, 
+						new Object[] {boxId}, new int[] {Types.BIGINT});
+		} catch (EmptyResultDataAccessException e) {
+			boxInfo = null;
+		}
+		return boxInfo;
 	}
 
 }

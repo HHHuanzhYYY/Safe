@@ -12,6 +12,7 @@ import com.temp.dao.BankEmployeeDao;
 import com.temp.dao.LogDao;
 import com.temp.po.BankEmployeeLoginLogPo;
 import com.temp.po.BankEmployeePo;
+import com.temp.util.BankEmployeeStatus;
 import com.temp.util.JsonUtil;
 import com.temp.vo.BankEmployeeVo;
 
@@ -99,6 +100,20 @@ public class BankEmployeeServiceImpl implements BankEmployeeService {
 		}
 		return JsonUtil.constructJson(isSuccess, null, bankEmployeeId);
 	}
+	
+	@Override
+	public String setBankEmployeeStatus(String rawData, BankEmployeeStatus employeeStatus) {
+		boolean isSuccess = false;
+		try {
+			Map<String, Object> paramValues = JsonUtil.parseJson(rawData, "employeeId");
+			
+			isSuccess = bankEmployeeDao.setBankEmployeeStatus(
+					Long.parseLong((String)paramValues.get("employeeId")), employeeStatus);
+		} catch (Exception e) {
+			throw e;
+		}		
+		return JsonUtil.constructJson(isSuccess, null, null);
+	}
 
 	@Override
 	public String deleteBankEmployee(String rawData) {
@@ -113,5 +128,5 @@ public class BankEmployeeServiceImpl implements BankEmployeeService {
 		}
 		return JsonUtil.constructJson(isSuccess, null, null);
 	}
-  
+
 }

@@ -103,12 +103,12 @@ public class BoxManageServiceTest extends ServiceTestBase {
 		System.out.println(jsonStr);
 	}*/
 	
-	@Test
+	/*@Test
 	public void listAllBoxModels() {
 		String jsonStr = boxManageService.listAllBoxModels();
 		
 		System.out.println(jsonStr);
-	}
+	}*/
 	
 	/*@Test
 	public void setBoxModelDetails() {
@@ -132,4 +132,21 @@ public class BoxManageServiceTest extends ServiceTestBase {
 		System.out.println(jsonStr);
 	}*/
 	
+
+	/*@Test
+	public void listAllFreeBox() {
+		String jsonStr = boxManageService.listAllFreeBox();
+		
+		System.out.println(jsonStr);
+	}*/
+	
+	@Test
+	public void getBoxInfo() {
+		final String rawData = "{"
+					+ "\"boxId\":111103"
+				+ "}";
+		String jsonStr = boxManageService.getBoxInfo(rawData);
+		
+		System.out.println(jsonStr);
+	}
 }

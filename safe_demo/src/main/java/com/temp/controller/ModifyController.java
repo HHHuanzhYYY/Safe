@@ -71,6 +71,20 @@ public class ModifyController {
 		}
 	}
 	
+	@RequestMapping(value="/getChangeBoxInfo", method={RequestMethod.GET, RequestMethod.POST})
+	public void getChangeBoxInfo(HttpServletRequest request, HttpServletResponse response) {
+		//String rawData = request.getParameter("info");
+		String rawData = JsonUtil.getRawData(request);
+		try {
+			String resJSON = boxManageService.getChangeBoxInfo(rawData);
+			
+			PrintWriter writer = response.getWriter();
+			writer.print(resJSON);			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	@RequestMapping(value="/getChangeBoxDetails", method={RequestMethod.GET, RequestMethod.POST})
 	public void getChangeBoxDetails(HttpServletRequest request, HttpServletResponse response) {
 		//String rawData = request.getParameter("info");

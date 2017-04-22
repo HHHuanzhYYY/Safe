@@ -83,7 +83,7 @@ public class ReportLossController {
 		//String rawData = request.getParameter("info");
 		String rawData = JsonUtil.getRawData(request);
 		try {
-			String resJSON = reportLossService.setReportLossLog(rawData, ReportLossAction.REMOVEREPORTLOSS);
+			String resJSON = reportLossService.setReportLossRemove(rawData, ReportLossAction.REMOVEREPORTLOSS);
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			

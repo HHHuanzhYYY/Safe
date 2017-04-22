@@ -3,10 +3,10 @@ package com.temp.util;
 public enum CertificateType {
 	
 	ID(1), // Identity Card
-	CARD(2), // certificate of officers
+	CARD(2), // Card
 	
 	PP(3), // Passport
-	CO(4);	
+	MOC(4); // Military Officer Certificate
 	
 	private int value;
 	

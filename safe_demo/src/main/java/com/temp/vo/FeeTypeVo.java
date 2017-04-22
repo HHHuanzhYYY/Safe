@@ -2,19 +2,19 @@ package com.temp.vo;
 
 public class FeeTypeVo extends Vo {
 
-	private long feeTypeId; // ��������ID
+	private long feeTypeId;
 	
-	private String feeTypeTitle; // ������������
+	private String feeTypeTitle;
 	
-	private int subjectId; // ������Ŀ
+	private int subjectId;
 	
 	private String subjectTitle;
 	
-	private String remark; // ��ע
+	private String remark;
 	
-	private float feeValue; // ����ֵ
+	private float feeValue;
 	
-	private int status; // ��������״̬
+	private int status; 
 	
 	public FeeTypeVo() {}
 

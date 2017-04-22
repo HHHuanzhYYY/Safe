@@ -1,23 +1,27 @@
 package com.temp.vo;
 
+import java.util.List;
+
 public class SubjectVo extends Vo {
 
-	private long subjectId; // ��ĿID
+	private long subjectId; 
 	
-	private String subjectCode; // ��Ŀ����
+	private String subjectCode; 
 	
-	private String subjectTitle; // ��Ŀ����
+	private String subjectTitle; 
 	
-	private int direction; // ����
+	private int direction; 
 	
-	private String remark; // ��ע
+	private String remark;
+	
+	private List<FeeTypeResumeVo> feeTypeList;
 
 	public SubjectVo() {}
 
 	@Override
 	public String toString() {
 		return "SubjectVo [subjectId=" + subjectId + ", subjectCode=" + subjectCode + ", subjectTitle=" + subjectTitle
-				+ ", direction=" + direction + ", remark=" + remark + "]";
+				+ ", direction=" + direction + ", remark=" + remark + ", feeTypeList=" + feeTypeList + "]";
 	}
 
 	public long getSubjectId() {
@@ -58,6 +62,14 @@ public class SubjectVo extends Vo {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public List<FeeTypeResumeVo> getFeeTypeList() {
+		return feeTypeList;
+	}
+
+	public void setFeeTypeList(List<FeeTypeResumeVo> feeTypeList) {
+		this.feeTypeList = feeTypeList;
 	}	
 	
 }

@@ -24,13 +24,23 @@ public interface LogDao {
 	/**
 	 * setReportLossLog.
 	 * 
-	 * @param reportLossAction
 	 * @param boxId
 	 * @param reportLossType
 	 * @param paymentType
 	 * @param feeTotal
 	 * @return boolean
 	 */
-	boolean setReportLossLog(ReportLossAction reportLossAction, 
-			long boxId, int reportLossType, int paymentType, float feeTotal);
+	boolean setReportLossLog(long boxId, int reportLossType, int paymentType, float feeTotal);
+	
+	/**
+	 * setReportLossLogUpdate.
+	 * 
+	 * @param boxId
+	 * @param reportLossType
+	 * @param paymentType
+	 * @param feeTotal
+	 * @return boolean
+	 */
+	boolean setReportLossLogUpdate(ReportLossAction reportlossAction, 
+			long reportlossId, int paymentType, float feeTotal);
 }

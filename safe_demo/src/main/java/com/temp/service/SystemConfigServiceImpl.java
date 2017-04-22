@@ -16,6 +16,7 @@ import com.temp.po.SubjectPo;
 import com.temp.util.JsonUtil;
 import com.temp.vo.BankBranchVo;
 import com.temp.vo.BankEmployeeResumeVo;
+import com.temp.vo.FeeTypeResumeVo;
 import com.temp.vo.FeeTypeVo;
 import com.temp.vo.MessageVo;
 import com.temp.vo.SubjectVo;
@@ -131,13 +132,18 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 	@Override
 	public String listAllSubjects() {
 		boolean isSuccess = true;
-		List<SubjectVo> subjectVos = null;
+		Map<String, Object> subjectMap = new HashMap<>();
 		try {
-			subjectVos = systemConfigDao.getAllSubjects();
+			List<SubjectVo> subjectVos = systemConfigDao.getAllSubjects();
+			subjectMap.put("subjectList", subjectVos);
+			
+			// Query FreeFeeType.
+			List<FeeTypeResumeVo> freeFeeTypes = systemConfigDao.getFreeFeeType();
+			subjectMap.put("freeFeeTypeList", freeFeeTypes);
 		} catch (Exception e) {
 			throw e;
 		}		
-		return JsonUtil.constructJson(isSuccess, null, subjectVos);
+		return JsonUtil.constructJson(isSuccess, null, subjectMap);
 	}
 
 	@Override

@@ -122,4 +122,19 @@ public interface BoxDao {
 	 * @return boolean
 	 */
 	boolean setBoxStatus(final long boxId, final int futureBoxStatus);
+	
+	/**
+	 * getAllFreeBox.
+	 * 
+	 * @return
+	 */
+	List<Long> getAllFreeBox();
+	
+	/**
+	 * getBoxInfoByBoxId.
+	 * 
+	 * @param boxId
+	 * @return
+	 */
+	Map<String, Object> getBoxInfoByBoxId(final long boxId);
 }

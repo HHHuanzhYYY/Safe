@@ -148,15 +148,12 @@ public class SystemConfigServiceTest extends ServiceTestBase {
 	/*@Test
 	public void setFeeTypeDetails(){
 		final String rawData = "{"
-				+ "\"success\":true,"
-				+ "\"message\":null,"
-				+ "\"data\":{"
-				    + "\"feeTypeId\":606,"
-					+ "\"feeTypeTitle\":\"保证金\","
+				    + "\"feeTypeId\":605,"
+					+ "\"feeTypeTitle\":\"续租租金\","
 					+ "\"subjectId\":755,"
 					+ "\"remark\":\"续约租金\","
 					+ "\"feeValue\":200,"
-					+ "\"status\":1}"
+					+ "\"status\":1"
 				+ "}";
 		String retJSON = systemConfigService.setFeeTypeDetails(rawData);
 		
@@ -192,4 +189,5 @@ public class SystemConfigServiceTest extends ServiceTestBase {
 		
 		System.out.println(retJSON);
 	}*/
+	
 }

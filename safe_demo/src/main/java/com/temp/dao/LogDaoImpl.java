@@ -39,8 +39,7 @@ public class LogDaoImpl implements LogDao {
 	}
 	
 	@Override
-	public boolean setReportLossLog(ReportLossAction reportLossAction, 
-			long boxId, int reportLossType, int paymentType, float feeTotal) {
+	public boolean setReportLossLog(long boxId, int reportLossType, int paymentType, float feeTotal) {
 		// Query "rentId" corresponding to the box.
 		String queryRentIdSQL = "SELECT rentId FROM rent WHERE boxId = ? AND rent.rentStatus = 0 ";
 		long rentId = 0;
@@ -58,17 +57,42 @@ public class LogDaoImpl implements LogDao {
 		
 		// Log the Action in table reportloss_log.
 		String insertReportLossSQL = 
-				"INSERT INTO reportloss_log(occurrenceTime, reportlossAction, "
-										 + "reportLossType, paymentType, feeTotal, boxId, rentId) "
-			  + "VALUES(NOW(), ?, ?, ?, ?, ?, ?) ";
+				"INSERT INTO reportloss_log(reportlossStatus, applyTime, reportlossType, "
+										 + "applyPaymentType, applyFeeTotal, boxId, rentId) "
+			  + "VALUES(0, NOW(), ?, ?, ?, ?, ?) ";
 		int count = jdbcTemplate.update(insertReportLossSQL, 
-				new Object[] {reportLossAction.getValue(), reportLossType, paymentType, 
-						      feeTotal, boxId, rentId}, 
-				new int[] {Types.INTEGER, Types.INTEGER, Types.INTEGER, 
-						   Types.FLOAT,   Types.INTEGER, Types.INTEGER});
+				new Object[] {reportLossType, paymentType, feeTotal, boxId, rentId}, 
+				new int[] {Types.INTEGER, Types.INTEGER, Types.FLOAT, 
+						   Types.BIGINT,  Types.BIGINT});
 		
 		return count == 1  ? true : false;
 	}
 
+	@Override
+	public boolean setReportLossLogUpdate(ReportLossAction reportlossAction, long reportlossId, int paymentType,
+			float feeTotal) {
+		String updateReportLossLogSQL = null;
+		switch (reportlossAction) {
+		case HANDLEEPORTLOSS:
+			updateReportLossLogSQL = 
+					  "UPDATE reportloss_log "
+					+ "SET processTime = NOW(), processPaymentType = ?, processFeeTotal = ? "
+					+ "WHERE reportlossId = ? ";
+			break;
+		case REMOVEREPORTLOSS:
+			updateReportLossLogSQL = 
+			  		  "UPDATE reportloss_log "
+			  		+ "SET removeTime = NOW(), removePaymentType = ?, removeFeeTotal = ? "
+			  		+ "WHERE reportlossId = ? ";
+			break;
+		default:
+			return false;
+		}
+		int count = jdbcTemplate.update(updateReportLossLogSQL, 
+				new Object[] {paymentType, feeTotal, reportlossId}, 
+				new int[] {Types.INTEGER, Types.FLOAT, Types.BIGINT});
+		
+		return count == 1 ? true : false;
+	}
 
 }

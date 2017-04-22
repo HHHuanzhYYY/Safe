@@ -19,6 +19,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.temp.po.BankEmployeePo;
+import com.temp.util.BankEmployeeStatus;
 import com.temp.vo.BankEmployeeVo;
 
 @Repository
@@ -31,7 +32,7 @@ public class BankEmployeeDaoImpl implements BankEmployeeDao {
 	public long validateBankEmployeeByNameAndPwd(String employeeName, String employeePwd) {
 		String validateBankEmployeeSQL = "SELECT employeeId "
 									   + "FROM bank_employee "
-									   + "WHERE employeeName = ? AND `password` = ? ";
+									   + "WHERE employeeName = ? AND `password` = ? AND employeeStatus = 0 ";
 		long employeeId = 0;
 		try {
 			employeeId = jdbcTemplate.queryForObject(validateBankEmployeeSQL, 
@@ -47,7 +48,7 @@ public class BankEmployeeDaoImpl implements BankEmployeeDao {
 	@Override
 	public boolean validateBankEmployeeByIdAndPwd(long employeeId, String employeePwd) {
 		String validateBankEmployeeSQL = "SELECT COUNT(employeeId) "
-				+ "FROM bank_employee WHERE employeeId = ? AND password = ? ";
+				+ "FROM bank_employee WHERE employeeId = ? AND `password` = ?  AND employeeStatus = 0 ";
 		int count = 0;
 		try {
 			count = jdbcTemplate.queryForObject(validateBankEmployeeSQL, 
@@ -62,7 +63,8 @@ public class BankEmployeeDaoImpl implements BankEmployeeDao {
 
 	@Override
 	public List<BankEmployeeVo> getAllBankEmployees(long bankId) {
-		String queryBankEmployeeSQL = "SELECT employeeId, loginId, employeeName, priority, icCardNo, "
+		String queryBankEmployeeSQL = "SELECT employeeId,      loginId,       employeeName, "
+										   + "employeeStatus,  priority,      icCardNo, "
 				                           + "certificateType, certificateNo, isAdministrator, "
 				                           + "bank_branch.bankId, bank_branch.bankTitle "
 				                    + "FROM bank_employee, bank_branch "
@@ -79,6 +81,7 @@ public class BankEmployeeDaoImpl implements BankEmployeeDao {
 						bankEmployeeVo.setEmployeeId(rs.getInt("employeeId"));
 						bankEmployeeVo.setLoginId(rs.getString("loginId"));
 						bankEmployeeVo.setEmployeeName(rs.getString("employeeName"));
+						bankEmployeeVo.setEmployeeStatus(rs.getInt("employeeStatus"));
 						bankEmployeeVo.setPriority(rs.getInt("priority"));
 						bankEmployeeVo.setIcCardNo(rs.getString("icCardNo"));
 						bankEmployeeVo.setCertificateType(rs.getInt("certificateType"));
@@ -99,10 +102,10 @@ public class BankEmployeeDaoImpl implements BankEmployeeDao {
 		if (bankEmployeePo.getEmployeeId() == 0) {
 			// 新建银行雇员.
 			final String insertBankEmployeeSQL = 
-					"INSERT INTO bank_employee(loginId, employeeName, priority, "
+					"INSERT INTO bank_employee(loginId, employeeName, employeeStatus, priority, "
 											+ "certificateType, certificateNo, mobile, bankId, "
 											+ "icCardNo, isAdministrator, remark ) "
-				  + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+				  + "VALUES(?, ?, 0, ?, ?, ?, ?, ?, ?, ?, ?) ";
 			KeyHolder keyHolder = new GeneratedKeyHolder();
 			
 			jdbcTemplate.update(new PreparedStatementCreator() {
@@ -154,6 +157,16 @@ public class BankEmployeeDaoImpl implements BankEmployeeDao {
 		}
 		return employeeId;
 	}
+	
+	@Override
+	public boolean setBankEmployeeStatus(long employeeId, BankEmployeeStatus employeeStatus) {
+		String updateEmployeeStatus = "UPDATE bank_employee SET employeeStatus = ? WHERE employeeId = ? ";
+		int count = jdbcTemplate.update(updateEmployeeStatus, 
+				new Object[] {employeeStatus.getValue(), employeeId}, 
+				new int[] {Types.INTEGER, Types.BIGINT}
+		);
+		return count == 1 ? true : false;
+	}
 
 	@Override
 	public boolean deleteBankEmployee(List<Long> bankEmployeeIds) {
@@ -168,5 +181,6 @@ public class BankEmployeeDaoImpl implements BankEmployeeDao {
 		
 		return ret.length == 0 ? false : true;
 	}
+
 
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.temp.service.BankEmployeeService;
 import com.temp.service.BoxManageService;
 import com.temp.service.SystemConfigService;
+import com.temp.util.BankEmployeeStatus;
 import com.temp.util.JsonUtil;
 
 @Controller
@@ -236,7 +237,7 @@ public class SystemConfigController {
 			String resJSON = bankEmployeeService.getAllBankEmployees(rawData);
 			
 			PrintWriter writer = response.getWriter();
-			writer.print(resJSON);			
+			writer.print(resJSON);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -248,6 +249,34 @@ public class SystemConfigController {
 		String rawData = JsonUtil.getRawData(request);
 		try {
 			String resJSON = bankEmployeeService.setBankEmployeeDetails(rawData);
+			
+			PrintWriter writer = response.getWriter();
+			writer.print(resJSON);			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping(value="/disableBankEmployee", method={RequestMethod.GET, RequestMethod.POST}) 
+	public void disableBankEmployee(HttpServletRequest request, HttpServletResponse response) {
+		//String rawData = request.getParameter("info");
+		String rawData = JsonUtil.getRawData(request);
+		try {
+			String resJSON = bankEmployeeService.setBankEmployeeStatus(rawData, BankEmployeeStatus.DISABLE);
+			
+			PrintWriter writer = response.getWriter();
+			writer.print(resJSON);			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping(value="/enableEmployee", method={RequestMethod.GET, RequestMethod.POST}) 
+	public void enableEmployee(HttpServletRequest request, HttpServletResponse response) {
+		//String rawData = request.getParameter("info");
+		String rawData = JsonUtil.getRawData(request);
+		try {
+			String resJSON = bankEmployeeService.setBankEmployeeStatus(rawData, BankEmployeeStatus.ENABLE);
 			
 			PrintWriter writer = response.getWriter();
 			writer.print(resJSON);			

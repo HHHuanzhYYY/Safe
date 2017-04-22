@@ -5,6 +5,14 @@ import com.temp.util.BoxStatus;
 public interface BoxManageService {
 	
 	/**
+	 * getChangeBoxInfo.
+	 * 
+	 * @param rawData
+	 * @return
+	 */
+	String getChangeBoxInfo(final String rawData);
+	
+	/**
 	 * getChangeBoxDetails.
 	 * 
 	 * @param rawData
@@ -66,5 +74,20 @@ public interface BoxManageService {
 	 * @return String
 	 */
 	String setBoxModelDetails(final String rawData);
+	
+	/**
+	 * listAllFreeBox.
+	 * 
+	 * @return
+	 */
+	String listAllFreeBox();
+	
+	/**
+	 * getBoxInfo.
+	 * 
+	 * @param rawData
+	 * @return
+	 */
+	String getBoxInfo(final String rawData);
 	
 }

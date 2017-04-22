@@ -2,6 +2,8 @@ package com.temp.service;
 
 import java.util.Map;
 
+import com.temp.util.BankEmployeeStatus;
+
 public interface BankEmployeeService {
 	
 	/**
@@ -28,6 +30,15 @@ public interface BankEmployeeService {
 	 * @return String
 	 */
 	String setBankEmployeeDetails(final String rawData);
+	
+	/**
+	 * setBankEmployeeStatus.
+	 * 
+	 * @param rawData
+	 * @param employeeStatus
+	 * @return
+	 */
+	String setBankEmployeeStatus(final String rawData, BankEmployeeStatus employeeStatus);
 	
 	/**
 	 * deleteBankEmployee.

@@ -66,4 +66,20 @@ public interface RentDao {
 	 * @return boolean
 	 */
 	boolean setChangeBoxLogInfo(ChangeBoxPo changeBoxPo);
+	
+	/**
+	 * getReportLossType.
+	 * 
+	 * @param boxId
+	 * @return
+	 */
+	Map<String, Object> getReportLossType(final long boxId);
+	
+	/**
+	 * getRentAndDeposit.
+	 * 
+	 * @param boxId
+	 * @return Map<String, Object>
+	 */
+	Map<String, Object> getRentAndDeposit(final long boxId);
 }

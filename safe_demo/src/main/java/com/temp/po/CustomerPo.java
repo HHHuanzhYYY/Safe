@@ -14,7 +14,7 @@ public class CustomerPo extends Po {
 	
 	private String certificateNo;
 	
-	private String unitAddress;
+	private String unitName;
 	
 	private String homeAddress;
 	
@@ -62,7 +62,7 @@ public class CustomerPo extends Po {
 	public String toString() {
 		return "CustomerPo [customerId=" + customerId + ", customerType=" + customerType + ", customerName="
 				+ customerName + ", customerSex=" + customerSex + ", certificateType=" + certificateType
-				+ ", certificateNo=" + certificateNo + ", unitAddress=" + unitAddress + ", homeAddress=" + homeAddress
+				+ ", certificateNo=" + certificateNo + ", unitName=" + unitName + ", homeAddress=" + homeAddress
 				+ ", phone=" + phone + ", mobile=" + mobile + ", post=" + post + ", remark=" + remark + ", photo="
 				+ photo + ", cardType=" + cardType + ", cardRfid=" + cardRfid + ", cardNo=" + cardNo + ", validateType="
 				+ validateType + ", password=" + password + ", fingerPwd=" + fingerPwd + ", reserveFingerPwd="
@@ -117,12 +117,12 @@ public class CustomerPo extends Po {
 		this.certificateNo = certificateNo;
 	}
 
-	public String getUnitAddress() {
-		return unitAddress;
+	public String getUnitName() {
+		return unitName;
 	}
 
-	public void setUnitAddress(String unitAddress) {
-		this.unitAddress = unitAddress;
+	public void setUnitName(String unitName) {
+		this.unitName = unitName;
 	}
 
 	public String getHomeAddress() {

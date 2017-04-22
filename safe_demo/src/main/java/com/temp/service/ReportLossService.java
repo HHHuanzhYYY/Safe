@@ -36,4 +36,13 @@ public interface ReportLossService {
 	 */
 	String setReportLossDetails(final String rawData, final ReportLossAction reportLossAction);
 	
+	/**
+	 * setReportLossRemove.
+	 * 
+	 * @param rawData
+	 * @param reportLossAction
+	 * @return
+	 */
+	String setReportLossRemove(final String rawData, final ReportLossAction reportLossAction);
+	
 }

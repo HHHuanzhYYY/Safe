@@ -96,6 +96,34 @@ public class LogUtil {
         
         return resJson;  
     }  
+	
+	@Around("execution(* com.temp.service.BankEmployeeServiceImpl.setBankEmployeeStatus(String, com.temp.util.BankEmployeeStatus)) "
+			  + "&& args(rawData, employeeStatus)")
+	public String setBankEmployeeStatusAround(ProceedingJoinPoint joinPoint, 
+			String rawData, com.temp.util.BankEmployeeStatus employeeStatus) {
+		final long uuid = constructUUID(rawData);
+		
+		// Log the Request Info.
+		log.info(getCurrentMethodFullName(joinPoint, "(String rawData, BankEmployeeStatus employeeStatus)") 
+						+ "[UUID=" + uuid + "]" + " rawData= " + rawData + " futureEmployeeStatus=" + employeeStatus.toString());
+		
+        String resJson = null;  
+        try {  
+        	resJson = (String) joinPoint.proceed();  
+        } catch (Throwable e) {  
+        	// Log Error Info.
+        	log.error(getCurrentMethodFullName(joinPoint, "(String rawData, BankEmployeeStatus employeeStatus)") 
+        			+ "[UUID=" + uuid + "]", e);
+            
+            resJson = JsonUtil.constructJson(false, null, null);
+        }
+        
+        // Log the Result.
+        log.info(getCurrentMethodFullName(joinPoint, "(String rawData, ReportLossAction reportLossAction)") 
+				+ "[UUID=" + uuid + "]" + " retData= " + resJson);
+        
+        return resJson;  
+	}
 
 	@Around("execution(* com.temp.service.ReportLossServiceImpl.setReportLoss*(String, com.temp.util.ReportLossAction)) "
 		  + "&& args(rawData, reportLossAction)")

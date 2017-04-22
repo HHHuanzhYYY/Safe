@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.temp.service.AccountManageService;
+import com.temp.service.BoxManageService;
 import com.temp.service.CustomerManageService;
 import com.temp.util.JsonUtil;
 
@@ -23,6 +24,9 @@ public class NewOpenAccountController {
 	
 	@Autowired
 	private CustomerManageService customerManagerService;
+	
+	@Autowired
+	private BoxManageService  boxManageService;
 
 	@RequestMapping(value="/getAccoutsById", method={RequestMethod.GET, RequestMethod.POST})
 	public void getAccountsById(HttpServletRequest request, HttpServletResponse response) {
@@ -107,4 +111,31 @@ public class NewOpenAccountController {
 			e.printStackTrace();
 		}
 	}
+	
+	@RequestMapping(value="/listAllFreeBox", method={RequestMethod.GET, RequestMethod.POST})
+	public void listAllFreeBox(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			String resJSON = boxManageService.listAllFreeBox();
+			
+			PrintWriter writer = response.getWriter();
+			writer.print(resJSON);			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping(value="/getBoxInfo", method={RequestMethod.GET, RequestMethod.POST})
+	public void getBoxInfo(HttpServletRequest request, HttpServletResponse response) {
+		//String rawData = request.getParameter("info");
+		String rawData = JsonUtil.getRawData(request);
+		try {
+			String resJSON = boxManageService.getBoxInfo(rawData);
+			
+			PrintWriter writer = response.getWriter();
+			writer.print(resJSON);			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 }
